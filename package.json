@@ -1,0 +1,27 @@
+{
+  "name": "@grafana/dataplane",
+  "version": "0.0.1",
+  "description": "Grafana dataplane",
+  "main": "dist/index.js",
+  "private": true,
+  "workspaces": [],
+  "scripts": {
+    "spellcheck": "cspell -c cspell.config.json \"**/*.{ts,tsx,js,go,md,mdx,yml,yaml,json,scss,css}\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grafana/dataplane.git"
+  },
+  "keywords": [],
+  "author": "Grafana Labs",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/grafana/dataplane/issues"
+  },
+  "homepage": "https://github.com/grafana/dataplane#readme",
+  "devDependencies": {
+    "cspell": "^6.22.0",
+    "turbo": "^1.7.3"
+  }
+}

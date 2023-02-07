@@ -1,0 +1,9 @@
+{
+  "ignorePaths": [
+    "node_modules/"
+  ],
+  "words": [
+    "dataplane",
+    "grafana"
+  ]
+}
