@@ -19,3 +19,7 @@
 </div>
 
 This is a monorepo of Grafana dataplane tools and docs
+
+## backend packages
+
+- [sdata](./sdata/) (**experimental** Structural way of building typed dataframes)
