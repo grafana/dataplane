@@ -3,7 +3,10 @@
     "node_modules/"
   ],
   "words": [
+    "dataframe",
+    "dataframes",
     "dataplane",
-    "grafana"
+    "grafana",
+    "sdata"
   ]
 }

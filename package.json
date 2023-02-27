@@ -4,10 +4,13 @@
   "description": "Grafana dataplane",
   "main": "dist/index.js",
   "private": true,
-  "workspaces": [],
+  "workspaces": [
+    "sdata"
+  ],
   "scripts": {
     "spellcheck": "cspell -c cspell.config.json \"**/*.{ts,tsx,js,go,md,mdx,yml,yaml,json,scss,css}\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:backend": "turbo test:backend",
+    "test": "turbo test:backend"
   },
   "repository": {
     "type": "git",
