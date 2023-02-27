@@ -22,4 +22,4 @@ This is a monorepo of Grafana dataplane tools and docs
 
 ## backend packages
 
-- [sdata](./sdata/) (Structural way of building typed dataframes)
+- [sdata](./sdata/) (**experimental** Structural way of building typed dataframes)
