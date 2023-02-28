@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
-	"github.com/grafana/grafana-plugin-sdk-go/experimental/sdata/timeseries"
+	"github.com/grafana/dataplane/sdata/timeseries"
 	"github.com/stretchr/testify/require"
 )
 
