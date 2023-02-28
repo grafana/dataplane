@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
-	"github.com/grafana/grafana-plugin-sdk-go/experimental/sdata"
+	"github.com/grafana/dataplane/sdata"
 )
 
 // WideFrame is a time series format where all the series live in one frame.

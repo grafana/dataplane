@@ -4,9 +4,9 @@ import (
 	"fmt"
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
-	"github.com/grafana/grafana-plugin-sdk-go/experimental/sdata"
-	"github.com/grafana/grafana-plugin-sdk-go/experimental/sdata/numeric"
-	"github.com/grafana/grafana-plugin-sdk-go/experimental/sdata/timeseries"
+	"github.com/grafana/dataplane/sdata"
+	"github.com/grafana/dataplane/sdata/numeric"
+	"github.com/grafana/dataplane/sdata/timeseries"
 )
 
 func supportedTypes() map[data.FrameType]map[data.FrameTypeVersion]struct{} {

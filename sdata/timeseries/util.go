@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
-	"github.com/grafana/grafana-plugin-sdk-go/experimental/sdata"
+	"github.com/grafana/dataplane/sdata"
 )
 
 func emptyFrameWithTypeMD(refID string, t data.FrameType, v data.FrameTypeVersion) *data.Frame {

@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/google/go-cmp v0.5.9
-	github.com/grafana/grafana-plugin-sdk-go v0.150.0
+	github.com/grafana/grafana-plugin-sdk-go v0.151.0
 	github.com/stretchr/testify v1.8.2
 )
 
@@ -16,6 +16,7 @@ require (
 	github.com/google/flatbuffers v2.0.0+incompatible // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/compress v1.13.1 // indirect
+	github.com/magefile/mage v1.14.0 // indirect
 	github.com/mattetti/filebuffer v1.0.1 // indirect
 	github.com/mattn/go-runewidth v0.0.9 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
