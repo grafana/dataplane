@@ -54,7 +54,7 @@ func (wf *WideFrame) SetTime(timeName string, t []time.Time) error {
 	return nil
 }
 
-func (wf *WideFrame) AddSeries(metricName string, l data.Labels, values interface{}) error {
+func (wf *WideFrame) AddSeries(metricName string, values interface{}, l data.Labels, config *data.FieldConfig) error {
 	if !data.ValidFieldType(values) {
 		return fmt.Errorf("type %T is not a valid data frame field type", values)
 	}
@@ -85,6 +85,8 @@ func (wf *WideFrame) AddSeries(metricName string, l data.Labels, values interfac
 		return fmt.Errorf("value field length must match time field length, but got length %v for time and %v for values",
 			frame.Fields[0].Len(), valueField.Len())
 	}
+
+	valueField.Config = config
 
 	frame.Fields = append(frame.Fields, valueField)
 
