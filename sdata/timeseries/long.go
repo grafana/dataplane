@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/grafana/grafana-plugin-sdk-go/data"
 	"github.com/grafana/dataplane/sdata"
+	"github.com/grafana/grafana-plugin-sdk-go/data"
 )
 
 // LongFrame is a time series format where all series live in one frame.

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/grafana/grafana-plugin-sdk-go/data"
 	"github.com/grafana/dataplane/sdata"
+	"github.com/grafana/grafana-plugin-sdk-go/data"
 )
 
 const FrameTypeNumericLong = "numeric_long"
@@ -56,30 +56,30 @@ func validateAndGetRefsLong(lf *LongFrame, validateData bool) (Collection, error
 		c.Warning = &sdata.VersionWarning{DataVersion: lf.Meta.TypeVersion, LibraryVersion: LongFrameVersionLatest, DataType: data.FrameTypeNumericLong}
 	}
 
-	stringFieldIdxs, numericFieldIdxs := []int{}, []int{}
+	stringFieldIds, numericFieldIds := []int{}, []int{}
 	stringFieldNames, numericFieldNames := []string{}, []string{}
 
 	for i, field := range lf.Fields {
 		fType := field.Type()
 		switch {
 		case fType.Numeric():
-			numericFieldIdxs = append(numericFieldIdxs, i)
+			numericFieldIds = append(numericFieldIds, i)
 			numericFieldNames = append(numericFieldNames, field.Name)
 		case fType == data.FieldTypeString || fType == data.FieldTypeNullableString:
-			stringFieldIdxs = append(stringFieldIdxs, i)
+			stringFieldIds = append(stringFieldIds, i)
 			stringFieldNames = append(stringFieldNames, field.Name)
 		}
 	}
 
 	for rowIdx := 0; rowIdx < lf.Rows(); rowIdx++ {
 		l := data.Labels{}
-		for i := range stringFieldIdxs {
+		for i := range stringFieldIds {
 			key := stringFieldNames[i]
-			val, _ := lf.ConcreteAt(stringFieldIdxs[i], rowIdx)
+			val, _ := lf.ConcreteAt(stringFieldIds[i], rowIdx)
 			l[key] = val.(string)
 		}
 
-		for i, fieldIdx := range numericFieldIdxs {
+		for i, fieldIdx := range numericFieldIds {
 			fType := lf.Fields[fieldIdx].Type()
 			field := data.NewFieldFromFieldType(fType, 1)
 			field.Name = numericFieldNames[i]

@@ -3,8 +3,8 @@ package numeric
 import (
 	"fmt"
 
-	"github.com/grafana/grafana-plugin-sdk-go/data"
 	"github.com/grafana/dataplane/sdata"
+	"github.com/grafana/grafana-plugin-sdk-go/data"
 )
 
 type CollectionWriter interface {

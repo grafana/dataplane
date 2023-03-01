@@ -1,12 +1,11 @@
 {
-  "ignorePaths": [
-    "node_modules/"
-  ],
+  "ignorePaths": ["node_modules/", "go.work", "**/*_test.go"],
   "words": [
     "dataframe",
     "dataframes",
     "dataplane",
     "grafana",
-    "sdata"
+    "sdata",
+    "timeseries"
   ]
 }

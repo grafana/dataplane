@@ -3,10 +3,10 @@ package reader
 import (
 	"fmt"
 
-	"github.com/grafana/grafana-plugin-sdk-go/data"
 	"github.com/grafana/dataplane/sdata"
 	"github.com/grafana/dataplane/sdata/numeric"
 	"github.com/grafana/dataplane/sdata/timeseries"
+	"github.com/grafana/grafana-plugin-sdk-go/data"
 )
 
 func supportedTypes() map[data.FrameType]map[data.FrameTypeVersion]struct{} {

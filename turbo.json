@@ -2,11 +2,11 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "test": {
-      "inputs": ["*.go"],
+      "inputs": ["*.go", "go.mod"],
       "outputs": []
     },
     "test:backend": {
-      "inputs": ["*.go"],
+      "inputs": ["*.go", "go.mod"],
       "outputs": []
     }
   }
