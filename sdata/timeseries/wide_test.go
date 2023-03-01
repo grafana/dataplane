@@ -18,10 +18,10 @@ func TestWideFrameAddMetric_ValidCases(t *testing.T) {
 		err = wf.SetTime("time", []time.Time{time.UnixMilli(1), time.UnixMilli(2)})
 		require.NoError(t, err)
 
-		err = wf.AddSeries("one", data.Labels{"host": "a"}, []float64{1, 2})
+		err = wf.AddSeries("one", []float64{1, 2}, data.Labels{"host": "a"}, nil)
 		require.NoError(t, err)
 
-		err = wf.AddSeries("one", data.Labels{"host": "b"}, []float64{3, 4})
+		err = wf.AddSeries("one", []float64{3, 4}, data.Labels{"host": "b"}, nil)
 		require.NoError(t, err)
 
 		expectedFrame := data.NewFrame("",
@@ -46,10 +46,10 @@ func TestWideFrameSeriesGetMetricRefs(t *testing.T) {
 		err = wf.SetTime("time", []time.Time{time.UnixMilli(1), time.UnixMilli(2)})
 		require.NoError(t, err)
 
-		err = wf.AddSeries("one", data.Labels{"host": "a"}, []float64{1, 2})
+		err = wf.AddSeries("one", []float64{1, 2}, data.Labels{"host": "a"}, nil)
 		require.NoError(t, err)
 
-		err = wf.AddSeries("one", data.Labels{"host": "b"}, []float64{3, 4})
+		err = wf.AddSeries("one", []float64{3, 4}, data.Labels{"host": "b"}, nil)
 		require.NoError(t, err)
 
 		c, err := wf.GetCollection(false)

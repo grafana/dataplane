@@ -55,10 +55,10 @@ func TestSeriesCollectionReaderInterface(t *testing.T) {
 		err = sc.SetTime("time", timeSlice)
 		require.NoError(t, err)
 
-		err = sc.AddSeries(metricName, data.Labels{"host": "a"}, valuesA)
+		err = sc.AddSeries(metricName, valuesA, data.Labels{"host": "a"}, nil)
 		require.NoError(t, err)
 
-		err = sc.AddSeries(metricName, data.Labels{"host": "b"}, valuesB)
+		err = sc.AddSeries(metricName, valuesB, data.Labels{"host": "b"}, nil)
 		require.NoError(t, err)
 
 		var r timeseries.CollectionReader = sc
