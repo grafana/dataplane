@@ -1,0 +1,55 @@
+[
+  {
+    "schema": {
+      "meta": {
+        "type": "numeric-wide",
+        "typeVersion": [0, 1]
+      },
+      "fields": [
+        {
+          "type": "number",
+          "name": "avgSlothCount",
+          "typeInfo": {
+            "frame": "float64"
+          },
+          "labels": {
+            "city": "LGA"
+          }
+        },
+        {
+          "type": "number",
+          "name": "avgSlothCount",
+          "typeInfo": {
+            "frame": "float64"
+          },
+          "labels": {
+            "city": "MIA"
+          }
+        },
+        {
+          "type": "number",
+          "name": "avgSleepHoursPerSlothPerDay",
+          "typeInfo": {
+            "frame": "float64"
+          },
+          "labels": {
+            "city": "LGA"
+          }
+        },
+        {
+          "type": "number",
+          "name": "avgSleepHoursPerSlothPerDay",
+          "typeInfo": {
+            "frame": "float64"
+          },
+          "labels": {
+            "city": "MIA"
+          }
+        }
+      ]
+    },
+    "data": {
+      "values": [[4], [7.5], [23.5], [23.2]]
+    }
+  }
+]

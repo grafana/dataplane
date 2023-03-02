@@ -1,0 +1,36 @@
+[
+  {
+    "schema": {
+      "meta": {
+        "type": "numeric-long",
+        "typeVersion": [0, 1]
+      },
+      "fields": [
+        {
+          "type": "number",
+          "name": "avgSlothCount",
+          "typeInfo": {
+            "frame": "float64"
+          }
+        },
+        {
+          "type": "number",
+          "name": "avgSleepHoursPerSlothPerDay",
+          "typeInfo": {
+            "frame": "float64"
+          }
+        },
+        {
+          "type": "string",
+          "name": "city",
+          "typeInfo": {
+            "frame": "string"
+          }
+        }
+      ]
+    },
+    "data": {
+      "values": []
+    }
+  }
+]
