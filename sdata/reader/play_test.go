@@ -2,12 +2,15 @@ package reader_test
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/grafana/dataplane/sdata/numeric"
 	"github.com/grafana/dataplane/sdata/reader"
 	"github.com/grafana/dataplane/sdata/timeseries"
 	"github.com/grafana/grafana-plugin-sdk-go/data"
+	jsoniter "github.com/json-iterator/go"
 	"github.com/stretchr/testify/require"
 )
 
@@ -57,4 +60,38 @@ func TestCanReadBasedOnMeta(t *testing.T) {
 			}
 		}
 	})
+}
+
+func TestCanReadTestData(t *testing.T) {
+	filepath.Walk("../../testExampleData/numeric/", func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			t.Fatalf(err.Error())
+		}
+		if !info.IsDir() {
+			frames := make(data.Frames, 0)
+			b, err := os.ReadFile(path)
+			require.NoError(t, err)
+			err = testIterRead(&frames, b)
+			require.NoError(t, err)
+
+			kind, err := reader.CanReadBasedOnMeta(frames)
+			require.NoError(t, err)
+			require.Equal(t, data.KindNumeric, kind)
+
+		}
+		return nil
+	})
+}
+
+func testIterRead(d *data.Frames, b []byte) error {
+	iter := jsoniter.ParseBytes(jsoniter.ConfigDefault, b)
+	for iter.ReadArray() {
+		frame := &data.Frame{}
+		iter.ReadVal(frame)
+		if iter.Error != nil {
+			return iter.Error
+		}
+		*d = append(*d, frame)
+	}
+	return nil
 }
