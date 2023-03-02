@@ -1,0 +1,14 @@
+[
+  {
+    "schema": {
+      "meta": {
+        "type": "numeric-multi",
+        "typeVersion": [0, 1]
+      },
+      "fields": []
+    },
+    "data": {
+      "values": []
+    }
+  }
+]

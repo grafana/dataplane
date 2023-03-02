@@ -1,0 +1,48 @@
+[
+  {
+    "schema": {
+      "meta": {
+        "type": "numeric-multi",
+        "typeVersion": [0, 1]
+      },
+      "fields": [
+        {
+          "type": "number",
+          "name": "avgSlothCount",
+          "typeInfo": {
+            "frame": "float64"
+          },
+          "labels": {
+            "city": "LGA"
+          }
+        }
+      ]
+    },
+    "data": {
+      "values": [[]]
+    }
+  },
+  {
+    "schema": {
+      "meta": {
+        "type": "numeric-multi",
+        "typeVersion": [0, 1]
+      },
+      "fields": [
+        {
+          "type": "number",
+          "name": "avgSlothCount",
+          "typeInfo": {
+            "frame": "float64"
+          },
+          "labels": {
+            "city": "MIA"
+          }
+        }
+      ]
+    },
+    "data": {
+      "values": [[]]
+    }
+  }
+]
