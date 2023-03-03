@@ -3,9 +3,22 @@
     "schema": {
       "meta": {
         "type": "numeric-wide",
-        "typeVersion": [0, 1]
+        "typeVersion": [0, 1],
+        "custom": {
+          "exampleInfo": {
+            "summary": "NumericWide with 2 items and a remainder time field. 1 name (avgSlothCount) and 1 dimension (city).",
+            "itemCount": 2
+          }
+        }
       },
       "fields": [
+        {
+          "name": "t",
+          "type": "time",
+          "typeInfo": {
+            "frame": "time.Time"
+          }
+        },
         {
           "type": "number",
           "name": "avgSlothCount",
@@ -29,7 +42,7 @@
       ]
     },
     "data": {
-      "values": [[], []]
+      "values": [[1664901845976], [4], [7.5]]
     }
   }
 ]

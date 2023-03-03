@@ -3,16 +3,15 @@
     "schema": {
       "meta": {
         "type": "numeric-multi",
-        "typeVersion": [0, 1]
+        "typeVersion": [0, 1],
+        "custom": {
+          "exampleInfo": {
+            "summary": "NumericMulti with 2 empty items. There is 1 item name (avgSlothCount) and 1 dimension (city). But with 0 rows there are no items.",
+            "itemCount": 2
+          }
+        }
       },
       "fields": [
-        {
-          "name": "t",
-          "type": "time",
-          "typeInfo": {
-            "frame": "time.Time"
-          }
-        },
         {
           "type": "number",
           "name": "avgSlothCount",
@@ -26,7 +25,7 @@
       ]
     },
     "data": {
-      "values": [[1664901845976], [4]]
+      "values": [[]]
     }
   },
   {
@@ -36,13 +35,6 @@
         "typeVersion": [0, 1]
       },
       "fields": [
-        {
-          "name": "t",
-          "type": "time",
-          "typeInfo": {
-            "frame": "time.Time"
-          }
-        },
         {
           "type": "number",
           "name": "avgSlothCount",
@@ -56,7 +48,7 @@
       ]
     },
     "data": {
-      "values": [[1664901845976], [7.5]]
+      "values": [[]]
     }
   }
 ]

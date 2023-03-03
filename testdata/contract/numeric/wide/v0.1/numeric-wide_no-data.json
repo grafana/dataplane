@@ -1,0 +1,20 @@
+[
+  {
+    "schema": {
+      "meta": {
+        "type": "numeric-wide",
+        "typeVersion": [0, 1],
+        "custom": {
+          "exampleInfo": {
+            "summary": "NumericWide in no-data form (0 length fields).",
+            "itemCount": 0
+          }
+        }
+      },
+      "fields": []
+    },
+    "data": {
+      "values": []
+    }
+  }
+]

@@ -3,7 +3,13 @@
     "schema": {
       "meta": {
         "type": "numeric-wide",
-        "typeVersion": [0, 1]
+        "typeVersion": [0, 1],
+        "custom": {
+          "exampleInfo": {
+            "summary": "NumericWide with 2 items. 2 names (avgSlothCount, avgSleepHoursPerSlothPerDay) and 1 dimension (city).",
+            "itemCount": 2
+          }
+        }
       },
       "fields": [
         {

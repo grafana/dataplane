@@ -1,0 +1,20 @@
+[
+  {
+    "schema": {
+      "meta": {
+        "type": "numeric-long",
+        "typeVersion": [0, 1],
+        "custom": {
+          "exampleInfo": {
+            "summary": "NumericLong in no-data form (0 length fields).",
+            "itemCount": 0
+          }
+        }
+      },
+      "fields": []
+    },
+    "data": {
+      "values": []
+    }
+  }
+]

@@ -3,7 +3,13 @@
     "schema": {
       "meta": {
         "type": "numeric-multi",
-        "typeVersion": [0, 1]
+        "typeVersion": [0, 1],
+        "custom": {
+          "exampleInfo": {
+            "summary": "NumericMulti with 4 items with 2 different item names (avgSlothCount, avgSleepHoursPerSlothPerDay) and 1 dimension (city).",
+            "itemCount": 4
+          }
+        }
       },
       "fields": [
         {

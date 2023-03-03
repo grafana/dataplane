@@ -3,16 +3,15 @@
     "schema": {
       "meta": {
         "type": "numeric-wide",
-        "typeVersion": [0, 1]
+        "typeVersion": [0, 1],
+        "custom": {
+          "exampleInfo": {
+            "summary": "NumericWide with 2 items. 2 names (avgSlothCount, avgSleepHoursPerSlothPerDay) and 1 dimension (city).",
+            "itemCount": 2
+          }
+        }
       },
       "fields": [
-        {
-          "name": "t",
-          "type": "time",
-          "typeInfo": {
-            "frame": "time.Time"
-          }
-        },
         {
           "type": "number",
           "name": "avgSlothCount",
@@ -25,7 +24,7 @@
         },
         {
           "type": "number",
-          "name": "avgSlothCount",
+          "name": "avgSleepHoursPerSlothPerDay",
           "typeInfo": {
             "frame": "float64"
           },
@@ -36,7 +35,7 @@
       ]
     },
     "data": {
-      "values": [[1664901845976], [4], [7.5]]
+      "values": [[4], [7.5]]
     }
   }
 ]

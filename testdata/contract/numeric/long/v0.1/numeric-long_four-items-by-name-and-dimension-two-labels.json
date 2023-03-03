@@ -3,7 +3,13 @@
     "schema": {
       "meta": {
         "type": "numeric-long",
-        "typeVersion": [0, 1]
+        "typeVersion": [0, 1],
+        "custom": {
+          "exampleInfo": {
+            "summary": "NumericLong with 4 items with 2 different item names and 2 dimensions (city and animal).",
+            "itemCount": 4
+          }
+        }
       },
       "fields": [
         {
@@ -26,11 +32,23 @@
           "typeInfo": {
             "frame": "string"
           }
+        },
+        {
+          "type": "string",
+          "name": "animal",
+          "typeInfo": {
+            "frame": "string"
+          }
         }
       ]
     },
     "data": {
-      "values": []
+      "values": [
+        [4, 7.5],
+        [23.5, 23.2],
+        ["LGA", "MIA"],
+        ["cat", "sloth"]
+      ]
     }
   }
 ]
