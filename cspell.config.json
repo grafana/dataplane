@@ -1,11 +1,20 @@
 {
-  "ignorePaths": ["node_modules/", "go.work", "**/*_test.go"],
+  "ignorePaths": [
+    "node_modules/",
+    "e2e/provisioning/",
+    "go.work",
+    "**/*_test.go"
+  ],
   "words": [
     "dataframe",
     "dataframes",
     "dataplane",
+    "datasources",
     "grafana",
+    "mockdefault",
     "sdata",
+    "testdata",
+    "testdatadefault",
     "timeseries"
   ]
 }

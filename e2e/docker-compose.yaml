@@ -1,0 +1,20 @@
+version: '3'
+services:
+  grafana:
+    container_name: grafana
+    image: grafana/grafana-enterprise:${GF_VERSION:-8.4.7}
+    restart: always
+    volumes:
+      - ./provisioning/dashboards-actual/:/dashboards/
+      - ./provisioning:/etc/grafana/provisioning
+    ports:
+      - '3000:3000'
+    environment:
+      - TERM=linux
+      - GF_DEFAULT_APP_MODE=${GF_DEFAULT_APP_MODE:-production}
+      - GF_ENTERPRISE_LICENSE_TEXT=$GF_ENTERPRISE_LICENSE_TEXT
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_SECURITY_ADMIN_USER=e2e
+      - GF_SECURITY_ADMIN_PASSWORD=e2e
+      - GF_INSTALL_PLUGINS=${GF_INSTALL_PLUGINS:-grafana-mock-datasource}
