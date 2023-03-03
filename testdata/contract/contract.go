@@ -22,6 +22,12 @@ type ExampleInfo struct {
 	ItemCount int64  `json:"itemCount"`
 	// Note: Consider adding Remainder count after seeing if remainder frame/field is separate or not.
 
+	// Note: Consider adding some sort of "sets" and "set version"
+	// this would be another (leaf) folder. So for example can have sets "basic_valid", "invalid",
+	// and "extended" sets. Having a version for the set would be so that when an example is added,
+	// util tests functions could log/warn instead of breaking until they opt-in to the new tests.
+	// although maintainers can just get all if they wish.
+
 	Type    data.FrameType        `json:"-"`
 	Version data.FrameTypeVersion `json:"-"`
 	Path    string                `json:"-"`
@@ -62,16 +68,15 @@ func GetExamples() (Examples, error) {
 			if len(parts) < 4 {
 				return fmt.Errorf("unexpected test/example file path length, want at least 4 but got %v for %q", len(parts), path)
 			}
-			name := strings.TrimSuffix(parts[len(parts)-1], ".json")
 			rawVersion := parts[len(parts)-2]
-			kind := data.FrameTypeKind(parts[len(parts)-3])
+			frameType := data.FrameType(parts[len(parts)-3])
 
 			ver, err := data.ParseFrameTypeVersion(strings.TrimPrefix(rawVersion, "v"))
 			if err != nil {
 				return err
 			}
 
-			err = e.addExample(kind, ver, name, frames, path)
+			err = e.addExample(frameType, ver, frames, path)
 			if err != nil {
 				return err
 			}
@@ -138,35 +143,38 @@ func exampleInfoFromFrames(frames data.Frames, path string) (ExampleInfo, error)
 }
 
 type Examples struct {
-	m map[data.FrameTypeKind]map[data.FrameTypeVersion]map[string]Example
+	m map[data.FrameTypeKind]map[data.FrameType]map[data.FrameTypeVersion][]Example
 }
 
-func (e *Examples) addExample(k data.FrameTypeKind, v data.FrameTypeVersion, name string, frames data.Frames, path string) error {
+func (e *Examples) addExample(t data.FrameType, v data.FrameTypeVersion, frames data.Frames, path string) error {
 	if e.m == nil {
-		e.m = make(map[data.FrameTypeKind]map[data.FrameTypeVersion]map[string]Example)
-	}
-	if e.m[k] == nil {
-		e.m[k] = make(map[data.FrameTypeVersion]map[string]Example)
+		e.m = make(map[data.FrameTypeKind]map[data.FrameType]map[data.FrameTypeVersion][]Example)
 	}
 
-	if e.m[k][v] == nil {
-		e.m[k][v] = make(map[string]Example)
+	if e.m[t.Kind()] == nil {
+		e.m[t.Kind()] = make(map[data.FrameType]map[data.FrameTypeVersion][]Example)
 	}
+
+	if e.m[t.Kind()][t] == nil {
+		e.m[t.Kind()][t] = make(map[data.FrameTypeVersion][]Example)
+	}
+
 	example, err := newExample(frames, path)
 	if err != nil {
 		return err
 	}
-	e.m[k][v][name] = example
+
+	e.m[t.Kind()][t][v] = append(e.m[t.Kind()][t][v], example)
 	return nil
 }
 
 func (e *Examples) GetAllAsList() []Example {
 	es := []Example{}
-	for kind, versionToName := range e.m {
-		for version, nameToExample := range versionToName {
-			for name, example := range nameToExample {
-				es = append(es, example)
-				_, _, _ = kind, version, name
+	for kind, typeToVersion := range e.m {
+		for fType, versionToExamples := range typeToVersion {
+			for version, examples := range versionToExamples {
+				es = append(es, examples...)
+				_, _, _ = kind, version, fType
 			}
 		}
 	}
