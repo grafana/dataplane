@@ -2,13 +2,12 @@ package reader_test
 
 import (
 	"fmt"
-	"os"
-	"path/filepath"
 	"testing"
 
 	"github.com/grafana/dataplane/sdata/numeric"
 	"github.com/grafana/dataplane/sdata/reader"
 	"github.com/grafana/dataplane/sdata/timeseries"
+	"github.com/grafana/dataplane/testdata/contract"
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 	jsoniter "github.com/json-iterator/go"
 	"github.com/stretchr/testify/require"
@@ -63,24 +62,17 @@ func TestCanReadBasedOnMeta(t *testing.T) {
 }
 
 func TestCanReadTestData(t *testing.T) {
-	filepath.Walk("../../testExampleData/numeric/", func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			t.Fatalf(err.Error())
-		}
-		if !info.IsDir() {
-			frames := make(data.Frames, 0)
-			b, err := os.ReadFile(path)
+	e, err := contract.GetExamples()
+	require.NoError(t, err)
+	examples := e.GetAllAsList()
+	require.Greater(t, len(examples), 1)
+	for _, example := range examples {
+		t.Run(example.GetInfo().Path, func(t *testing.T) {
+			kind, err := reader.CanReadBasedOnMeta(example.Frames())
 			require.NoError(t, err)
-			err = testIterRead(&frames, b)
-			require.NoError(t, err)
-
-			kind, err := reader.CanReadBasedOnMeta(frames)
-			require.NoError(t, err)
-			require.Equal(t, data.KindNumeric, kind)
-
-		}
-		return nil
-	})
+			require.Equal(t, example.GetInfo().Type.Kind(), kind)
+		})
+	}
 }
 
 func testIterRead(d *data.Frames, b []byte) error {

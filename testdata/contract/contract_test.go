@@ -11,15 +11,16 @@ import (
 
 func TestStuff(t *testing.T) {
 	t.Run("Can get examples", func(t *testing.T) {
-		var err error
-		_, err = contract.GetExamples()
+		e, err := contract.GetExamples()
 		require.NoError(t, err)
+		require.Greater(t, len(e.GetAllAsList()), 1)
 	})
 
 	t.Run("All sumarries must end in period", func(t *testing.T) {
 		e, err := contract.GetExamples()
 		require.NoError(t, err)
 		examples := e.GetAllAsList()
+		require.Greater(t, len(examples), 1)
 
 		for _, e := range examples {
 			info := e.GetInfo()

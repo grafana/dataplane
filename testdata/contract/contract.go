@@ -3,17 +3,19 @@
 package contract
 
 import (
+	"embed"
 	"encoding/json"
 	"fmt"
+	"io/fs"
 	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 	jsoniter "github.com/json-iterator/go"
 )
 
-var testDataRelPath = "."
+//go:embed numeric/*
+var content embed.FS
 
 type ExampleInfo struct {
 	Summary   string `json:"summary"`
@@ -40,13 +42,13 @@ func (e Example) Frames() data.Frames {
 
 func GetExamples() (Examples, error) {
 	e := Examples{}
-	err := filepath.Walk(testDataRelPath, func(path string, info os.FileInfo, err error) error {
+	err := fs.WalkDir(content, "numeric", func(path string, info fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
 		if !info.IsDir() && strings.HasSuffix(path, ".json") {
 			frames := make(data.Frames, 0)
-			b, err := os.ReadFile(path)
+			b, err := fs.ReadFile(content, path)
 			if err != nil {
 				return err
 			}
@@ -169,10 +171,6 @@ func (e *Examples) GetAllAsList() []Example {
 		}
 	}
 	return es
-}
-
-func (s Examples) GetFrames(refID string, k data.FrameTypeKind, v data.FrameTypeVersion, scenarioID string) {
-
 }
 
 func testIterRead(d *data.Frames, b []byte) error {
