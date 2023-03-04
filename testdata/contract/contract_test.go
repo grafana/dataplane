@@ -24,7 +24,7 @@ func TestStuff(t *testing.T) {
 
 		for _, e := range examples {
 			info := e.GetInfo()
-			require.True(t, strings.HasSuffix(info.Summary, "."), fmt.Sprintf("Summary: %q Path: %q", info.Summary, info.Path))
+			require.False(t, strings.HasSuffix(info.Summary, "."), fmt.Sprintf("Summary: %q Path: %q", info.Summary, info.Path))
 		}
 	})
 }

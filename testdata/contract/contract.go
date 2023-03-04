@@ -28,9 +28,10 @@ type ExampleInfo struct {
 	// util tests functions could log/warn instead of breaking until they opt-in to the new tests.
 	// although maintainers can just get all if they wish.
 
-	Type    data.FrameType        `json:"-"`
-	Version data.FrameTypeVersion `json:"-"`
-	Path    string                `json:"-"`
+	Type       data.FrameType        `json:"-"`
+	Version    data.FrameTypeVersion `json:"-"`
+	Path       string                `json:"-"`
+	Collection string                `json:"-"`
 }
 
 type Example struct {
@@ -65,18 +66,19 @@ func GetExamples() (Examples, error) {
 			}
 
 			parts := strings.Split(path, string(os.PathSeparator))
-			if len(parts) < 4 {
+			if len(parts) < 5 {
 				return fmt.Errorf("unexpected test/example file path length, want at least 4 but got %v for %q", len(parts), path)
 			}
-			rawVersion := parts[len(parts)-2]
-			frameType := data.FrameType(parts[len(parts)-3])
+			collection := parts[len(parts)-2]
+			rawVersion := parts[len(parts)-3]
+			frameType := data.FrameType(parts[len(parts)-4])
 
 			ver, err := data.ParseFrameTypeVersion(strings.TrimPrefix(rawVersion, "v"))
 			if err != nil {
 				return err
 			}
 
-			err = e.addExample(frameType, ver, frames, path)
+			err = e.addExample(frameType, ver, frames, collection, path)
 			if err != nil {
 				return err
 			}
@@ -89,11 +91,11 @@ func GetExamples() (Examples, error) {
 	return e, nil
 }
 
-func newExample(frames data.Frames, path string) (Example, error) {
+func newExample(frames data.Frames, collection, path string) (Example, error) {
 	e := Example{
 		frames: frames,
 	}
-	ei, err := exampleInfoFromFrames(frames, path)
+	ei, err := exampleInfoFromFrames(frames, collection, path)
 	if err != nil {
 		return e, err
 	}
@@ -101,7 +103,7 @@ func newExample(frames data.Frames, path string) (Example, error) {
 	return e, nil
 }
 
-func exampleInfoFromFrames(frames data.Frames, path string) (ExampleInfo, error) {
+func exampleInfoFromFrames(frames data.Frames, collection, path string) (ExampleInfo, error) {
 	info := ExampleInfo{}
 	if len(frames) == 0 {
 		return info, fmt.Errorf("Example (frames) is nil or zero length and must have at least one frame for path %s", path)
@@ -137,44 +139,51 @@ func exampleInfoFromFrames(frames data.Frames, path string) (ExampleInfo, error)
 	err = json.Unmarshal(b, &info)
 	info.Type = firstFrame.Meta.Type
 	info.Version = firstFrame.Meta.TypeVersion
+	info.Collection = collection
 	info.Path = path
 
 	return info, err
 }
 
 type Examples struct {
-	m map[data.FrameTypeKind]map[data.FrameType]map[data.FrameTypeVersion][]Example
+	m map[data.FrameTypeKind]map[data.FrameType]map[data.FrameTypeVersion]map[string][]Example
 }
 
-func (e *Examples) addExample(t data.FrameType, v data.FrameTypeVersion, frames data.Frames, path string) error {
+func (e *Examples) addExample(t data.FrameType, v data.FrameTypeVersion, frames data.Frames, collection, path string) error {
 	if e.m == nil {
-		e.m = make(map[data.FrameTypeKind]map[data.FrameType]map[data.FrameTypeVersion][]Example)
+		e.m = make(map[data.FrameTypeKind]map[data.FrameType]map[data.FrameTypeVersion]map[string][]Example)
 	}
 
 	if e.m[t.Kind()] == nil {
-		e.m[t.Kind()] = make(map[data.FrameType]map[data.FrameTypeVersion][]Example)
+		e.m[t.Kind()] = make(map[data.FrameType]map[data.FrameTypeVersion]map[string][]Example)
 	}
 
 	if e.m[t.Kind()][t] == nil {
-		e.m[t.Kind()][t] = make(map[data.FrameTypeVersion][]Example)
+		e.m[t.Kind()][t] = make(map[data.FrameTypeVersion]map[string][]Example)
 	}
 
-	example, err := newExample(frames, path)
+	if e.m[t.Kind()][t][v] == nil {
+		e.m[t.Kind()][t][v] = make(map[string][]Example)
+	}
+
+	example, err := newExample(frames, collection, path)
 	if err != nil {
 		return err
 	}
 
-	e.m[t.Kind()][t][v] = append(e.m[t.Kind()][t][v], example)
+	e.m[t.Kind()][t][v][collection] = append(e.m[t.Kind()][t][v][collection], example)
 	return nil
 }
 
 func (e *Examples) GetAllAsList() []Example {
 	es := []Example{}
 	for kind, typeToVersion := range e.m {
-		for fType, versionToExamples := range typeToVersion {
-			for version, examples := range versionToExamples {
-				es = append(es, examples...)
-				_, _, _ = kind, version, fType
+		for fType, versionToCollection := range typeToVersion {
+			for version, collectionToExamples := range versionToCollection {
+				for collection, examples := range collectionToExamples {
+					es = append(es, examples...)
+					_, _, _, _ = kind, version, fType, collection
+				}
 			}
 		}
 	}
