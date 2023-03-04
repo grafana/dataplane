@@ -9,7 +9,6 @@ import (
 	"github.com/grafana/dataplane/sdata/timeseries"
 	"github.com/grafana/dataplane/testdata/contract"
 	"github.com/grafana/grafana-plugin-sdk-go/data"
-	jsoniter "github.com/json-iterator/go"
 	"github.com/stretchr/testify/require"
 )
 
@@ -71,19 +70,17 @@ func TestCanReadTestData(t *testing.T) {
 			kind, err := reader.CanReadBasedOnMeta(example.Frames())
 			require.NoError(t, err)
 			require.Equal(t, example.GetInfo().Type.Kind(), kind)
+
+			if kind == data.KindNumeric {
+				nr, err := numeric.CollectionReaderFromFrames(example.Frames())
+				require.NoError(t, err)
+
+				c, err := nr.GetCollection(false)
+				require.NoError(t, err)
+				require.NoError(t, c.Warning)
+
+				require.Len(t, c.Refs, int(example.GetInfo().ItemCount))
+			}
 		})
 	}
-}
-
-func testIterRead(d *data.Frames, b []byte) error {
-	iter := jsoniter.ParseBytes(jsoniter.ConfigDefault, b)
-	for iter.ReadArray() {
-		frame := &data.Frame{}
-		iter.ReadVal(frame)
-		if iter.Error != nil {
-			return iter.Error
-		}
-		*d = append(*d, frame)
-	}
-	return nil
 }
