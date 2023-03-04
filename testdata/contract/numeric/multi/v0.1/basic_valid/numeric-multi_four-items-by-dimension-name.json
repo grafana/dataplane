@@ -7,7 +7,8 @@
         "custom": {
           "exampleInfo": {
             "summary": "NumericMulti with 4 items with 2 different item names (avgSlothCount, avgSleepHoursPerSlothPerDay) and 1 dimension (city).",
-            "itemCount": 4
+            "itemCount": 4,
+            "collectionVersion": 1
           }
         }
       },
@@ -32,7 +33,12 @@
     "schema": {
       "meta": {
         "type": "numeric-multi",
-        "typeVersion": [0, 1]
+        "typeVersion": [0, 1],
+        "custom": {
+          "exampleInfo": {
+            "collectionVersion": 1
+          }
+        }
       },
       "fields": [
         {
@@ -55,7 +61,12 @@
     "schema": {
       "meta": {
         "type": "numeric-multi",
-        "typeVersion": [0, 1]
+        "typeVersion": [0, 1],
+        "custom": {
+          "exampleInfo": {
+            "collectionVersion": 1
+          }
+        }
       },
       "fields": [
         {
@@ -78,7 +89,12 @@
     "schema": {
       "meta": {
         "type": "numeric-multi",
-        "typeVersion": [0, 1]
+        "typeVersion": [0, 1],
+        "custom": {
+          "exampleInfo": {
+            "collectionVersion": 1
+          }
+        }
       },
       "fields": [
         {

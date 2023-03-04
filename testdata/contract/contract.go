@@ -22,15 +22,19 @@ import (
 //go:embed numeric/*
 var content embed.FS
 
-// ExampleInfo
+// ExampleInfo is additional info about the example.
+// It is a mix of info that is populated from the directories
+// that contain the json files and from the Meta.Custom["exampleInfo"] of the
+// first frame in each file.
 type ExampleInfo struct {
 	Summary   string `json:"summary"`
-	ItemCount int64  `json:"itemCount"`
+	ItemCount int    `json:"itemCount"`
+
+	CollectionVersion int `json:"collectionVersion"`
+
 	// Note: Consider adding Remainder count after seeing if remainder frame/field is separate or not.
 
-	// Note: "collection iteration",  Having a iteration number for each collection would be so that when an example is added, util tests functions could log/warn instead of breaking until they opt-in to the new examples for their tests (or opt-in to latest).
-
-	// This following fields are populated from areas in the frame outside the Meta.Custom["exampleInfo"]
+	// This following fields are populated from areas outside the Meta.Custom["exampleInfo"] (either the frame, or containing directories)
 	Type       data.FrameType        `json:"-"`
 	Version    data.FrameTypeVersion `json:"-"`
 	Path       string                `json:"-"`
@@ -175,10 +179,11 @@ func (e *Examples) addExample(t data.FrameType, v data.FrameTypeVersion, frames 
 
 // FilterOptions is the argument to the Examples Filter method.
 type FilterOptions struct {
-	Kind       data.FrameTypeKind
-	Type       data.FrameType
-	Version    data.FrameTypeVersion
-	Collection string
+	Kind              data.FrameTypeKind
+	Type              data.FrameType
+	Version           data.FrameTypeVersion
+	Collection        string
+	CollectionVersion int
 }
 
 // Filter will return a new slice of Examples filtered to
@@ -208,6 +213,10 @@ func (e *Examples) Filter(f FilterOptions) (Examples, error) {
 		}
 
 		if f.Collection != "" && f.Collection != info.Collection {
+			continue
+		}
+
+		if f.CollectionVersion > 0 && info.CollectionVersion <= f.CollectionVersion {
 			continue
 		}
 

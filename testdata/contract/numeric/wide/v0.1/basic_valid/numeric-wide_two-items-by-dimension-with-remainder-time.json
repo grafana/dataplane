@@ -7,7 +7,8 @@
         "custom": {
           "exampleInfo": {
             "summary": "NumericWide with 2 items and a remainder time field. 1 name (avgSlothCount) and 1 dimension (city).",
-            "itemCount": 2
+            "itemCount": 2,
+            "collectionVersion": 1
           }
         }
       },

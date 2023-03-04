@@ -84,7 +84,7 @@ func TestCanReadTestData(t *testing.T) {
 			require.NoError(t, err)
 			require.NoError(t, c.Warning)
 
-			require.Len(t, c.Refs, int(example.GetInfo().ItemCount))
+			require.Len(t, c.Refs, example.GetInfo().ItemCount)
 		})
 	}
 }

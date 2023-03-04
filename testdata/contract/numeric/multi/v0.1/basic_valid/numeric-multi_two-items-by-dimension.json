@@ -7,7 +7,8 @@
         "custom": {
           "exampleInfo": {
             "summary": "NumericMulti with 2 items. 1 name (avgSlothCount) and 1 dimension (city).",
-            "itemCount": 2
+            "itemCount": 2,
+            "collectionVersion": 1
           }
         }
       },
@@ -32,7 +33,12 @@
     "schema": {
       "meta": {
         "type": "numeric-multi",
-        "typeVersion": [0, 1]
+        "typeVersion": [0, 1],
+        "custom": {
+          "exampleInfo": {
+            "collectionVersion": 1
+          }
+        }
       },
       "fields": [
         {

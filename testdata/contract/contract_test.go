@@ -16,14 +16,20 @@ func TestGetExamples(t *testing.T) {
 }
 
 func TestValidExamples(t *testing.T) {
-	t.Run("all sumaries must end in period", func(t *testing.T) {
-		examples, err := contract.GetExamples()
-		require.NoError(t, err)
-		require.Greater(t, len(examples), 1)
+	examples, err := contract.GetExamples()
+	require.NoError(t, err)
+	require.Greater(t, len(examples), 1)
 
+	t.Run("all sumaries must end in period", func(t *testing.T) {
 		for _, e := range examples {
 			info := e.GetInfo()
 			require.True(t, strings.HasSuffix(info.Summary, "."), fmt.Sprintf("Summary: %q Path: %q", info.Summary, info.Path))
+		}
+	})
+	t.Run("all sumaries must have collectionVersion >= 1", func(t *testing.T) {
+		for _, e := range examples {
+			info := e.GetInfo()
+			require.GreaterOrEqual(t, e.GetInfo().CollectionVersion, 1, info.Path)
 		}
 	})
 }
