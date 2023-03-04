@@ -61,9 +61,9 @@ func TestCanReadBasedOnMeta(t *testing.T) {
 }
 
 func TestCanReadTestData(t *testing.T) {
-	e, err := contract.GetExamples()
+	examples, err := contract.GetExamples()
 	require.NoError(t, err)
-	examples := e.GetAllAsList()
+
 	require.Greater(t, len(examples), 1)
 	for _, example := range examples {
 		t.Run(example.GetInfo().Path, func(t *testing.T) {

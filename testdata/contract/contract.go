@@ -145,49 +145,18 @@ func exampleInfoFromFrames(frames data.Frames, collection, path string) (Example
 	return info, err
 }
 
-type Examples struct {
-	m map[data.FrameTypeKind]map[data.FrameType]map[data.FrameTypeVersion]map[string][]Example
-}
+type Examples []Example
 
 func (e *Examples) addExample(t data.FrameType, v data.FrameTypeVersion, frames data.Frames, collection, path string) error {
-	if e.m == nil {
-		e.m = make(map[data.FrameTypeKind]map[data.FrameType]map[data.FrameTypeVersion]map[string][]Example)
+	if e == nil {
+		*e = make(Examples, 0)
 	}
-
-	if e.m[t.Kind()] == nil {
-		e.m[t.Kind()] = make(map[data.FrameType]map[data.FrameTypeVersion]map[string][]Example)
-	}
-
-	if e.m[t.Kind()][t] == nil {
-		e.m[t.Kind()][t] = make(map[data.FrameTypeVersion]map[string][]Example)
-	}
-
-	if e.m[t.Kind()][t][v] == nil {
-		e.m[t.Kind()][t][v] = make(map[string][]Example)
-	}
-
 	example, err := newExample(frames, collection, path)
 	if err != nil {
 		return err
 	}
-
-	e.m[t.Kind()][t][v][collection] = append(e.m[t.Kind()][t][v][collection], example)
+	*e = append(*e, example)
 	return nil
-}
-
-func (e *Examples) GetAllAsList() []Example {
-	es := []Example{}
-	for kind, typeToVersion := range e.m {
-		for fType, versionToCollection := range typeToVersion {
-			for version, collectionToExamples := range versionToCollection {
-				for collection, examples := range collectionToExamples {
-					es = append(es, examples...)
-					_, _, _, _ = kind, version, fType, collection
-				}
-			}
-		}
-	}
-	return es
 }
 
 func testIterRead(d *data.Frames, b []byte) error {
