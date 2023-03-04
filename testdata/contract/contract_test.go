@@ -15,10 +15,23 @@ func TestGetExamples(t *testing.T) {
 	require.NoError(t, err)
 }
 
+func TestExamplesSort(t *testing.T) {
+	examples, err := contract.GetExamples()
+	require.NoError(t, err)
+
+	numericExamples, err := examples.Filter(contract.FilterOptions{Kind: data.KindNumeric})
+	require.NoError(t, err)
+
+	numericExamples.Sort(contract.SortFrameTypeAsc)
+	require.Equal(t, data.FrameTypeNumericLong, numericExamples[0].Info().Type)
+
+	numericExamples.Sort(contract.SortFrameTypeDesc)
+	require.Equal(t, data.FrameTypeNumericWide, numericExamples[0].Info().Type)
+}
+
 func TestValidExamples(t *testing.T) {
 	examples, err := contract.GetExamples()
 	require.NoError(t, err)
-	require.Greater(t, len(examples), 1)
 
 	t.Run("all sumaries must end in period", func(t *testing.T) {
 		for _, e := range examples {

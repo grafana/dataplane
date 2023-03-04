@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"io/fs"
 	"os"
-	"sort"
 	"strings"
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
@@ -111,13 +110,11 @@ func GetExamples() (Examples, error) {
 		return nil, err
 	}
 
-	sort.Slice(e, func(i, j int) bool {
-		return e[i].info.Path < e[j].info.Path
-	})
-
 	if len(e) == 0 {
 		return nil, fmt.Errorf("no examples found")
 	}
+
+	e.Sort(SortPathAsc)
 
 	return e, nil
 }
