@@ -12,7 +12,6 @@ import (
 	"strings"
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
-	jsoniter "github.com/json-iterator/go"
 )
 
 // The files are embedded so paths are consistent and so there
@@ -64,7 +63,7 @@ func (e *Example) Frames(refID string) data.Frames {
 	}
 
 	var frames data.Frames
-	err = testIterRead(&frames, b)
+	err = json.Unmarshal(b, &frames)
 	if err != nil {
 		panic(err)
 	}
@@ -90,7 +89,7 @@ func GetExamples() (Examples, error) {
 				return err
 			}
 
-			err = testIterRead(&frames, b)
+			err = json.Unmarshal(b, &frames)
 			if err != nil {
 				return err
 			}
@@ -243,17 +242,4 @@ func (e *Examples) Filter(f FilterOptions) (Examples, error) {
 	}
 
 	return fExamples, nil
-}
-
-func testIterRead(d *data.Frames, b []byte) error {
-	iter := jsoniter.ParseBytes(jsoniter.ConfigDefault, b)
-	for iter.ReadArray() {
-		frame := &data.Frame{}
-		iter.ReadVal(frame)
-		if iter.Error != nil {
-			return iter.Error
-		}
-		*d = append(*d, frame)
-	}
-	return nil
 }
