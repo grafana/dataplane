@@ -68,6 +68,7 @@ func TestCanReadTestData(t *testing.T) {
 		Kind:    data.KindNumeric,
 		Version: data.FrameTypeVersion{0, 1},
 	})
+	require.NoError(t, err)
 
 	for _, example := range numericV01Examples {
 		t.Run(example.GetInfo().Path, func(t *testing.T) {

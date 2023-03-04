@@ -15,20 +15,22 @@ import (
 	jsoniter "github.com/json-iterator/go"
 )
 
+// The files are embedded so paths are consistent and so there
+// are not issues with relative paths when using this in other's
+// libraries tests.
+//
 //go:embed numeric/*
 var content embed.FS
 
+// ExampleInfo
 type ExampleInfo struct {
 	Summary   string `json:"summary"`
 	ItemCount int64  `json:"itemCount"`
 	// Note: Consider adding Remainder count after seeing if remainder frame/field is separate or not.
 
-	// Note: Consider adding some sort of "sets" and "set version"
-	// this would be another (leaf) folder. So for example can have sets "basic_valid", "invalid",
-	// and "extended" sets. Having a version for the set would be so that when an example is added,
-	// util tests functions could log/warn instead of breaking until they opt-in to the new tests.
-	// although maintainers can just get all if they wish.
+	// Note: "collection iteration",  Having a iteration number for each collection would be so that when an example is added, util tests functions could log/warn instead of breaking until they opt-in to the new examples for their tests (or opt-in to latest).
 
+	// This following fields are populated from areas in the frame outside the Meta.Custom["exampleInfo"]
 	Type       data.FrameType        `json:"-"`
 	Version    data.FrameTypeVersion `json:"-"`
 	Path       string                `json:"-"`
@@ -48,6 +50,7 @@ func (e Example) Frames() data.Frames {
 	return e.frames
 }
 
+// GetExamples returns all Examples provided by this library.
 func GetExamples() (Examples, error) {
 	e := Examples{}
 	err := fs.WalkDir(content, "numeric", func(path string, info fs.DirEntry, err error) error {
@@ -155,6 +158,7 @@ func exampleInfoFromFrames(frames data.Frames, collection, path string) (Example
 	return info, err
 }
 
+// Examples is a slice of Example.
 type Examples []Example
 
 func (e *Examples) addExample(t data.FrameType, v data.FrameTypeVersion, frames data.Frames, collection, path string) error {
@@ -169,6 +173,7 @@ func (e *Examples) addExample(t data.FrameType, v data.FrameTypeVersion, frames 
 	return nil
 }
 
+// FilterOptions is the argument to the Examples Filter method.
 type FilterOptions struct {
 	Kind       data.FrameTypeKind
 	Type       data.FrameType
@@ -176,6 +181,8 @@ type FilterOptions struct {
 	Collection string
 }
 
+// Filter will return a new slice of Examples filtered to
+// the Examples that match any non-zero fields in FilterOptions.
 func (e *Examples) Filter(f FilterOptions) (Examples, error) {
 	if e == nil || len(*e) == 0 {
 		return nil, fmt.Errorf("filter called empty example set")
