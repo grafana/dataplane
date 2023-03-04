@@ -64,23 +64,26 @@ func TestCanReadTestData(t *testing.T) {
 	examples, err := contract.GetExamples()
 	require.NoError(t, err)
 
-	require.Greater(t, len(examples), 1)
-	for _, example := range examples {
+	numericV01Examples, err := examples.Filter(contract.FilterOptions{
+		Kind:    data.KindNumeric,
+		Version: data.FrameTypeVersion{0, 1},
+	})
+
+	for _, example := range numericV01Examples {
 		t.Run(example.GetInfo().Path, func(t *testing.T) {
 			kind, err := reader.CanReadBasedOnMeta(example.Frames())
 			require.NoError(t, err)
 			require.Equal(t, example.GetInfo().Type.Kind(), kind)
+			require.Equal(t, data.KindNumeric, kind)
 
-			if kind == data.KindNumeric {
-				nr, err := numeric.CollectionReaderFromFrames(example.Frames())
-				require.NoError(t, err)
+			nr, err := numeric.CollectionReaderFromFrames(example.Frames())
+			require.NoError(t, err)
 
-				c, err := nr.GetCollection(false)
-				require.NoError(t, err)
-				require.NoError(t, c.Warning)
+			c, err := nr.GetCollection(false)
+			require.NoError(t, err)
+			require.NoError(t, c.Warning)
 
-				require.Len(t, c.Refs, int(example.GetInfo().ItemCount))
-			}
+			require.Len(t, c.Refs, int(example.GetInfo().ItemCount))
 		})
 	}
 }

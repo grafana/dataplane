@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io/fs"
 	"os"
+	"sort"
 	"strings"
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
@@ -86,8 +87,17 @@ func GetExamples() (Examples, error) {
 		return nil
 	})
 	if err != nil {
-		return e, err
+		return nil, err
 	}
+
+	sort.Slice(e, func(i, j int) bool {
+		return e[i].info.Path < e[j].info.Path
+	})
+
+	if len(e) == 0 {
+		return nil, fmt.Errorf("no examples found")
+	}
+
 	return e, nil
 }
 
@@ -157,6 +167,51 @@ func (e *Examples) addExample(t data.FrameType, v data.FrameTypeVersion, frames 
 	}
 	*e = append(*e, example)
 	return nil
+}
+
+type FilterOptions struct {
+	Kind       data.FrameTypeKind
+	Type       data.FrameType
+	Version    data.FrameTypeVersion
+	Collection string
+}
+
+func (e *Examples) Filter(f FilterOptions) (Examples, error) {
+	if e == nil || len(*e) == 0 {
+		return nil, fmt.Errorf("filter called empty example set")
+	}
+
+	if f.Kind != "" && f.Type != "" && f.Type.Kind() != f.Kind {
+		return nil, fmt.Errorf("FrameTypeKind %q does match the FrameType %q Kind %q", f.Kind, f.Type, f.Type.Kind())
+	}
+	var fExamples Examples
+
+	for _, example := range *e {
+		info := example.info
+		if f.Kind != "" && f.Kind != info.Type.Kind() {
+			continue
+		}
+
+		if f.Type != "" && f.Type != info.Type {
+			continue
+		}
+
+		if !f.Version.IsZero() && f.Version != info.Version {
+			continue
+		}
+
+		if f.Collection != "" && f.Collection != info.Collection {
+			continue
+		}
+
+		fExamples = append(fExamples, example)
+	}
+
+	if len(fExamples) == 0 {
+		return nil, fmt.Errorf("no examples after filtering")
+	}
+
+	return fExamples, nil
 }
 
 func testIterRead(d *data.Frames, b []byte) error {
