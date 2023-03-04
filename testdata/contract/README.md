@@ -10,6 +10,7 @@ Example File Requirements:
 
 - Must follow the directory format.
 - A json file that contains an array of frames (data.Frames)
+- Frames do not have a refId set.
 - The first frame must have meta.custom as an object, and have the "exampleInfo" property in it.
 - exampleInfo must contain:
   - "summary" (string) A description ending in a period.

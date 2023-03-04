@@ -1,7 +1,6 @@
 [
   {
     "schema": {
-      "refId": "A",
       "meta": {
         "type": "numeric-long",
         "typeVersion": [0, 1],

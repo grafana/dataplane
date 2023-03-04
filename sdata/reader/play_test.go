@@ -71,20 +71,20 @@ func TestCanReadTestData(t *testing.T) {
 	require.NoError(t, err)
 
 	for _, example := range numericV01Examples {
-		t.Run(example.GetInfo().Path, func(t *testing.T) {
-			kind, err := reader.CanReadBasedOnMeta(example.Frames())
+		t.Run(example.Info().Path, func(t *testing.T) {
+			kind, err := reader.CanReadBasedOnMeta(example.Frames("A"))
 			require.NoError(t, err)
-			require.Equal(t, example.GetInfo().Type.Kind(), kind)
+			require.Equal(t, example.Info().Type.Kind(), kind)
 			require.Equal(t, data.KindNumeric, kind)
 
-			nr, err := numeric.CollectionReaderFromFrames(example.Frames())
+			nr, err := numeric.CollectionReaderFromFrames(example.Frames("A"))
 			require.NoError(t, err)
 
 			c, err := nr.GetCollection(false)
 			require.NoError(t, err)
 			require.NoError(t, c.Warning)
 
-			require.Len(t, c.Refs, example.GetInfo().ItemCount)
+			require.Len(t, c.Refs, example.Info().ItemCount)
 		})
 	}
 }

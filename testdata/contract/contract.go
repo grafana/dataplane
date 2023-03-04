@@ -46,12 +46,34 @@ type Example struct {
 	frames data.Frames
 }
 
-func (e Example) GetInfo() ExampleInfo {
+// Info returns the ExampleInfo from an example.
+func (e *Example) Info() ExampleInfo {
 	return e.info
 }
 
-func (e Example) Frames() data.Frames {
-	return e.frames
+// Frames returns the example's data.Frames ([]*data.Frames) with each
+// frame's RefID property set to refID.
+// The frames returned may be modified without changing the example frames.
+func (e *Example) Frames(refID string) data.Frames {
+	// Reread to avoid mutation issues.
+	b, err := fs.ReadFile(content, e.info.Path)
+	if err != nil {
+		// panic since repeat of GetExamples() which is against embed
+		// so should not fail
+		panic(err)
+	}
+
+	var frames data.Frames
+	err = testIterRead(&frames, b)
+	if err != nil {
+		panic(err)
+	}
+	if refID != "" { // all examples having default refID in frames of "" is tested for
+		for _, frame := range frames {
+			frame.RefID = refID
+		}
+	}
+	return frames
 }
 
 // GetExamples returns all Examples provided by this library.
@@ -62,7 +84,7 @@ func GetExamples() (Examples, error) {
 			return err
 		}
 		if !info.IsDir() && strings.HasSuffix(path, ".json") {
-			frames := make(data.Frames, 0)
+			var frames data.Frames
 			b, err := fs.ReadFile(content, path)
 			if err != nil {
 				return err
@@ -78,15 +100,8 @@ func GetExamples() (Examples, error) {
 				return fmt.Errorf("unexpected test/example file path length, want at least 4 but got %v for %q", len(parts), path)
 			}
 			collection := parts[len(parts)-2]
-			rawVersion := parts[len(parts)-3]
-			frameType := data.FrameType(parts[len(parts)-4])
 
-			ver, err := data.ParseFrameTypeVersion(strings.TrimPrefix(rawVersion, "v"))
-			if err != nil {
-				return err
-			}
-
-			err = e.addExample(frameType, ver, frames, collection, path)
+			err = e.addExample(frames, collection, path)
 			if err != nil {
 				return err
 			}
@@ -165,7 +180,7 @@ func exampleInfoFromFrames(frames data.Frames, collection, path string) (Example
 // Examples is a slice of Example.
 type Examples []Example
 
-func (e *Examples) addExample(t data.FrameType, v data.FrameTypeVersion, frames data.Frames, collection, path string) error {
+func (e *Examples) addExample(frames data.Frames, collection, path string) error {
 	if e == nil {
 		*e = make(Examples, 0)
 	}
