@@ -17,7 +17,7 @@ import (
 // are not issues with relative paths when using this in other's
 // libraries tests.
 //
-//go:embed numeric/*
+//go:embed numeric/* timeseries/*
 var content embed.FS
 
 // ExampleInfo is additional info about the example.
