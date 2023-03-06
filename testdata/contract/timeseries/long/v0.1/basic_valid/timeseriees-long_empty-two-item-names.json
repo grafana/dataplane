@@ -3,7 +3,7 @@
     "schema": {
       "meta": {
         "type": "timeseries-long",
-        "frameTypeVersion": [0, 1],
+        "typeVersion": [0, 1],
         "custom": {
             "exampleInfo": {
               "summary": "TimeSeriesLong with 0 empty items. There are 2 item names (avgSlothCount, avgSleepHoursPerSlothPerDay) and 1 dimension (city). But with 0 rows there are no items.",

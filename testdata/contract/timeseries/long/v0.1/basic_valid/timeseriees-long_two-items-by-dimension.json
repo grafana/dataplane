@@ -3,10 +3,10 @@
       "schema": {
         "meta": {
           "type": "timeseries-long",
-          "frameTypeVersion": [0, 1],
+          "typeVersion": [0, 1],
           "custom": {
             "exampleInfo": {
-              "summary": "TimeseriesLong with 2 items. 1 name (avgSlothCount) and 1 dimension (city).",
+              "summary": "TimeseriesLong with 2 items. 1 name (slothCount) and 1 dimension (city).",
               "itemCount": 2,
               "collectionVersion": 1
             }

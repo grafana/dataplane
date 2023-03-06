@@ -3,7 +3,7 @@
     "schema": {
       "meta": {
         "type": "timeseries-wide",
-        "frameTypeVersion": [0, 1],
+        "typeVersion": [0, 1],
         "custom": {
           "exampleInfo": {
             "summary": "TimeseriesWide in no-data form (0 length fields).",
