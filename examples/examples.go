@@ -1,6 +1,6 @@
-// Package contract provides example data dataplane contract
+// Package examples provides example data dataplane contract
 // data for testing
-package contract
+package examples
 
 import (
 	"embed"
@@ -10,6 +10,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/davecgh/go-spew/spew"
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 )
 
@@ -17,7 +18,7 @@ import (
 // are not issues with relative paths when using this in other's
 // libraries tests.
 //
-//go:embed numeric/* timeseries/*
+//go:embed testdata/numeric/* testdata/timeseries/*
 var content embed.FS
 
 // ExampleInfo is additional info about the example.
@@ -104,6 +105,8 @@ func GetExamples() (Examples, error) {
 			if err != nil {
 				return err
 			}
+
+			spew.Dump(path)
 
 			parts := strings.Split(path, string(os.PathSeparator))
 			if len(parts) < 5 {

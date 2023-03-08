@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/grafana/dataplane/examples"
 	"github.com/grafana/dataplane/sdata/numeric"
 	"github.com/grafana/dataplane/sdata/reader"
 	"github.com/grafana/dataplane/sdata/timeseries"
-	"github.com/grafana/dataplane/testdata/contract"
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 	"github.com/stretchr/testify/require"
 )
@@ -61,7 +61,7 @@ func TestCanReadBasedOnMeta(t *testing.T) {
 }
 
 func TestExamplesCollections(t *testing.T) {
-	examples, err := contract.GetExamples()
+	examples, err := examples.GetExamples()
 	require.NoError(t, err)
 
 	collections := examples.Collections()
@@ -69,10 +69,10 @@ func TestExamplesCollections(t *testing.T) {
 }
 
 func TestCanReadTestData(t *testing.T) {
-	examples, err := contract.GetExamples()
+	es, err := examples.GetExamples()
 	require.NoError(t, err)
 
-	numericV01Examples, err := examples.Filter(contract.FilterOptions{
+	numericV01Examples, err := es.Filter(examples.FilterOptions{
 		Kind:    data.KindNumeric,
 		Version: data.FrameTypeVersion{0, 1},
 	})
@@ -98,7 +98,7 @@ func TestCanReadTestData(t *testing.T) {
 		}
 	}
 
-	timeseriesV01Examples, err := examples.Filter(contract.FilterOptions{
+	timeseriesV01Examples, err := es.Filter(examples.FilterOptions{
 		Kind:    data.KindTimeSeries,
 		Version: data.FrameTypeVersion{0, 1},
 	})

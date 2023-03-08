@@ -1,5 +1,4 @@
-module github.com/grafana/dataplane/testdata/contract
-
+module github.com/grafana/dataplane/examples
 go 1.19
 
 require (

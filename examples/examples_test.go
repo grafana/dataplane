@@ -1,36 +1,36 @@
-package contract_test
+package examples_test
 
 import (
 	"fmt"
 	"strings"
 	"testing"
 
-	"github.com/grafana/dataplane/testdata/contract"
+	"github.com/grafana/dataplane/examples"
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 	"github.com/stretchr/testify/require"
 )
 
 func TestGetExamples(t *testing.T) {
-	_, err := contract.GetExamples()
+	_, err := examples.GetExamples()
 	require.NoError(t, err)
 }
 
 func TestExamplesSort(t *testing.T) {
-	examples, err := contract.GetExamples()
+	es, err := examples.GetExamples()
 	require.NoError(t, err)
 
-	numericExamples, err := examples.Filter(contract.FilterOptions{Kind: data.KindNumeric})
+	numericExamples, err := es.Filter(examples.FilterOptions{Kind: data.KindNumeric})
 	require.NoError(t, err)
 
-	numericExamples.Sort(contract.SortFrameTypeAsc)
+	numericExamples.Sort(examples.SortFrameTypeAsc)
 	require.Equal(t, data.FrameTypeNumericLong, numericExamples.AsSlice()[0].Info().Type)
 
-	numericExamples.Sort(contract.SortFrameTypeDesc)
+	numericExamples.Sort(examples.SortFrameTypeDesc)
 	require.Equal(t, data.FrameTypeNumericWide, numericExamples.AsSlice()[0].Info().Type)
 }
 
 func TestValidExamples(t *testing.T) {
-	examples, err := contract.GetExamples()
+	examples, err := examples.GetExamples()
 
 	require.NoError(t, err)
 
@@ -57,7 +57,7 @@ func TestValidExamples(t *testing.T) {
 }
 
 func TestExampleFramesMutation(t *testing.T) {
-	examples, err := contract.GetExamples()
+	examples, err := examples.GetExamples()
 	s := examples.AsSlice()
 	require.NoError(t, err)
 	ft := s[0].Frames("")[0].Meta.Type
@@ -70,21 +70,21 @@ func TestExampleFramesMutation(t *testing.T) {
 }
 
 func TestExamplesFilter(t *testing.T) {
-	e, err := contract.GetExamples()
+	e, err := examples.GetExamples()
 	require.NoError(t, err)
 
 	t.Run("frametype and kind must match if not zero value", func(t *testing.T) {
-		_, err := e.Filter(contract.FilterOptions{Type: data.FrameTypeTimeSeriesLong, Kind: data.KindNumeric})
+		_, err := e.Filter(examples.FilterOptions{Type: data.FrameTypeTimeSeriesLong, Kind: data.KindNumeric})
 		require.Error(t, err)
 	})
 
 	t.Run("version filter will error for no results for version with no match", func(t *testing.T) {
-		_, err := e.Filter(contract.FilterOptions{Version: data.FrameTypeVersion{124, 1233}})
+		_, err := e.Filter(examples.FilterOptions{Version: data.FrameTypeVersion{124, 1233}})
 		require.Error(t, err)
 	})
 
 	t.Run("can filter to numeric long", func(t *testing.T) {
-		numLongExamples, err := e.Filter(contract.FilterOptions{Type: data.FrameTypeNumericLong})
+		numLongExamples, err := e.Filter(examples.FilterOptions{Type: data.FrameTypeNumericLong})
 
 		require.NoError(t, err)
 		for _, e := range numLongExamples.AsSlice() {
