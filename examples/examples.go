@@ -10,7 +10,6 @@ import (
 	"os"
 	"strings"
 
-	"github.com/davecgh/go-spew/spew"
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 )
 
@@ -90,7 +89,7 @@ func (e *Example) Frames(refID string) data.Frames {
 // GetExamples returns all Examples provided by this library.
 func GetExamples() (Examples, error) {
 	e := Examples{}
-	err := fs.WalkDir(content, ".", func(path string, info fs.DirEntry, err error) error {
+	err := fs.WalkDir(content, "testdata", func(path string, info fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
@@ -105,8 +104,6 @@ func GetExamples() (Examples, error) {
 			if err != nil {
 				return err
 			}
-
-			spew.Dump(path)
 
 			parts := strings.Split(path, string(os.PathSeparator))
 			if len(parts) < 5 {
