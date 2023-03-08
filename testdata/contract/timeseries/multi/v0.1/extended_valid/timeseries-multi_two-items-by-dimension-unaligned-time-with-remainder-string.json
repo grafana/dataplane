@@ -50,7 +50,8 @@
   {
     "schema": {
       "meta": {
-        "type": "timeseries-multi"
+        "type": "timeseries-multi",
+        "typeVersion": [0, 1]
       },
       "fields": [
         {

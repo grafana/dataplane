@@ -87,4 +87,29 @@ func TestCanReadTestData(t *testing.T) {
 			require.Len(t, c.Refs, example.Info().ItemCount)
 		})
 	}
+
+	timeseriesV01Examples, err := examples.Filter(contract.FilterOptions{
+		Kind:    data.KindTimeSeries,
+		Version: data.FrameTypeVersion{0, 1},
+	})
+	require.NoError(t, err)
+
+	for _, example := range timeseriesV01Examples {
+		t.Run(example.Info().Path, func(t *testing.T) {
+			kind, err := reader.CanReadBasedOnMeta(example.Frames("A"))
+			require.NoError(t, err)
+			require.Equal(t, example.Info().Type.Kind(), kind)
+			require.Equal(t, data.KindTimeSeries, kind)
+
+			nr, err := timeseries.CollectionReaderFromFrames(example.Frames("A"))
+			require.NoError(t, err)
+
+			c, err := nr.GetCollection(false)
+			require.NoError(t, err)
+			require.NoError(t, c.Warning)
+
+			require.Len(t, c.Refs, example.Info().ItemCount)
+		})
+	}
+
 }

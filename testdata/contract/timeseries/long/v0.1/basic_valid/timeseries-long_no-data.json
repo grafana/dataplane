@@ -6,7 +6,7 @@
         "typeVersion": [0, 1],
         "custom": {
           "exampleInfo": {
-            "summary": "TimeseriesLong in no-data form (0 length fields)",
+            "summary": "TimeseriesLong in no-data form (0 length fields).",
             "itemCount": 0,
             "collectionVersion": 1
           }

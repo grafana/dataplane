@@ -77,7 +77,7 @@ func (e *Example) Frames(refID string) data.Frames {
 // GetExamples returns all Examples provided by this library.
 func GetExamples() (Examples, error) {
 	e := Examples{}
-	err := fs.WalkDir(content, "numeric", func(path string, info fs.DirEntry, err error) error {
+	err := fs.WalkDir(content, ".", func(path string, info fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}

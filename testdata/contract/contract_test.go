@@ -72,7 +72,7 @@ func TestExamplesFilter(t *testing.T) {
 	require.NoError(t, err)
 
 	t.Run("frametype and kind must match if not zero value", func(t *testing.T) {
-		_, err := e.Filter(contract.FilterOptions{Type: data.FrameTypeTimeSeriesLong})
+		_, err := e.Filter(contract.FilterOptions{Type: data.FrameTypeTimeSeriesLong, Kind: data.KindNumeric})
 		require.Error(t, err)
 	})
 
