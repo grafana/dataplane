@@ -1,5 +1,5 @@
 {
-  "name": "@grafana/testdata-contract",
+  "name": "@grafana/examples",
   "private": true,
   "scripts": {
     "test:backend": "go test -v ./..."

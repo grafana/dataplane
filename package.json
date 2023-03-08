@@ -6,7 +6,7 @@
   "private": true,
   "workspaces": [
     "sdata",
-    "testdata/contract"
+    "examples"
   ],
   "scripts": {
     "spellcheck": "cspell -c cspell.config.json \"**/*.{ts,tsx,js,go,md,mdx,yml,yaml,json,scss,css}\"",
