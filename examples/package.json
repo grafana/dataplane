@@ -1,0 +1,7 @@
+{
+  "name": "@grafana/examples",
+  "private": true,
+  "scripts": {
+    "test:backend": "go test -v ./..."
+  }
+}
