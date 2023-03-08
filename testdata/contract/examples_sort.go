@@ -6,9 +6,9 @@ import (
 )
 
 func (e *Examples) Sort(sorters ...ExampleSortFunc) {
-	sort.Slice(*e, func(i int, j int) bool {
+	sort.Slice(e.e, func(i int, j int) bool {
 		for _, s := range sorters {
-			equal, less := s((*e)[i], (*e)[j])
+			equal, less := s((e.e)[i], (e.e)[j])
 			if equal {
 				continue
 			}
@@ -53,7 +53,7 @@ func SortFrameTypeDesc(i, j Example) (equal, less bool) {
 }
 
 func SortCollectionAsc(i, j Example) (equal, less bool) {
-	a, b := i.info.Collection, j.info.Collection
+	a, b := i.info.CollectionName, j.info.CollectionName
 	if a != b {
 		return false, a < b
 	}
@@ -61,7 +61,7 @@ func SortCollectionAsc(i, j Example) (equal, less bool) {
 }
 
 func SortCollectionDesc(i, j Example) (equal, less bool) {
-	a, b := i.info.Collection, j.info.Collection
+	a, b := i.info.CollectionName, j.info.CollectionName
 	if a != b {
 		return false, a > b
 	}

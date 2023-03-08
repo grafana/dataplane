@@ -23,31 +23,32 @@ func TestExamplesSort(t *testing.T) {
 	require.NoError(t, err)
 
 	numericExamples.Sort(contract.SortFrameTypeAsc)
-	require.Equal(t, data.FrameTypeNumericLong, numericExamples[0].Info().Type)
+	require.Equal(t, data.FrameTypeNumericLong, numericExamples.AsSlice()[0].Info().Type)
 
 	numericExamples.Sort(contract.SortFrameTypeDesc)
-	require.Equal(t, data.FrameTypeNumericWide, numericExamples[0].Info().Type)
+	require.Equal(t, data.FrameTypeNumericWide, numericExamples.AsSlice()[0].Info().Type)
 }
 
 func TestValidExamples(t *testing.T) {
 	examples, err := contract.GetExamples()
+
 	require.NoError(t, err)
 
 	t.Run("all sumaries must end in period", func(t *testing.T) {
-		for _, e := range examples {
+		for _, e := range examples.AsSlice() {
 			info := e.Info()
 			require.True(t, strings.HasSuffix(info.Summary, "."), fmt.Sprintf("Summary: %q Path: %q", info.Summary, info.Path))
 		}
 	})
 	t.Run("all sumaries must have collectionVersion >= 1", func(t *testing.T) {
-		for _, e := range examples {
+		for _, e := range examples.AsSlice() {
 			info := e.Info()
 			require.GreaterOrEqual(t, e.Info().CollectionVersion, 1, info.Path)
 		}
 	})
 
 	t.Run("all frames have zero value (empty string) refID", func(t *testing.T) {
-		for _, e := range examples {
+		for _, e := range examples.AsSlice() {
 			for _, frame := range e.Frames("") {
 				require.Empty(t, frame.RefID)
 			}
@@ -57,13 +58,14 @@ func TestValidExamples(t *testing.T) {
 
 func TestExampleFramesMutation(t *testing.T) {
 	examples, err := contract.GetExamples()
+	s := examples.AsSlice()
 	require.NoError(t, err)
-	ft := examples[0].Frames("")[0].Meta.Type
+	ft := s[0].Frames("")[0].Meta.Type
 	require.NotEmpty(t, ft)
 
-	frame := examples[0].Frames("")[0]
+	frame := s[0].Frames("")[0]
 	frame.Meta.Type = "sloth"
-	newFT := examples[0].Frames("")[0].Meta.Type
+	newFT := s[0].Frames("")[0].Meta.Type
 	require.Equal(t, ft, newFT)
 }
 
@@ -85,7 +87,7 @@ func TestExamplesFilter(t *testing.T) {
 		numLongExamples, err := e.Filter(contract.FilterOptions{Type: data.FrameTypeNumericLong})
 
 		require.NoError(t, err)
-		for _, e := range numLongExamples {
+		for _, e := range numLongExamples.AsSlice() {
 			require.Equal(t, data.FrameTypeNumericLong, e.Info().Type)
 		}
 	})

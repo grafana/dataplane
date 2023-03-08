@@ -24,6 +24,7 @@ var content embed.FS
 // It is a mix of info that is populated from the directories
 // that contain the json files and from the Meta.Custom["exampleInfo"] of the
 // first frame in each file.
+// The Path and Summary properties should not be considered stable.
 type ExampleInfo struct {
 	Summary   string `json:"summary"`
 	ItemCount int    `json:"itemCount"`
@@ -33,12 +34,23 @@ type ExampleInfo struct {
 	// Note: Consider adding Remainder count after seeing if remainder frame/field is separate or not.
 
 	// This following fields are populated from areas outside the Meta.Custom["exampleInfo"] (either the frame, or containing directories)
-	Type       data.FrameType        `json:"-"`
-	Version    data.FrameTypeVersion `json:"-"`
-	Path       string                `json:"-"`
-	Collection string                `json:"-"`
+	Type    data.FrameType        `json:"-"`
+	Version data.FrameTypeVersion `json:"-"`
+
+	// Path may change without a version change but will remain unique
+	Path string `json:"-"`
+
+	// Filename without the kind
+	Name string `json:"-"`
+
+	// Name of the collection
+	CollectionName string `json:"-"`
+
+	// ID is Type/Version/Collection/Name
+	ID string
 }
 
+// Example has info about the example, and data.Frames of an example.
 type Example struct {
 	info   ExampleInfo
 	frames data.Frames
@@ -98,8 +110,10 @@ func GetExamples() (Examples, error) {
 				return fmt.Errorf("unexpected test/example file path length, want at least 4 but got %v for %q", len(parts), path)
 			}
 			collection := parts[len(parts)-2]
+			nameParts := strings.SplitN(parts[len(parts)-1], "_", 2)
+			name := strings.TrimSuffix(nameParts[1], ".json")
 
-			err = e.addExample(frames, collection, path)
+			err = e.addExample(frames, collection, path, name)
 			if err != nil {
 				return err
 			}
@@ -107,11 +121,11 @@ func GetExamples() (Examples, error) {
 		return nil
 	})
 	if err != nil {
-		return nil, err
+		return e, err
 	}
 
-	if len(e) == 0 {
-		return nil, fmt.Errorf("no examples found")
+	if len(e.e) == 0 {
+		return e, fmt.Errorf("no examples found")
 	}
 
 	e.Sort(SortPathAsc)
@@ -119,11 +133,11 @@ func GetExamples() (Examples, error) {
 	return e, nil
 }
 
-func newExample(frames data.Frames, collection, path string) (Example, error) {
+func newExample(frames data.Frames, collection, path, name string) (Example, error) {
 	e := Example{
 		frames: frames,
 	}
-	ei, err := exampleInfoFromFrames(frames, collection, path)
+	ei, err := exampleInfoFromFrames(frames, collection, path, name)
 	if err != nil {
 		return e, err
 	}
@@ -131,7 +145,7 @@ func newExample(frames data.Frames, collection, path string) (Example, error) {
 	return e, nil
 }
 
-func exampleInfoFromFrames(frames data.Frames, collection, path string) (ExampleInfo, error) {
+func exampleInfoFromFrames(frames data.Frames, collection, path, name string) (ExampleInfo, error) {
 	info := ExampleInfo{}
 	if len(frames) == 0 {
 		return info, fmt.Errorf("Example (frames) is nil or zero length and must have at least one frame for path %s", path)
@@ -167,25 +181,113 @@ func exampleInfoFromFrames(frames data.Frames, collection, path string) (Example
 	err = json.Unmarshal(b, &info)
 	info.Type = firstFrame.Meta.Type
 	info.Version = firstFrame.Meta.TypeVersion
-	info.Collection = collection
+	info.Name = name
+	info.CollectionName = collection
 	info.Path = path
+	info.ID = strings.Join([]string{string(info.Type), "v" + info.Version.String(), info.CollectionName, info.Name}, "/")
 
 	return info, err
 }
 
-// Examples is a slice of Example.
-type Examples []Example
+// Examples contains Examples.
+type Examples struct {
+	e []Example
+}
 
-func (e *Examples) addExample(frames data.Frames, collection, path string) error {
-	if e == nil {
-		*e = make(Examples, 0)
+// AsSlice returns all examples as a slice of Example ([]Example).
+func (e *Examples) AsSlice() []Example {
+	return e.e
+}
+
+func (e *Examples) addExample(frames data.Frames, collection, path, name string) error {
+	if e.e == nil {
+		e.e = make([]Example, 0)
 	}
-	example, err := newExample(frames, collection, path)
+	example, err := newExample(frames, collection, path, name)
 	if err != nil {
 		return err
 	}
-	*e = append(*e, example)
+	e.e = append(e.e, example)
 	return nil
+}
+
+type Collection Examples
+
+func (c Collection) ExampleSlice() []Example {
+	return c.e
+}
+
+// ID is
+func (c Collection) ID() string {
+	info := c.e[0].info
+	return strings.Join([]string{string(info.Type), "v" + info.Version.String(), info.CollectionName}, "/")
+}
+
+func (c Collection) Name() string {
+	return c.e[0].info.CollectionName
+}
+
+func (c Collection) FrameType() data.FrameType {
+	return c.e[0].info.Type
+}
+
+func (c Collection) FrameTypeVersion() data.FrameTypeVersion {
+	return c.e[0].info.Version
+}
+
+func (c Collection) MaxCollectionVersion() int {
+	max := 0
+	for _, e := range c.e {
+		if e.info.CollectionVersion > max {
+			max = e.info.CollectionVersion
+		}
+	}
+	return max
+}
+
+func (c Collection) ExamplesEqualOrLessThan(collectionVersion int) Examples {
+	newExamples := Examples{
+		e: make([]Example, 0),
+	}
+	for _, e := range c.e {
+		if e.info.CollectionVersion <= collectionVersion {
+			newExamples.e = append(newExamples.e, e)
+		}
+	}
+	return newExamples
+}
+
+func (e *Examples) Collections() []Collection {
+	m := make(map[data.FrameType]map[data.FrameTypeVersion]map[string]Collection)
+	cap := 0
+	for _, example := range e.e {
+		info := example.info
+
+		tToVersion, ok := m[info.Type]
+		if !ok {
+			m[info.Type] = make(map[data.FrameTypeVersion]map[string]Collection)
+		}
+
+		_, ok = tToVersion[info.Version]
+		if !ok {
+			m[info.Type][info.Version] = make(map[string]Collection)
+			cap++
+		}
+
+		c := m[info.Type][info.Version][info.CollectionName]
+		c.e = append(c.e, example)
+		m[info.Type][info.Version][info.CollectionName] = c
+	}
+
+	c := make([]Collection, 0, cap)
+	for _, tv := range m {
+		for _, nc := range tv {
+			for _, col := range nc {
+				c = append(c, col)
+			}
+		}
+	}
+	return c
 }
 
 // FilterOptions is the argument to the Examples Filter method.
@@ -200,16 +302,13 @@ type FilterOptions struct {
 // Filter will return a new slice of Examples filtered to
 // the Examples that match any non-zero fields in FilterOptions.
 func (e *Examples) Filter(f FilterOptions) (Examples, error) {
-	if e == nil || len(*e) == 0 {
-		return nil, fmt.Errorf("filter called empty example set")
-	}
-
-	if f.Kind != "" && f.Type != "" && f.Type.Kind() != f.Kind {
-		return nil, fmt.Errorf("FrameTypeKind %q does match the FrameType %q Kind %q", f.Kind, f.Type, f.Type.Kind())
-	}
 	var fExamples Examples
 
-	for _, example := range *e {
+	if f.Kind != "" && f.Type != "" && f.Type.Kind() != f.Kind {
+		return fExamples, fmt.Errorf("FrameTypeKind %q does match the FrameType %q Kind %q", f.Kind, f.Type, f.Type.Kind())
+	}
+
+	for _, example := range e.e {
 		info := example.info
 		if f.Kind != "" && f.Kind != info.Type.Kind() {
 			continue
@@ -223,7 +322,7 @@ func (e *Examples) Filter(f FilterOptions) (Examples, error) {
 			continue
 		}
 
-		if f.Collection != "" && f.Collection != info.Collection {
+		if f.Collection != "" && f.Collection != info.CollectionName {
 			continue
 		}
 
@@ -231,11 +330,11 @@ func (e *Examples) Filter(f FilterOptions) (Examples, error) {
 			continue
 		}
 
-		fExamples = append(fExamples, example)
+		fExamples.e = append(fExamples.e, example)
 	}
 
-	if len(fExamples) == 0 {
-		return nil, fmt.Errorf("no examples after filtering")
+	if len(fExamples.e) == 0 {
+		return fExamples, fmt.Errorf("no examples after filtering")
 	}
 
 	return fExamples, nil
