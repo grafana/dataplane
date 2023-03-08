@@ -17,7 +17,7 @@ import (
 // are not issues with relative paths when using this in other's
 // libraries tests.
 //
-//go:embed testdata/numeric/* testdata/timeseries/*
+//go:embed data/numeric/* data/timeseries/*
 var content embed.FS
 
 // ExampleInfo is additional info about the example.
@@ -89,7 +89,7 @@ func (e *Example) Frames(refID string) data.Frames {
 // GetExamples returns all Examples provided by this library.
 func GetExamples() (Examples, error) {
 	e := Examples{}
-	err := fs.WalkDir(content, "testdata", func(path string, info fs.DirEntry, err error) error {
+	err := fs.WalkDir(content, "data", func(path string, info fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
