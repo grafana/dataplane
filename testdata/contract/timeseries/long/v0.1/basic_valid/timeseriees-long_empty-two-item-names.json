@@ -5,12 +5,12 @@
         "type": "timeseries-long",
         "typeVersion": [0, 1],
         "custom": {
-            "exampleInfo": {
-              "summary": "TimeSeriesLong with 0 empty items. There are 2 item names (avgSlothCount, avgSleepHoursPerSlothPerDay) and 1 dimension (city). But with 0 rows there are no items.",
-              "itemCount": 0,
-              "collectionVersion": 1
-            }
+          "exampleInfo": {
+            "summary": "TimeSeriesLong with 0 empty items. There are 2 item names (avgSlothCount, avgSleepHoursPerSlothPerDay) and 1 dimension (city). But with 0 rows there are no items.",
+            "itemCount": 0,
+            "collectionVersion": 1
           }
+        }
       },
       "fields": [
         {
