@@ -217,7 +217,7 @@ func (c Collection) ExampleSlice() []Example {
 	return c.e
 }
 
-// ID is
+// ID is the unique identifier string of the collection.
 func (c Collection) ID() string {
 	info := c.e[0].info
 	return strings.Join([]string{string(info.Type), "v" + info.Version.String(), info.CollectionName}, "/")

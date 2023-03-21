@@ -1,5 +1,5 @@
 {
-  "name": "@grafana/examples",
+  "name": "@grafana/dataplane-examples",
   "private": true,
   "scripts": {
     "test:backend": "go test -v ./..."
