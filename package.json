@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "private": true,
   "workspaces": [
-    "sdata"
+    "sdata",
+    "examples"
   ],
   "scripts": {
     "spellcheck": "cspell -c cspell.config.json \"**/*.{ts,tsx,js,go,md,mdx,yml,yaml,json,scss,css}\"",
