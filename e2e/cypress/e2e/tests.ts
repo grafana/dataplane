@@ -145,4 +145,78 @@ export const tests: {
       "7.50",
     ],
   },
+  {
+    description:
+      "timeseries/long/v0.1/basic_valid/timeseriees-long_empty-two-item-names.json",
+    url: "https://raw.githubusercontent.com/grafana/dataplane/main/examples/data/timeseries/long/v0.1/basic_valid/timeseriees-long_empty-two-item-names.json",
+    tablePanelChecks: ["t", "slothCount", "sleepHoursPerSlothPerDay", "city"],
+  },
+  {
+    description:
+      "timeseries/long/v0.1/basic_valid/timeseriees-long_four-items-by-name-and-dimension.json",
+    url: "https://raw.githubusercontent.com/grafana/dataplane/main/examples/data/timeseries/long/v0.1/basic_valid/timeseriees-long_four-items-by-name-and-dimension.json",
+    tablePanelChecks: [
+      "t",
+      "slothCount",
+      "sleepHoursPerSlothPerDay",
+      "city",
+      "2022-10-04 16:44:05",
+      "3",
+      "22",
+      "LGA",
+    ],
+  },
+  {
+    description:
+      "timeseries/long/v0.1/basic_valid/timeseriees-long_two-items-by-dimension.json",
+    url: "https://raw.githubusercontent.com/grafana/dataplane/main/examples/data/timeseries/long/v0.1/basic_valid/timeseriees-long_two-items-by-dimension.json",
+    tablePanelChecks: [
+      "t",
+      "slothCount",
+      "city",
+      "2022-10-04 16:44:05",
+      "3",
+      "LGA",
+    ],
+  },
+  {
+    description:
+      "timeseries/long/v0.1/basic_valid/timeseries-long_no-data.json",
+    url: "https://raw.githubusercontent.com/grafana/dataplane/main/examples/data/timeseries/long/v0.1/basic_valid/timeseries-long_no-data.json",
+    tablePanelChecks: ["No data"],
+  },
+  {
+    description:
+      "timeseries/multi/v0.1/basic_valid/timeseries-multi_empty-one-item.json",
+    url: "https://raw.githubusercontent.com/grafana/dataplane/main/examples/data/timeseries/multi/v0.1/basic_valid/timeseries-multi_empty-one-item.json",
+    tablePanelChecks: ["t", "slothCount LGA"],
+  },
+  {
+    description:
+      "timeseries/multi/v0.1/basic_valid/timeseries-multi_no-data.json",
+    url: "https://raw.githubusercontent.com/grafana/dataplane/main/examples/data/timeseries/multi/v0.1/basic_valid/timeseries-multi_no-data.json",
+    tablePanelChecks: ["No data"],
+  },
+  {
+    description:
+      "timeseries/multi/v0.1/basic_valid/timeseries-multi_two-items-by-dimension-unaligned-time.json",
+    url: "https://raw.githubusercontent.com/grafana/dataplane/main/examples/data/timeseries/multi/v0.1/basic_valid/timeseries-multi_two-items-by-dimension-unaligned-time.json",
+    tablePanelChecks: ["t", "slothCount LGA", "2022-10-04 16:44:05", "3"],
+  },
+  {
+    description:
+      "timeseries/multi/v0.1/extended_valid/timeseries-multi_two-items-by-dimension-unaligned-time-with-remainder-string.json",
+    url: "https://raw.githubusercontent.com/grafana/dataplane/main/examples/data/timeseries/multi/v0.1/extended_valid/timeseries-multi_two-items-by-dimension-unaligned-time-with-remainder-string.json",
+    tablePanelChecks: [
+      "t",
+      "slothCount LGA",
+      "slothNote",
+      "2022-10-04 16:44:05",
+      "3",
+      "",
+      "2022-10-04 17:00:45",
+      "5",
+      "Sloth 🦥",
+    ],
+  },
 ];
