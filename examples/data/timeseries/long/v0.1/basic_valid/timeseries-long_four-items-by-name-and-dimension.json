@@ -6,9 +6,11 @@
         "typeVersion": [0, 1],
         "custom": {
           "exampleInfo": {
-            "summary": "TimeSeriesLong with 0 empty items. There are 2 item names (avgSlothCount, avgSleepHoursPerSlothPerDay) and 1 dimension (city). But with 0 rows there are no items.",
-            "itemCount": 0,
-            "collectionVersion": 1
+            "summary": "TimeseriesLong with 4 items. 2 names (slothCount, sleepHoursPerSlothPerDay) and 1 dimension (city).",
+            "itemCount": 4,
+            "collectionVersion": 1,
+            "valid": true,
+            "noData": false
           }
         }
       },
@@ -38,13 +40,18 @@
           "type": "string",
           "name": "city",
           "typeInfo": {
-            "frame": "float64"
+            "frame": "string"
           }
         }
       ]
     },
     "data": {
-      "values": []
+      "values": [
+        [1664901845976, 1664901845976, 1664902845976, 1664902845976],
+        [3, 6, 5, 9],
+        [22, 23, 21.5, 23],
+        ["LGA", "MIA", "LGA", "MIA"]
+      ]
     }
   }
 ]

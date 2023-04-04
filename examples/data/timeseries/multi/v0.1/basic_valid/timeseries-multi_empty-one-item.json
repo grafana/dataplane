@@ -8,7 +8,9 @@
           "exampleInfo": {
             "summary": "TimeseriesMulti with 1 empty items. There is 1 item name (slothCount) and 1 dimension (city).",
             "itemCount": 1,
-            "collectionVersion": 1
+            "collectionVersion": 1,
+            "valid": true,
+            "noData": false
           }
         }
       },

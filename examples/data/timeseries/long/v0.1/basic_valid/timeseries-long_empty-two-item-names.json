@@ -6,9 +6,11 @@
         "typeVersion": [0, 1],
         "custom": {
           "exampleInfo": {
-            "summary": "TimeseriesLong with 2 items. 1 name (slothCount) and 1 dimension (city).",
-            "itemCount": 2,
-            "collectionVersion": 1
+            "summary": "TimeSeriesLong with 0 empty items. There are 2 item names (avgSlothCount, avgSleepHoursPerSlothPerDay) and 1 dimension (city). But with 0 rows there are no items.",
+            "itemCount": 0,
+            "collectionVersion": 1,
+            "valid": true,
+            "noData": false
           }
         }
       },
@@ -28,20 +30,23 @@
           }
         },
         {
+          "type": "number",
+          "name": "sleepHoursPerSlothPerDay",
+          "typeInfo": {
+            "frame": "float64"
+          }
+        },
+        {
           "type": "string",
           "name": "city",
           "typeInfo": {
-            "frame": "string"
+            "frame": "float64"
           }
         }
       ]
     },
     "data": {
-      "values": [
-        [1664901845976, 1664901845976, 1664902845976, 1664902845976],
-        [3, 6, 5, 9],
-        ["LGA", "MIA", "LGA", "MIA"]
-      ]
+      "values": []
     }
   }
 ]
