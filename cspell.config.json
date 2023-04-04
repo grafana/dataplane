@@ -11,6 +11,7 @@
     "dataplane",
     "datasources",
     "grafana",
+    "jsoniter",
     "mockdefault",
     "sdata",
     "testdata",
