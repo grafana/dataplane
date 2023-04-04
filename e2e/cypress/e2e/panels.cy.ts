@@ -34,8 +34,12 @@ const readAndUpdateGrafanaVersion = () => {
 };
 
 const checkTablePanelFullContent = (panelTitle, textChecks: string) => {
-  switch (grafanaVersion) {
-    default:
-      cy.get(`section[aria-label="${panelTitle} panel"]`).contains(textChecks);
+  let grafanaMajor = +grafanaVersion.split(".")[0];
+  if (grafanaMajor < 10) {
+    cy.get(`section[aria-label="${panelTitle} panel"]`).contains(textChecks);
+  } else {
+    cy.get(
+      `div[data-testid="data-testid Panel header ${panelTitle}"]`
+    ).contains(textChecks);
   }
 };
