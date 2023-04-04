@@ -219,4 +219,67 @@ export const tests: {
       "Sloth 🦥",
     ],
   },
+  {
+    description:
+      "timeseries/wide/v0.1/basic_valid/timeseries-wide_empty-one-item.json",
+    url: "https://raw.githubusercontent.com/grafana/dataplane/main/examples/data/timeseries/wide/v0.1/basic_valid/timeseries-wide_empty-one-item.json",
+    tablePanelChecks: ["t", "slothCount LGA", "No data"],
+  },
+  {
+    description:
+      "timeseries/wide/v0.1/basic_valid/timeseries-wide_no-data.json",
+    url: "https://raw.githubusercontent.com/grafana/dataplane/main/examples/data/timeseries/wide/v0.1/basic_valid/timeseries-wide_no-data.json",
+    tablePanelChecks: ["No data"],
+  },
+  {
+    description:
+      "timeseries/wide/v0.1/basic_valid/timeseries-wide_one-item-no-name-or-labels.json",
+    url: "https://raw.githubusercontent.com/grafana/dataplane/main/examples/data/timeseries/wide/v0.1/basic_valid/timeseries-wide_one-item-no-name-or-labels.json",
+    tablePanelChecks: ["t", "Value", "2022-10-04 16:44:05", "3"],
+  },
+  {
+    description:
+      "timeseries/wide/v0.1/basic_valid/timeseries-wide_one-item-with-name-and-labels.json",
+    url: "https://raw.githubusercontent.com/grafana/dataplane/main/examples/data/timeseries/wide/v0.1/basic_valid/timeseries-wide_one-item-with-name-and-labels.json",
+    tablePanelChecks: ["t", "slothCount LGA", "2022-10-04 16:44:05", "3"],
+  },
+  {
+    description:
+      "timeseries/wide/v0.1/basic_valid/timeseries-wide_two-items-by-dimension.json",
+    url: "https://raw.githubusercontent.com/grafana/dataplane/main/examples/data/timeseries/wide/v0.1/basic_valid/timeseries-wide_two-items-by-dimension.json",
+    tablePanelChecks: [
+      "t",
+      "slothCount LGA",
+      "slothCount MIA",
+      "2022-10-04 16:44:05",
+      "3",
+      "6",
+    ],
+  },
+  {
+    description:
+      "timeseries/wide/v0.1/extended_valid/timeseries-wide_one-item-with-remainder-string.json",
+    url: "https://raw.githubusercontent.com/grafana/dataplane/main/examples/data/timeseries/wide/v0.1/extended_valid/timeseries-wide_one-item-with-remainder-string.json",
+    tablePanelChecks: [
+      "t",
+      "slothCount LGA",
+      "remainder string field",
+      "2022-10-04 16:44:05",
+      "3",
+      "remainder",
+    ],
+  },
+  {
+    description:
+      "timeseries/wide/v0.1/extended_valid/timeseries-wide_one-item-with-remainder-time.json",
+    url: "https://raw.githubusercontent.com/grafana/dataplane/main/examples/data/timeseries/wide/v0.1/extended_valid/timeseries-wide_one-item-with-remainder-time.json",
+    tablePanelChecks: [
+      "t",
+      "slothCount LGA",
+      "remainder time field",
+      "2022-10-04 16:44:05",
+      "3",
+      "2025-12-05 02:30:45",
+    ],
+  },
 ];
