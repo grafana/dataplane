@@ -8,7 +8,9 @@
           "exampleInfo": {
             "summary": "NumericLong with 2 items. 1 name (avgSlothCount) and 1 dimension (city).",
             "itemCount": 2,
-            "collectionVersion": 1
+            "collectionVersion": 1,
+            "valid": true,
+            "noData": false
           }
         }
       },

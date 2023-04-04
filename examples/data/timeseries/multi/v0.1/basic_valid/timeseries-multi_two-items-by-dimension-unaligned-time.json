@@ -8,7 +8,9 @@
           "exampleInfo": {
             "summary": "TimeseriesMulti with 2 items. There is 1 item name (slothCount) and 1 dimension (city). The timestamps are not aligned between the two series.",
             "itemCount": 2,
-            "collectionVersion": 1
+            "collectionVersion": 1,
+            "valid": true,
+            "noData": false
           }
         }
       },
@@ -43,7 +45,13 @@
     "schema": {
       "meta": {
         "type": "timeseries-multi",
-        "typeVersion": [0, 1]
+        "typeVersion": [0, 1],
+        "custom": {
+          "exampleInfo": {
+            "valid": true,
+            "noData": false
+          }
+        }
       },
       "fields": [
         {

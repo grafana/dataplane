@@ -28,6 +28,8 @@ var content embed.FS
 type ExampleInfo struct {
 	Summary   string `json:"summary"`
 	ItemCount int    `json:"itemCount"`
+	Valid     bool   `json:"valid"`
+	NoData    bool   `json:"noData"`
 
 	CollectionVersion int `json:"collectionVersion"`
 

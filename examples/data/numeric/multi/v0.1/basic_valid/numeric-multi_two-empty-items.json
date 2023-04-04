@@ -8,7 +8,9 @@
           "exampleInfo": {
             "summary": "NumericMulti with 2 empty items. There is 1 item name (avgSlothCount) and 1 dimension (city). But with 0 rows there are no items.",
             "itemCount": 2,
-            "collectionVersion": 1
+            "collectionVersion": 1,
+            "valid": true,
+            "noData": false
           }
         }
       },
@@ -36,7 +38,9 @@
         "typeVersion": [0, 1],
         "custom": {
           "exampleInfo": {
-            "collectionVersion": 1
+            "collectionVersion": 1,
+            "valid": true,
+            "noData": false
           }
         }
       },

@@ -8,7 +8,9 @@
           "exampleInfo": {
             "summary": "NumericMulti in no-data form (0 length fields).",
             "itemCount": 0,
-            "collectionVersion": 1
+            "collectionVersion": 1,
+            "valid": true,
+            "noData": true
           }
         }
       },

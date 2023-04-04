@@ -8,7 +8,9 @@
           "exampleInfo": {
             "summary": "TimeseriesWide with 1 items. There is no name or labels.",
             "itemCount": 1,
-            "collectionVersion": 1
+            "collectionVersion": 1,
+            "valid": true,
+            "noData": false
           }
         }
       },

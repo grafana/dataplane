@@ -8,7 +8,9 @@
           "exampleInfo": {
             "summary": "NumericLong with 4 items with 2 different item names (avgSlothCount, avgSleepHoursPerSlothPerDay) and 1 dimension (city).",
             "itemCount": 4,
-            "collectionVersion": 1
+            "collectionVersion": 1,
+            "valid": true,
+            "noData": false
           }
         }
       },
