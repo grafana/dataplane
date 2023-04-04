@@ -334,11 +334,11 @@ func (e *Examples) Filter(f FilterOptions) (Examples, error) {
 			continue
 		}
 
-		if f.NoData != nil && f.NoData != &info.NoData {
+		if f.NoData != nil && *f.NoData != info.NoData {
 			continue
 		}
 
-		if f.Valid != nil && f.Valid != &info.Valid {
+		if f.Valid != nil && *f.Valid != info.Valid {
 			continue
 		}
 
