@@ -299,6 +299,8 @@ type FilterOptions struct {
 	Version           data.FrameTypeVersion
 	Collection        string
 	CollectionVersion int
+	Valid             *bool
+	NoData            *bool
 }
 
 // Filter will return a new slice of Examples filtered to
@@ -329,6 +331,14 @@ func (e *Examples) Filter(f FilterOptions) (Examples, error) {
 		}
 
 		if f.CollectionVersion > 0 && info.CollectionVersion <= f.CollectionVersion {
+			continue
+		}
+
+		if f.NoData != nil && f.NoData != &info.NoData {
+			continue
+		}
+
+		if f.Valid != nil && f.Valid != &info.Valid {
 			continue
 		}
 
