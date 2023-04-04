@@ -71,3 +71,55 @@ func TestSimpleNumeric(t *testing.T) {
 		require.Equal(t, expectedRefs, lc.Refs)
 	})
 }
+
+func TestNoDataFromNew(t *testing.T) {
+	var multi, wide, long numeric.CollectionReader
+	var err error
+
+	multi, err = numeric.NewMultiFrame("A", numeric.MultiFrameVersionLatest)
+	require.NoError(t, err)
+
+	wide, err = numeric.NewWideFrame("B", numeric.WideFrameVersionLatest)
+	require.NoError(t, err)
+
+	long, err = numeric.NewLongFrame("C", numeric.LongFrameVersionLatest)
+	require.NoError(t, err)
+
+	noDataReqs := func(c numeric.Collection, err error) {
+		require.NoError(t, err)
+		require.Nil(t, c.RemainderIndices)
+		require.NotNil(t, c.Refs)
+		require.Len(t, c.Refs, 0)
+		require.NoError(t, c.Warning)
+		require.True(t, c.NoData())
+	}
+
+	viaFrames := func(r numeric.CollectionReader) {
+		t.Run("should work when losing go type via Frames()", func(t *testing.T) {
+			frames := r.Frames()
+			r, err := numeric.CollectionReaderFromFrames(frames)
+			require.NoError(t, err)
+
+			c, err := r.GetCollection(true)
+			noDataReqs(c, err)
+		})
+	}
+
+	t.Run("multi", func(t *testing.T) {
+		c, err := multi.GetCollection(false)
+		noDataReqs(c, err)
+		viaFrames(multi)
+	})
+
+	t.Run("wide", func(t *testing.T) {
+		c, err := wide.GetCollection(false)
+		noDataReqs(c, err)
+		viaFrames(wide)
+	})
+
+	t.Run("long", func(t *testing.T) {
+		c, err := long.GetCollection(false)
+		noDataReqs(c, err)
+		viaFrames(long)
+	})
+}

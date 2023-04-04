@@ -233,9 +233,9 @@ func validateAndGetRefsMulti(mfs *MultiFrame, validateData bool) (Collection, er
 	return c, nil
 }
 
-func (mfs *MultiFrame) Frames() []*data.Frame {
+func (mfs *MultiFrame) Frames() data.Frames {
 	if mfs == nil {
 		return nil
 	}
-	return []*data.Frame(*mfs)
+	return data.Frames(*mfs)
 }

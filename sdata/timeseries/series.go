@@ -15,7 +15,7 @@ type CollectionReader interface {
 	// then an error is returned, and no refs or ignoredFieldIndices are returned.
 	GetCollection(validateData bool) (Collection, error)
 
-	Frames() []*data.Frame // returns underlying frames
+	Frames() data.Frames // returns underlying frames
 }
 
 // MetricRef is for reading and contains the data for an individual
@@ -33,6 +33,10 @@ type Collection struct {
 	Refs             []MetricRef
 	RemainderIndices []sdata.FrameFieldIndex
 	Warning          error
+}
+
+func (c Collection) NoData() bool {
+	return c.Refs != nil && len(c.Refs) == 0
 }
 
 func CollectionReaderFromFrames(frames []*data.Frame) (CollectionReader, error) {

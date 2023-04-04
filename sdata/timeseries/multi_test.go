@@ -19,7 +19,7 @@ func TestMultiFrameSeriesValidate_ValidCases(t *testing.T) {
 		remainderIndices []sdata.FrameFieldIndex
 	}{
 		{
-			name: "frame with no fields is valid (empty response)",
+			name: "frame with no fields is valid (no data response)",
 			mfs: func() *timeseries.MultiFrame {
 				s, err := timeseries.NewMultiFrame("A", timeseries.WideFrameVersionLatest)
 				require.NoError(t, err)
@@ -156,7 +156,7 @@ func emptyFrameWithTypeMD(t data.FrameType, v data.FrameTypeVersion) *data.Frame
 var _ = emptyFrameWithTypeMD(data.FrameTypeUnknown, data.FrameTypeVersion{0, 0}) // linter
 
 func TestMultiFrameSeriesGetMetricRefs_Empty_Invalid_Edge_Cases(t *testing.T) {
-	t.Run("empty response reads as zero length metric refs and nil ignoredFields", func(t *testing.T) {
+	t.Run("no data response reads as zero length metric refs and nil ignoredFields", func(t *testing.T) {
 		s, err := timeseries.NewMultiFrame("A", timeseries.WideFrameVersionLatest)
 		require.NoError(t, err)
 
@@ -168,7 +168,7 @@ func TestMultiFrameSeriesGetMetricRefs_Empty_Invalid_Edge_Cases(t *testing.T) {
 		require.Len(t, c.Refs, 0)
 	})
 
-	t.Run("empty response frame with an additional frames cause additional frames to be ignored", func(t *testing.T) {
+	t.Run("no data response frame with an additional frames cause additional frames to be ignored", func(t *testing.T) {
 		s, err := timeseries.NewMultiFrame("A", timeseries.WideFrameVersionLatest)
 		require.NoError(t, err)
 
@@ -183,8 +183,8 @@ func TestMultiFrameSeriesGetMetricRefs_Empty_Invalid_Edge_Cases(t *testing.T) {
 		require.NoError(t, err)
 		require.Len(t, c.Refs, 0)
 		require.Equal(t, []sdata.FrameFieldIndex{
-			{FrameIdx: 1, FieldIdx: 0, Reason: "extra frame on empty response"},
-			{FrameIdx: 1, FieldIdx: 1, Reason: "extra frame on empty response"},
+			{FrameIdx: 1, FieldIdx: 0, Reason: "extra frame on no data response"},
+			{FrameIdx: 1, FieldIdx: 1, Reason: "extra frame on no data response"},
 		}, c.RemainderIndices)
 	})
 

@@ -19,6 +19,8 @@ type CollectionRW interface {
 
 type CollectionReader interface {
 	GetCollection(validateData bool) (Collection, error)
+
+	Frames() data.Frames
 }
 
 type MetricRef struct {
@@ -58,6 +60,10 @@ type Collection struct {
 	Refs             []MetricRef
 	RemainderIndices []sdata.FrameFieldIndex
 	Warning          error
+}
+
+func (c Collection) NoData() bool {
+	return c.Refs != nil && len(c.Refs) == 0
 }
 
 func CollectionReaderFromFrames(frames []*data.Frame) (CollectionReader, error) {
