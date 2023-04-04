@@ -84,7 +84,7 @@ export const tests: {
     tablePanelChecks: [
       "t",
       "avgSlothCount LGA",
-      "2022-10-04 17:44:05",
+      "2022-10-04 16:44:05",
       "4",
       `{city="LGA"}`,
     ],
@@ -140,7 +140,7 @@ export const tests: {
       "t",
       "avgSlothCount LGA",
       "avgSlothCount MIA",
-      "2022-10-04 17:44:05",
+      "2022-10-04 16:44:05",
       "4",
       "7.50",
     ],

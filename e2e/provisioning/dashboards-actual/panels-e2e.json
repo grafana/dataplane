@@ -716,7 +716,7 @@
     "to": "now"
   },
   "timepicker": {},
-  "timezone": "",
+  "timezone": "utc",
   "title": "Panels E2E",
   "uid": "panels-e2e",
   "version": 3,
