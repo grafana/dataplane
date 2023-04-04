@@ -26,11 +26,23 @@ var content embed.FS
 // first frame in each file.
 // The Path and Summary properties should not be considered stable.
 type ExampleInfo struct {
-	Summary   string `json:"summary"`
-	ItemCount int    `json:"itemCount"`
-	Valid     bool   `json:"valid"`
-	NoData    bool   `json:"noData"`
+	// Summary is a text description of data example.
+	Summary string `json:"summary"`
 
+	// ItemCount is the number of unique items in the data.
+	// For example, the number of time series in a time series response.
+	ItemCount int `json:"itemCount"`
+
+	// Valid means that the example is valid according to the dataplane contract
+	// and is not something that should error or warn.
+	Valid bool `json:"valid"`
+
+	// NoData means the example is a NoData example as defined in the contract.
+	NoData bool `json:"noData"`
+
+	// CollectionVersion is a unique sequence number within a collection. This allows
+	// examples to be added to a collection, but consumers to be able to select not
+	// to get all examples until they are ready.
 	CollectionVersion int `json:"collectionVersion"`
 
 	// Note: Consider adding Remainder count after seeing if remainder frame/field is separate or not.
