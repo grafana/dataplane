@@ -58,7 +58,7 @@ func (n MetricRef) NullableFloat64Value() (*float64, bool, error) {
 type Collection struct {
 	RefID            string
 	Refs             []MetricRef
-	RemainderIndices []sdata.FrameFieldIndex
+	RemainderIndices []sdata.FrameFieldIndex // TODO: Currently not populated
 	Warning          error
 }
 

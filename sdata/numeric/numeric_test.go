@@ -100,7 +100,7 @@ func TestNoDataFromNew(t *testing.T) {
 			r, err := numeric.CollectionReaderFromFrames(frames)
 			require.NoError(t, err)
 
-			c, err := r.GetCollection(true)
+			c, err := r.GetCollection(false)
 			noDataReqs(c, err)
 		})
 	}

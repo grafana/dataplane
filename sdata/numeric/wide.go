@@ -77,6 +77,11 @@ func validateAndGetRefsWide(wf *WideFrame, validateData bool) (Collection, error
 		c.Warning = &sdata.VersionWarning{DataVersion: wf.Meta.TypeVersion, LibraryVersion: WideFrameVersionLatest, DataType: data.FrameTypeNumericWide}
 	}
 
+	if len(wf.Fields) == 0 {
+		c.Refs = []MetricRef{}
+		return c, nil // empty response
+	}
+
 	for _, field := range wf.Fields {
 		if !field.Type().Numeric() {
 			continue
