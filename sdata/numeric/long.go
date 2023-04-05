@@ -56,6 +56,11 @@ func validateAndGetRefsLong(lf *LongFrame, validateData bool) (Collection, error
 		c.Warning = &sdata.VersionWarning{DataVersion: lf.Meta.TypeVersion, LibraryVersion: LongFrameVersionLatest, DataType: data.FrameTypeNumericLong}
 	}
 
+	if len(lf.Fields) == 0 { // TODO: Error differently if nil and not zero length?
+		c.Refs = []MetricRef{}
+		return c, nil // empty response
+	}
+
 	stringFieldIds, numericFieldIds := []int{}, []int{}
 	stringFieldNames, numericFieldNames := []string{}, []string{}
 

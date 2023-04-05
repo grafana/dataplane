@@ -195,9 +195,9 @@ func validateAndGetRefsWide(wf *WideFrame, validateData bool) (Collection, error
 	return c, nil
 }
 
-func (wf *WideFrame) Frames() []*data.Frame {
+func (wf *WideFrame) Frames() data.Frames {
 	if wf == nil {
 		return nil
 	}
-	return []*data.Frame(*wf)
+	return data.Frames(*wf)
 }

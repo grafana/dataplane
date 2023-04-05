@@ -19,6 +19,8 @@ type CollectionRW interface {
 
 type CollectionReader interface {
 	GetCollection(validateData bool) (Collection, error)
+
+	Frames() data.Frames
 }
 
 type MetricRef struct {
@@ -56,8 +58,12 @@ func (n MetricRef) NullableFloat64Value() (*float64, bool, error) {
 type Collection struct {
 	RefID            string
 	Refs             []MetricRef
-	RemainderIndices []sdata.FrameFieldIndex
+	RemainderIndices []sdata.FrameFieldIndex // TODO: Currently not populated
 	Warning          error
+}
+
+func (c Collection) NoData() bool {
+	return c.Refs != nil && len(c.Refs) == 0
 }
 
 func CollectionReaderFromFrames(frames []*data.Frame) (CollectionReader, error) {

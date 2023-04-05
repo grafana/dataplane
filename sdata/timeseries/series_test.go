@@ -97,7 +97,7 @@ func addFields(frame *data.Frame, fields ...*data.Field) *data.Frame {
 	return frame
 }
 
-func TestEmptyFromNew(t *testing.T) {
+func TestNoDataFromNew(t *testing.T) {
 	var multi, wide, long timeseries.CollectionReader
 	var err error
 
@@ -110,12 +110,13 @@ func TestEmptyFromNew(t *testing.T) {
 	long, err = timeseries.NewLongFrame("C", timeseries.LongFrameVersionLatest)
 	require.NoError(t, err)
 
-	emptyReqs := func(c timeseries.Collection, err error) {
+	noDataReqs := func(c timeseries.Collection, err error) {
 		require.NoError(t, err)
 		require.Nil(t, c.RemainderIndices)
 		require.NotNil(t, c.Refs)
 		require.Len(t, c.Refs, 0)
 		require.NoError(t, c.Warning)
+		require.True(t, c.NoData())
 	}
 
 	viaFrames := func(r timeseries.CollectionReader) {
@@ -125,25 +126,25 @@ func TestEmptyFromNew(t *testing.T) {
 			require.NoError(t, err)
 
 			c, err := r.GetCollection(true)
-			emptyReqs(c, err)
+			noDataReqs(c, err)
 		})
 	}
 
 	t.Run("multi", func(t *testing.T) {
 		c, err := multi.GetCollection(true)
-		emptyReqs(c, err)
+		noDataReqs(c, err)
 		viaFrames(multi)
 	})
 
 	t.Run("wide", func(t *testing.T) {
 		c, err := wide.GetCollection(true)
-		emptyReqs(c, err)
+		noDataReqs(c, err)
 		viaFrames(wide)
 	})
 
 	t.Run("long", func(t *testing.T) {
 		c, err := long.GetCollection(true)
-		emptyReqs(c, err)
+		noDataReqs(c, err)
 		viaFrames(long)
 	})
 }

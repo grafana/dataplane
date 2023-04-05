@@ -95,6 +95,27 @@ func validateAndGetRefsMulti(mf *MultiFrame, validateData bool) (Collection, err
 		return c, fmt.Errorf("must be at least one frame")
 	}
 
+	firstFrame := (*mf)[0]
+
+	if firstFrame == nil {
+		return c, fmt.Errorf("frame 0 is nil which is invalid")
+	}
+
+	if firstFrame.Meta == nil {
+		return c, fmt.Errorf("frame 0 is missing a type indicator")
+	}
+
+	if len(firstFrame.Fields) == 0 {
+		if len(*mf) > 1 {
+			if err := ignoreAdditionalFrames("extra frame on empty response", *mf, &c.RemainderIndices); err != nil {
+				return c, err
+			}
+		}
+		// Empty Response
+		c.Refs = []MetricRef{}
+		return c, nil
+	}
+
 	c.RefID = (*mf)[0].RefID
 
 	for _, frame := range *mf {

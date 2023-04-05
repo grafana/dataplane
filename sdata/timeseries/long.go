@@ -151,9 +151,9 @@ func validateAndGetRefsLong(ls *LongFrame, validateData, getRefs bool) (Collecti
 	return c, nil
 }
 
-func (ls *LongFrame) Frames() []*data.Frame {
+func (ls *LongFrame) Frames() data.Frames {
 	if ls == nil {
 		return nil
 	}
-	return []*data.Frame(*ls)
+	return data.Frames(*ls)
 }
