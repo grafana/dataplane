@@ -85,17 +85,17 @@ However, there are still degrees of freedom: - extra frames without the indicato
 Rules
   - Whenever an error is returned, there are no ignored fields returned
   - Must have at least one frame
-  - The first frame may have no fields, if so it is considered the empty response case
+  - The first frame may have no fields, if so it is considered the no data response case
   - The first frame must be valid or will error, additional invalid frames with the type indicator will error,
     frames without type indicator are ignored
-  - A valid individual Frame (in the non empty case) has:
+  - A valid individual Frame (in the non no data case) has:
   - The type indicator
   - a []time.Time field (not []*time.Time) sorted from oldest to newest
   - a numeric value field
   - Any nil Frames or Fields will cause an error (e.g. [Frame, Frame, nil, Frame] or [nil])
   - If any frame has fields within the frame of different lengths, an error will be returned
   - If validateData is true, duplicate labels and sorted time fields will error, otherwise only the schema/metadata is checked.
-  - If all frames and their fields are ignored, and it is not the empty response case, an error is returned
+  - If all frames and their fields are ignored, and it is not the no data response case, an error is returned
 
 When things get ignored
 - Frames that don't have the type indicator as long as they are not first
@@ -126,11 +126,11 @@ func validateAndGetRefsMulti(mfs *MultiFrame, validateData bool) (Collection, er
 
 	if len(firstFrame.Fields) == 0 {
 		if len(*mfs) > 1 {
-			if err := ignoreAdditionalFrames("extra frame on empty response", *mfs, &c.RemainderIndices); err != nil {
+			if err := ignoreAdditionalFrames("extra frame on no data response", *mfs, &c.RemainderIndices); err != nil {
 				return c, err
 			}
 		}
-		// Empty Response
+		// No Data Response
 		c.Refs = []MetricRef{}
 		return c, nil
 	}
@@ -225,7 +225,7 @@ func validateAndGetRefsMulti(mfs *MultiFrame, validateData bool) (Collection, er
 	}
 
 	if len(metricIndex) == 0 {
-		return c, fmt.Errorf("no metrics in response and not an empty response")
+		return c, fmt.Errorf("no metrics in response and not a no data response")
 	}
 
 	sort.Sort(sdata.FrameFieldIndices(c.RemainderIndices))
