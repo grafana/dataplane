@@ -45,13 +45,13 @@ func latestVersions() map[data.FrameType]data.FrameTypeVersion {
 
 // CanReadBasedOnMeta checks the first frame in Frames to see if it has a FrameType and TypeVersion supported
 // by the sdata libraries.
-func CanReadBasedOnMeta(f data.Frames) (data.FrameTypeKind, error) {
+func CanReadBasedOnMeta(f data.Frames) (data.FrameType, error) {
 	if len(f) == 0 {
-		return data.KindUnknown, fmt.Errorf("untyped no data response") // This needs some thought (Valid -- Need signal for it in sdata)
+		return data.FrameTypeUnknown, fmt.Errorf("untyped no data response") // This needs some thought (Valid -- Need signal for it in sdata)
 	}
 
 	if f[0].Meta == nil {
-		return data.KindUnknown, fmt.Errorf("missing metadata")
+		return data.FrameType(data.FrameTypeUnknown.Kind()), fmt.Errorf("missing metadata")
 	}
 
 	md := f[0].Meta
@@ -62,15 +62,15 @@ func CanReadBasedOnMeta(f data.Frames) (data.FrameTypeKind, error) {
 
 	typeToV, ok := st[fType]
 	if !ok {
-		return data.KindUnknown, fmt.Errorf("unsupported frame type %s", fType)
+		return data.FrameTypeUnknown, fmt.Errorf("unsupported frame type %s", fType)
 	}
 
 	if _, ok := typeToV[fTypeVersion]; !ok {
 		// This needs more attention, in particular to 0.x vs 1.x<->1.x
-		return fType.Kind(), &sdata.VersionWarning{DataVersion: fTypeVersion,
+		return fType, &sdata.VersionWarning{DataVersion: fTypeVersion,
 			LibraryVersion: latestVersions()[fType],
 			DataType:       fType}
 	}
 
-	return fType.Kind(), nil
+	return fType, nil
 }
