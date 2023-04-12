@@ -16,9 +16,9 @@ func TestCanReadBasedOnMeta(t *testing.T) {
 		tsWideNoData, err := timeseries.NewWideFrame("A", timeseries.WideFrameVersionLatest)
 		require.NoError(t, err)
 
-		kind, err := reader.CanReadBasedOnMeta(tsWideNoData.Frames())
+		dt, err := reader.CanReadBasedOnMeta(tsWideNoData.Frames())
 		require.NoError(t, err)
-		require.Equal(t, data.KindTimeSeries, kind)
+		require.Equal(t, data.KindTimeSeries, dt.Kind())
 
 		nopeFrames := data.Frames{data.NewFrame("")}
 		_, err = reader.CanReadBasedOnMeta(nopeFrames)
