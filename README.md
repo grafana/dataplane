@@ -23,3 +23,4 @@ This is a monorepo of Grafana dataplane tools and docs
 ## backend packages
 
 - [sdata](./sdata/) (**experimental** Structural way of building typed dataframes)
+- [examples](./examples/) (Examples of dataplane typed dataframes in json files, and a go library for using them in tests)
