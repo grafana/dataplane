@@ -1,6 +1,7 @@
 {
   "ignorePaths": [
     "node_modules/",
+    "e2e/provisioning/",
     "go.work",
     "**/*_test.go"
   ],
@@ -8,10 +9,13 @@
     "dataframe",
     "dataframes",
     "dataplane",
+    "datasources",
     "grafana",
     "jsoniter",
+    "mockdefault",
     "sdata",
     "testdata",
+    "testdatadefault",
     "timeseries"
   ]
 }
