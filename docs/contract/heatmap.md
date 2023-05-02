@@ -9,7 +9,7 @@ Heatmaps are used to show the magnitude of a phenomenon as color in two dimensio
 Version: 0.0
 
 The first field represents the X axis, the rest of the fields indicate rows in the heatmap.  
-The true numeric range of each bucket can be indicated using an "le" label.  When absent,
+The true numeric range of each bucket can be indicated using an "le" label. When absent,
 The field display is used for the bucket label.
 
 Example:
@@ -17,37 +17,23 @@ Example:
 <table>
   <tr>
     <td>
-      <strong>Type: Time</strong>
-      <p>
-        <strong>Name: Time</strong>
-      </p>
+      <strong>Type: Time</strong><br/>
+      <strong>Name: Time</strong>
     </td>
     <td>
-      <strong>Type: Number</strong>
-      <p>
-        <strong>Name: </strong>
-      </p>
-      <p>
-        <strong>Labels: {"le":<em> "10"</em>}</strong>
-      </p>
+      <strong>Type: Number</strong><br/>
+      <strong>Name: </strong><br/>
+      <strong>Labels: {"le":<em> "10"</em>}</strong>
     </td>
     <td>
-      <strong>Type: Number</strong>
-      <p>
-        <strong>Name: </strong>
-      </p>
-      <p>
-        <strong>Labels: {"le":<em> "20"</em>}</strong>
-      </p>
+      <strong>Type: Number</strong><br/>
+      <strong>Name: </strong><br/>
+      <strong>Labels: {"le":<em> "20"</em>}</strong>
     </td>
     <td>
-      <strong>Type: Number</strong>
-      <p>
-        <strong>Name: </strong>
-      </p>
-      <p>
-        <strong>Labels: {"le":<em> "+Inf"</em>}</strong>
-      </p>
+      <strong>Type: Number</strong><br/>
+      <strong>Name: </strong><br/>
+      <strong>Labels: {"le":<em> "+Inf"</em>}</strong>
     </td>
   </tr>
   <tr>
@@ -85,34 +71,24 @@ There exists a row for every cell in the heatmap.
 <table>
   <tr>
     <td>
-      <strong>Type: Time</strong>
-      <p>
-        <strong>Name: xMax|xMin|x</strong>
-      </p>
+      <strong>Type: Time</strong><br/>
+      <strong>Name: xMax|xMin|x</strong>
     </td>
     <td>
-      <strong>Type: Number</strong>
-      <p>
-        <strong>Name: yMax|yMin|y</strong>
-      </p>
+      <strong>Type: Number</strong><br/>
+      <strong>Name: yMax|yMin|y</strong>
     </td>
     <td>
-      <strong>Type: Number</strong>
-      <p>
-        <strong>Name: Count</strong>
-      </p>
+      <strong>Type: Number</strong><br/>
+      <strong>Name: Count</strong>
     </td>
     <td>
-      <strong>Type: Number</strong>
-      <p>
-        <strong>Name: Total</strong>
-      </p>
+      <strong>Type: Number</strong><br/>
+      <strong>Name: Total</strong>
     </td>
     <td>
-      <strong>Type: Number</strong>
-      <p>
-        <strong>Name: Speed</strong>
-      </p>
+      <strong>Type: Number</strong><br/>
+      <strong>Name: Speed</strong>
     </td>
   </tr>
   <tr>
@@ -136,7 +112,6 @@ There exists a row for every cell in the heatmap.
     <td>3</td>
     <td>3</td>
   </tr>
-
   <tr>
     <td>2022-05-24 18:19:52</td>
     <td>100</td>
@@ -163,19 +138,19 @@ There exists a row for every cell in the heatmap.
 This format requires uniform cell sizing. The size of the cell is defined by the columns in each row that are chosen as the xMax|xMin|x and the yMax|yMin|y. We can see that the Number column(yMax|yMin|y) increases by 100(each cell is roughly 100 higher than the previous cell on the y axis) for each row containing a similar Time value(these stacked cells all have roughly the same location along the x axis). This produces a uniform cell size.
 
 Note that multiple "value" fields can included to represent multiple dimensions within the same cell.  
-The first value field is used in the display, unless explicilty configured
+The first value field is used in the display, unless explicitly configured
 
 The field names for yMax|yMin|y indicate the aggregation period or the supplied values.
 
-* yMax: the values are from the bucket below
-* yMin: the values are from to bucket above
-* y: the values are in the middle of the bucket
+- yMax: the values are from the bucket below
+- yMin: the values are from to bucket above
+- y: the values are in the middle of the bucket
 
 ## Heatmap sparse (HeatmapSparse)
 
 Version: 0.0
 
-This format is simplar to Heatmap scanlines, except that each cell is independent from its adjacent values.
+This format is similar to Heatmap scanlines, except that each cell is independent from its adjacent values.
 Unlike scanlines, this allows resolutions to change over time. Where scanline has uniformity of cells over time, heatmap sparse allows for variability of cells along the x axis(Time).
 
 Example:
@@ -183,34 +158,25 @@ Example:
 <table>
   <tr>
     <td>
-      <strong>Type: Time</strong>
-      <p>
-        <strong>Name: xMin</strong>
+      <strong>Type: Time</strong><br/>
+      <strong>Name: xMin</strong>
+    </td>
+    <td>
+      <strong>Type: Time</strong><br/>
+      <strong>Name: xMax</strong>
+    </td>
+    <td>
+      <strong>Type: Number</strong><br/>
+      <strong>Name: yMin</strong>
       </p>
     </td>
     <td>
-      <strong>Type: Time</strong>
-      <p>
-        <strong>Name: xMax</strong>
-      </p>
+      <strong>Type: Number</strong><br/>
+      <strong>Name: yMax</strong>
     </td>
     <td>
-      <strong>Type: Number</strong>
-      <p>
-        <strong>Name: yMin</strong>
-      </p>
-    </td>
-    <td>
-      <strong>Type: Number</strong>
-      <p>
-        <strong>Name: yMax</strong>
-      </p>
-    </td>
-    <td>
-      <strong>Type: Number</strong>
-      <p>
-        <strong>Name: Value</strong>
-      </p>
+      <strong>Type: Number</strong><br/>
+      <strong>Name: Value</strong>
     </td>
   </tr>
   <tr>
@@ -229,5 +195,5 @@ Example:
   </tr>
 </table>
 
-* For high resolution with many gaps, this will require less space
-* This format is much less optomized for fast render and lookup than the uniform "scanlines" approach
+- For high resolution with many gaps, this will require less space
+- This format is much less optimized for fast render and lookup than the uniform "scanlines" approach

@@ -8,10 +8,20 @@
     "dataframe",
     "dataframes",
     "dataplane",
+    "datapoint",
+    "datapoints",
+    "datasource",
+    "datasources",
+    "datatypes",
     "grafana",
+    "Heatmaps",
     "jsoniter",
+    "Milli",
+    "scanline",
+    "scanlines",
     "sdata",
     "testdata",
-    "timeseries"
+    "timeseries",
+    "Visualisation"
   ]
 }
