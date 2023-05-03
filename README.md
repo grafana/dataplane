@@ -20,6 +20,9 @@
 
 This is a monorepo of Grafana dataplane tools and docs
 
+## Docs
+- [Data Plane Contract - Technical Specification](https://grafana.github.io/dataplane/contract/)
+
 ## backend packages
 
 - [sdata](./sdata/) (**experimental** Structural way of building typed dataframes)
