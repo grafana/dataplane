@@ -6,6 +6,7 @@
 - The Time field(s):
   - Should have no null values
   - Field name is for display purposes only, there should be no labels
+  - Per each frame, any additional time fields after the first time field are treated as remainder data
 - **_Value Field(s)_**
   - Value fields are called this because it is the field where the _value_ of each datapoint (time,value) is located.
   - It can be a numeric or bool field. For numeric values
