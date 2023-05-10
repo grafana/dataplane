@@ -7,8 +7,6 @@ Version: 0.1
 
 Define in detail common query response schemas for data returned from data sources. This improves the experience for developers of both features and datasources. This will also improve the experience for users through more reliability and quality - which leads to more development time spent more towards improving experience.
 
-Current Backend [proof of concept code](https://github.com/grafana/grafana-plugin-sdk-go/pull/440).
-
 ## Kinds and Formats
 
 There are logical **_kinds_** (like Time Series Data, Numeric, Histogram, etc), and there are **_formats_** that a kind can be in.
