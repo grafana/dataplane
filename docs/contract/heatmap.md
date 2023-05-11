@@ -23,17 +23,17 @@ Example:
     <td>
       <strong>Type: Number</strong><br/>
       <strong>Name: </strong><br/>
-      <strong>Labels: {"le":<em> "10"</em>}</strong>
+      <strong>Labels: &#123;"le":<em> "10"</em>&#125;</strong>
     </td>
     <td>
       <strong>Type: Number</strong><br/>
       <strong>Name: </strong><br/>
-      <strong>Labels: {"le":<em> "20"</em>}</strong>
+      <strong>Labels: &#123;"le":<em> "20"</em>&#125;</strong>
     </td>
     <td>
       <strong>Type: Number</strong><br/>
       <strong>Name: </strong><br/>
-      <strong>Labels: {"le":<em> "+Inf"</em>}</strong>
+      <strong>Labels: &#123;"le":<em> "+Inf"</em>&#125;</strong>
     </td>
   </tr>
   <tr>
@@ -168,7 +168,6 @@ Example:
     <td>
       <strong>Type: Number</strong><br/>
       <strong>Name: yMin</strong>
-      </p>
     </td>
     <td>
       <strong>Type: Number</strong><br/>

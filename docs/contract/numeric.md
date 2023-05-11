@@ -15,12 +15,12 @@ Example:
    <td>
       <strong>Type: Number</strong><br/>
       <strong>Name: cpu</strong><br/>
-      <strong>Labels: {"host":<em> "a"}</em></strong>
+      <strong>Labels: &#123;"host":<em> "a"&#125;</em></strong>
    </td>
    <td>
       <strong>Type: Number</strong><br/>
       <strong>Name: cpu</strong><br/>
-      <strong>Labels: {"host":<em> "b"</em>}</strong>
+      <strong>Labels: &#123;"host":<em> "b"</em>&#125;</strong>
    </td>
   </tr>
   <tr>
@@ -56,7 +56,7 @@ Frame 0:
    <td>
       <strong>Type: Number</strong><br/>
       <strong>Name: cpu</strong><br/>
-      <strong>Labels: {"host":<em> "a"}</em></strong>
+      <strong>Labels: &#123;"host":<em> "a"&#125;</em></strong>
    </td>
   </tr>
   <tr>
@@ -71,7 +71,7 @@ Frame 1:
    <td>
       <strong>Type: Number</strong><br/>
       <strong>Name: cpu</strong><br/>
-      <strong>Labels: {"host":<em> "b"</em>}</strong>
+      <strong>Labels: &#123;"host":<em> "b"</em>&#125;</strong>
    </td>
   </tr>
   <tr>
