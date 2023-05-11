@@ -6,10 +6,12 @@
   "private": true,
   "workspaces": [
     "sdata",
+    "docusaurus/website",
     "examples"
   ],
   "scripts": {
     "spellcheck": "cspell -c cspell.config.json \"**/*.{ts,tsx,js,go,md,mdx,yml,yaml,json,scss,css}\"",
+    "docs:build": "turbo docs:build",
     "test:backend": "turbo test:backend",
     "test": "turbo test:backend"
   },

@@ -1,8 +1,3 @@
-<!-- markdownlint-configure-file {
-  "MD013": false,
-  "MD033": false
-} -->
-
 # Logs
 
 Status: EARLY Draft/Proposal

@@ -1,6 +1,9 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
+    "docs:build": {
+      "outputs": []
+    },
     "test": {
       "inputs": ["*.go", "go.mod"],
       "outputs": []

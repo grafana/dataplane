@@ -40,12 +40,12 @@ The wide format has a set of time series in a single Frame that share the same t
    <td>
       <strong>Type: Number</strong><br/>
       <strong>Name: cpu</strong><br/>
-      <strong>Labels: {"host":<em> "a"}</em></strong>
+      <strong>Labels: &#123;"host":<em> "a"&#125;</em></strong>
    </td>
    <td>
       <strong>Type: Number</strong><br/>
       <strong>Name: cpu</strong><br/>
-      <strong>Labels: {"host":<em> "b"</em>}</strong>
+      <strong>Labels: &#123;"host":<em> "b"</em>&#125;</strong>
    </td>
   </tr>
   <tr>
@@ -107,7 +107,7 @@ Frame 0:
       <td>
          <strong>Type: Number</strong><br/>
          <strong>Name: cpu</strong><br/>
-         <strong>Labels: {"host": "a"}</strong>
+         <strong>Labels: &#123;"host": "a"&#125;</strong>
       </td>
    </tr>
    <tr>
@@ -140,7 +140,7 @@ Frame 1:
       <td>
          <strong>Type: Number</strong><br/>
          <strong>Name: cpu</strong><br/>
-         <strong>Labels: {"host": "b"}</strong>
+         <strong>Labels: &#123;"host": "b"&#125;</strong>
       </td>
    </tr>
    <tr>
@@ -267,7 +267,7 @@ Remainder Data:
 Additional Properties or Considerations:
 
 - In this format, the full dimension (e.g. "host"=value) is extracted from the values within a field, instead of being declared within the fields schema like the other formats.
-- Since dimensions are represented in fields that are present for all derived series, this can not hold mixed dimension keys so all series will have the same set of dimension keys. For example, one could not have net.bytes{host="a"} and net.bytes{host="a",int="eth0"} together - the first would have to become net.bytes{host="a",**int=""**}
+- Since dimensions are represented in fields that are present for all derived series, this can not hold mixed dimension keys so all series will have the same set of dimension keys. For example, one could not have net.bytes&#123;host="a"&#125; and net.bytes&#123;host="a",int="eth0"&#125; together - the first would have to become net.bytes&#123;host="a",**int=""**&#125;
 - It is unclear if a bool type Field should be considered a value field (e.g. and up/down metric) or a dimension (where it would be treated conceptually like labels)
 
 ## Converting Between Time Series Formats
