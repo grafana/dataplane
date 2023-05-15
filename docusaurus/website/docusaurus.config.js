@@ -82,9 +82,30 @@ const config = {
             title: "Tools & Examples",
             items: [
               {
-                label: "Mock datasource plugin",
+                label: "Mock Data Source Plugin",
                 href: "https://grafana.com/plugins/grafana-mock-datasource",
               },
+              {
+                label: "Example Data Frames (JSON)",
+                href: "https://github.com/grafana/dataplane/tree/main/examples/data",
+              },
+              {
+                label: "Go Testing/Example Library",
+                href: "https://pkg.go.dev/github.com/grafana/dataplane/examples",
+              },
+              {
+                label: "Go Dataplane Library",
+                href: "https://pkg.go.dev/github.com/grafana/dataplane/sdata",
+              },
+            ],
+          },
+          {
+            title: "Other Resources",
+            items: [
+              {
+                label: "Go Plugin Data Package",
+                href: "hhttps://pkg.go.dev/github.com/grafana/grafana-plugin-sdk-go/data",
+              }
             ],
           },
           {
