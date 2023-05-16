@@ -39,7 +39,7 @@ export default function Home(): JSX.Element {
         <h2>What's New</h2>
         {siteConfig.customFields.newItems.slice(0, 5).map((item) => (
           <div>
-            <h3>{item.title}</h3>
+            <h3>{item.title} ({item.dateString})</h3>
             <div dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(item.content, {USE_PROFILES: {html: true}})}}></div>
           </div>
         ))}

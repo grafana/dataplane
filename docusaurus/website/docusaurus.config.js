@@ -134,6 +134,7 @@ const config = {
       {
         title: "Grafana 10",
         content: "In Grafana 10 <a href=\"https://grafana.com\">Grafana (TODO WHAT NEW LINK)</a> Prometheus and Loki metric queries as well as Server Side Expressions are now dataplane enabled.",
+        dateString: "June 10, 2023",
       }
     ]
   },
