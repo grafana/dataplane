@@ -5,6 +5,7 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import GrafanaLogo from "./homepage_logo.svg";
 import styles from "./index.module.css";
+import DOMPurify from 'dompurify';
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
@@ -34,6 +35,15 @@ export default function Home(): JSX.Element {
   return (
     <Layout title={`${siteConfig.title}`} description={siteConfig.tagline}>
       <HomepageHeader />
+      <div>
+        <h2>What's New</h2>
+        {siteConfig.customFields.newItems.slice(0, 5).map((item) => (
+          <div>
+            <h3>{item.title}</h3>
+            <div dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(item.content, {USE_PROFILES: {html: true}})}}></div>
+          </div>
+        ))}
+      </div>
     </Layout>
   );
 }
