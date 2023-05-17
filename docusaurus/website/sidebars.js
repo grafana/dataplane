@@ -8,6 +8,7 @@ const sidebars = {
       { id: "numeric", label: "Numeric", type: "doc" },
       { id: "logs", label: "Logs", type: "doc" },
       { id: "heatmap", label: "Heatmap", type: "doc" },
+      { id: "table", label: "Table", type: "doc" },
     ],
   },
 };
