@@ -1,8 +1,6 @@
 package transformations
 
 import (
-	"errors"
-
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 )
 
@@ -11,5 +9,17 @@ type LimitOptions struct {
 }
 
 func Limit(input []*data.Frame, options LimitOptions) ([]*data.Frame, error) {
-	return nil, errors.New("limit transformation not implemented yet")
+	limit := options.LimitField
+	if limit <= 0 {
+		limit = 10
+	}
+	for _, frame := range input {
+		if frame != nil {
+			rowsCount := frame.Rows()
+			for i := limit; i < rowsCount; i++ {
+				frame.DeleteRow(limit)
+			}
+		}
+	}
+	return input, nil
 }
