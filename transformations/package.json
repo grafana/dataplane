@@ -1,0 +1,7 @@
+{
+  "name": "@grafana/transformations",
+  "private": true,
+  "scripts": {
+    "test:backend": "go test -v ./..."
+  }
+}

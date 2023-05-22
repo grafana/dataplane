@@ -1,0 +1,26 @@
+# Merge transformation
+
+**Contract version**: 0.1
+
+**Contract status**: Draft/Early proposal
+
+Merge transformation allows you to merge multiple dataframes into a single dataframe. Use this transformation to combine the result from multiple queries into one single result.
+
+## Merge contract pipeline
+
+- **ID**:
+  - `merge`
+- **Input format**:
+  - Array of data frames / `[]*data.Frame`
+  - Frames can be in any [format](./../contract)
+- **Output format**:
+  - Array of data frames / `[]*data.Frame` (Max Length: 1)
+- **Input options**:
+  - This transformation doesn't accept any options
+
+## Merging behavior
+
+- Input frames array must have at least one frame
+- Field uniqueness will be computed by field name + field type + field labels
+- First frame will be used as reference frame. (it means, frame name, applicable frame meta will be copied from first frame)
+- When merging, if a field not found in existing merged frame, then it will be backfilled with nulls/defaults.

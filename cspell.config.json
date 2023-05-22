@@ -2,9 +2,12 @@
   "ignorePaths": [
     "node_modules/",
     "go.work",
-    "**/*_test.go"
+    "**/*.css",
+    "**/*_test.go",
+    "package.json"
   ],
   "words": [
+    "clsx",
     "dataframe",
     "dataframes",
     "dataplane",
