@@ -41,7 +41,7 @@ Version: 0.0
 
 Any other field is ignored.
 
-## Example
+### Example
 
 Following is an example of a logs frame in go
 
@@ -64,12 +64,12 @@ the same can be represented as
 | 2022-02-16 16:50:47.027 +0000 GMT       | message two                     | error                                 | xyz-002                         | {"hello":"world"}                                                                      |
 | 2022-02-16 16:50:47.027 +0000 GMT       | message three                   | warning                               | 111-003                         | {"hello":"world", "foo": 123.45, "bar" :["yellow","red"], "baz" : { "name": "alice" }} |
 
-## Meta data requirements
+### Meta data requirements
 
 - Frame type must be set to `FrameTypeLogLines`/`log-lines`
 - Frame meta can optionally specify `preferredVisualisationType:logs` as meta data. Without this property, explore page will be rendering the logs data as table instead in logs view
 
-## Invalid cases
+### Invalid cases
 
 - Frame without time field
 - Frame without string field
