@@ -10,8 +10,8 @@ Version: 0.0
 
 - **Time field** - _required_
   - There must be one non nullable time field with name `timestamp`, this will be considered the time field.
-- **Message field** - _required_
-  - There must be one non nullable string field with name `body`, this will be considered the message field.
+- **Body field** - _required_
+  - There must be one non nullable string field with name `body`, this will be considered the message body field.
 - **Severity field** - _optional_
   - This is optional field
   - Level/Severity of the log line can be represented with this field.
