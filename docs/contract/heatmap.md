@@ -4,13 +4,13 @@ Status: EARLY Draft/Proposal
 
 Heatmaps are used to show the magnitude of a phenomenon as color in two dimensions. The variation in color may give visual cues about how the phenomenon is clustered or varies over space.
 
-## Heatmap buckets (HeatmapBuckets)
+## Heatmap Rows (HeatmapRows)
 
 Version: 0.0
 
 The first field represents the X axis, the rest of the fields indicate rows in the heatmap.  
-The true numeric range of each bucket can be indicated using an "le" label. When absent,
-The field display is used for the bucket label.
+The true numeric range of each row can be indicated using an "le" label. When absent,
+The field display is used for the row label.
 
 Example:
 
@@ -57,9 +57,9 @@ Example:
 </table>
 
 Note: [Timeseries wide](./timeseries.md#time-series-wide-format-timeserieswide) can be used directly
-as heatmap-buckets, in this case each value field becomes a row in the heatmap.
+as heatmap-rows, in this case each value field becomes a row in the heatmap.
 
-## Heatmap scanlines (HeatmapScanlines)
+## Heatmap cells (HeatmapCells)
 
 Version: 0.0
 
@@ -146,53 +146,6 @@ The field names for yMax|yMin|y indicate the aggregation period or the supplied 
 - yMin: the values are from to bucket above
 - y: the values are in the middle of the bucket
 
-## Heatmap sparse (HeatmapSparse)
+### Sparse heatmaps
 
-Version: 0.0
-
-This format is similar to Heatmap scanlines, except that each cell is independent from its adjacent values.
-Unlike scanlines, this allows resolutions to change over time. Where scanline has uniformity of cells over time, heatmap sparse allows for variability of cells along the x axis(Time).
-
-Example:
-
-<table>
-  <tr>
-    <td>
-      <strong>Type: Time</strong><br/>
-      <strong>Name: xMin</strong>
-    </td>
-    <td>
-      <strong>Type: Time</strong><br/>
-      <strong>Name: xMax</strong>
-    </td>
-    <td>
-      <strong>Type: Number</strong><br/>
-      <strong>Name: yMin</strong>
-    </td>
-    <td>
-      <strong>Type: Number</strong><br/>
-      <strong>Name: yMax</strong>
-    </td>
-    <td>
-      <strong>Type: Number</strong><br/>
-      <strong>Name: Value</strong>
-    </td>
-  </tr>
-  <tr>
-    <td>2022-05-24 18:19:51</td>
-    <td>2022-05-24 18:19:52</td>
-    <td>100</td>
-    <td>200</td>
-    <td>1</td>
-  </tr>
-  <tr>
-    <td>2022-05-24 18:19:52</td>
-    <td>2022-05-24 18:19:53</td>
-    <td>200</td>
-    <td>400</td>
-    <td>2</td>
-  </tr>
-</table>
-
-- For high resolution with many gaps, this will require less space
-- This format is much less optimized for fast render and lookup than the uniform "scanlines" approach
+When both min+max fields exist for Y and/or Y, the dimension does not need to be uniformly distributed. For high resolution with many gaps this approach can be smaller and more efficient.
