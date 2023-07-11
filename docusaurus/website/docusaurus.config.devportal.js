@@ -75,7 +75,7 @@ const config = {
             items: [
               {
                 label: "Contract",
-                to: "/contract",
+                to: "/",
               },
             ],
           },
