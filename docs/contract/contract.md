@@ -1,3 +1,8 @@
+---
+id: contract
+title: Data Plane Contract - Technical Specification
+---
+
 # Data Plane Contract - Technical Specification
 
 Status: Draft
