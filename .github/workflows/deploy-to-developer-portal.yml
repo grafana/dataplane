@@ -33,7 +33,7 @@ jobs:
           sed -i 's/title: Data Plane Contract - Technical Specification/title: Data Plane Contract - Technical Specification\nslug:\ \//g' ./docs/contract/contract.md
           
       - name: Build documentation website
-        run: npm run docs:build -- --config docusaurus.config.devportal.js
+        run: yarn docs:build:devportal
         
       - id: 'auth'
         uses: 'google-github-actions/auth@v1'
