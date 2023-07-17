@@ -148,4 +148,4 @@ The field names for yMax|yMin|y indicate the aggregation period or the supplied 
 
 ### Sparse heatmaps
 
-When both min+max fields exist for Y and/or Y, the dimension does not need to be uniformly distributed. For high resolution with many gaps this approach can be smaller and more efficient.
+When both min+max fields exist for X and/or Y, the dimension does not need to be uniformly distributed. For high resolution with many gaps this approach can be smaller and more efficient.
