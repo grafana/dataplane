@@ -7,7 +7,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/fs"
-	"os"
 	"strings"
 
 	"github.com/grafana/grafana-plugin-sdk-go/data"
@@ -119,7 +118,7 @@ func GetExamples() (Examples, error) {
 				return err
 			}
 
-			parts := strings.Split(path, string(os.PathSeparator))
+			parts := strings.Split(path, "/") // embed is linux sy
 			if len(parts) < 5 {
 				return fmt.Errorf("unexpected test/example file path length, want at least 4 but got %v for %q", len(parts), path)
 			}
