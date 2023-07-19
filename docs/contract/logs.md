@@ -24,7 +24,7 @@ Version: 0.0
   - Unique identifier of the log line
 - **Attributes field** - _optional_
   - The first string field with the name `attributes` is the attributes field.
-  - Other systems call these as labels
+  - Other systems may refer to this with other names, for example Loki calls these "labels"
   - This field represent additional attributes of the log line.
   - Field type must be json raw message type. Example value: `{}`, `{"hello":"world", "foo": 123.45, "bar" :["yellow","red"], "baz" : { "name": "alice" }}`
     - Should not be empty string.
