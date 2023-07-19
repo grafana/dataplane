@@ -9,26 +9,29 @@ Version: 0.0
 ### Properties and field requirements
 
 - **Time field** - _required_
-  - The first time field with the name `timestamp` is the time field.
-  - it must be non nullable
+  - There must be one non nullable time field with name `timestamp`, this will be considered the time field.
 - **Body field** - _required_
-  - The first string field with the name `body` is the body field.
-  - it must be non nullable
+  - There must be one non nullable string field with name `body`, this will be considered the message body field.
 - **Severity field** - _optional_
-  - The first string field with the name `severity` is the severity field.
-  - Represents the severity/level of the log line
-  - If no severity field is found, consumers/client will decide the log level. Example: logs panel will try to parse the message field and determine the log level
+  - This is optional field
+  - Level/Severity of the log line can be represented with this field.
+  - First matching string field with name `severity` will be considered as severity field
+  - If no level field found, consumers/client will decide the log level. Example: logs panel will try to parse the message field and determine the log level
   - Log level can be one of the values specified in the docs [here](https://grafana.com/docs/grafana/latest/explore/logs-integration/)
 - **ID field** - _optional_
-  - The first string field with the name `id` is the id field.
-  - Unique identifier of the log line
+  - This optional field
+  - Unique identified of the log line
+  - This have to be a string field. (either nullable or non-nullable string field)
+  - First matching string field with name `id` will be considered as severity field
+  - If no id field found, consumers/client will decide the id field as required.
 - **Attributes field** - _optional_
-  - The first string field with the name `attributes` is the attributes field.
-  - Other systems may refer to this with other names, for example Loki calls these "labels"
-  - This field represent additional attributes of the log line.
+  - This is an optional field
+  - This field is also known as labels
+  - This field represent additional attributes of the log line. This is also known as labels field.
   - Field type must be json raw message type. Example value: `{}`, `{"hello":"world", "foo": 123.45, "bar" :["yellow","red"], "baz" : { "name": "alice" }}`
     - Should not be empty string.
     - Value should be represented with `Record<string,any>` type in javascript.
+  - First matching string field with name `attributes` will be considered as attributes field
 
 Any other field is ignored.
 
