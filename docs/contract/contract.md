@@ -22,9 +22,8 @@ A **_data type_** definition or declaration in this framework includes both a ki
   - [Multi](./numeric.md#numeric-multi-format-numericmulti)
   - [Long](./numeric.md#numeric-many-format-numericlong)
 - [Heatmap](./heatmap.md)
-  - [Buckets](./heatmap.md#heatmap-buckets-heatmapbuckets)
-  - [Scanlines](./heatmap.md#heatmap-scanlines-heatmapscanlines)
-  - [Sparse](./heatmap.md#heatmap-sparse-heatmapsparse)
+  - [Rows](./heatmap.md#heatmap-rows-heatmaprows)
+  - [Cells](./heatmap.md#heatmap-cells-heatmapcells)
 - [Logs](./logs.md)
   - [LogLines](./logs.md#loglines)
 
