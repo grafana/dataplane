@@ -54,8 +54,10 @@ function HomepageHeader() {
               styles.heroSubtitle
             )}
           >
-            {siteConfig.tagline}
+            {siteConfig.title}{" "}
+            <span style={{ fontWeight: "normal" }}></span>
           </h1>
+          <p className="margin-left--md text--bold">{siteConfig.tagline}</p>
           <Link
             className="margin-left--md button button--primary button--lg"
             to="/contract"
