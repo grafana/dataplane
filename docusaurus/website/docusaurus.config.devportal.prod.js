@@ -1,10 +1,7 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require("prism-react-renderer/themes/github");
-const darkCodeTheme = require("prism-react-renderer/themes/dracula");
-// const remark = require("remark");
-// const stripHTML = require("remark-strip-html");
+const { grafanaPrismTheme } = require("./src/theme/prism");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -106,7 +103,7 @@ const config = {
               {
                 label: "Go Plugin Data Package",
                 href: "hhttps://pkg.go.dev/github.com/grafana/grafana-plugin-sdk-go/data",
-              }
+              },
             ],
           },
           {
@@ -126,8 +123,12 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} Grafana Labs. Built with Docusaurus.`,
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        theme: grafanaPrismTheme,
+      },
+      colorMode: {
+        defaultMode: "dark",
+        disableSwitch: true,
+        respectPrefersColorScheme: false,
       },
     }),
 };

@@ -4,6 +4,9 @@
     "docs:build": {
       "outputs": []
     },
+    "docs:start": {
+      "outputs": []
+    },
     "test": {
       "inputs": ["*.go", "go.mod"],
       "outputs": []
