@@ -12,6 +12,7 @@
   "scripts": {
     "spellcheck": "cspell -c cspell.config.json \"**/*.{ts,tsx,js,go,md,mdx,yml,yaml,json,scss,css}\"",
     "docs:build": "turbo docs:build",
+    "docs:build:devportal": "turbo docs:build -- --config=docusaurus.config.devportal.js",
     "test:backend": "turbo test:backend",
     "test": "turbo test:backend"
   },

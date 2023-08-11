@@ -44,5 +44,5 @@ jobs:
         uses: google-github-actions/upload-cloud-storage@v1
         with:
           path: './docusaurus/website/build/'
-          destination: 'grafana_developer_portal/dataplane'
+          destination: 'staging-developer-portal/dataplane'
           parent: false
