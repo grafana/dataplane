@@ -3,6 +3,8 @@
 
 const { grafanaPrismTheme } = require("./src/theme/prism");
 
+const devPortalHome = "https://grafana-dev.com/developers";
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Grafana Data Plane",
@@ -18,7 +20,16 @@ const config = {
     defaultLocale: "en",
     locales: ["en"],
   },
-  plugins: [],
+
+  plugins: [
+    [
+      "docusaurus-lunr-search",
+      {
+        disableVersioning: true,
+      },
+    ],
+  ],
+
   presets: [
     [
       "classic",
@@ -52,10 +63,10 @@ const config = {
         },
         items: [
           {
-            type: "doc",
-            docId: "contract",
+            href: devPortalHome,
+            label: "Portal Home",
             position: "right",
-            label: "Contract",
+            target: "_self",
           },
           {
             href: "https://www.github.com/grafana/dataplane",
@@ -73,6 +84,11 @@ const config = {
               {
                 label: "Contract",
                 to: "/",
+              },
+              {
+                label: "Portal Home",
+                href: devPortalHome,
+                target: "_self",
               },
             ],
           },
