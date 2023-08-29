@@ -3,7 +3,7 @@
 
 const { grafanaPrismTheme } = require("./src/theme/prism");
 
-const devPortalHome = "https://grafana-dev.com/developers";
+const devPortalHome = "https://grafana.com/developers";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
