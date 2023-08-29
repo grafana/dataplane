@@ -20,7 +20,14 @@ const config = {
     defaultLocale: "en",
     locales: ["en"],
   },
-  plugins: [],
+  plugins: [
+    [
+      "docusaurus-lunr-search",
+      {
+        disableVersioning: true,
+      },
+    ],
+  ],
   presets: [
     [
       "classic",
