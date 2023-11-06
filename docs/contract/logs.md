@@ -24,7 +24,7 @@ Version: 0.0
   - Unique identifier of the log line
 - **Labels field** - _optional_
   - The first field with the name `labels` is the labels field.
-  - This field represent additional labels of the log line.
+  - This field represents additional information about the log line.
   - Field type must be json raw message type. Example value: `{}`, `{"hello":"world", "foo": 123.45, "bar" :["yellow","red"], "baz" : { "name": "alice" }}`
     - Value should be represented with `Record<string,any>` type in javascript.
 
