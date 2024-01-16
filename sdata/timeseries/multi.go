@@ -34,8 +34,6 @@ func NewMultiFrame(refID string, v data.FrameTypeVersion) (*MultiFrame, error) {
 
 // values must be a numeric slice such as []int64, []float64, []*float64, etc or []bool / []*bool.
 func (mfs *MultiFrame) AddSeries(metricName string, l data.Labels, t []time.Time, values interface{}) error {
-	var err error
-
 	if mfs == nil || len(*mfs) == 0 {
 		return fmt.Errorf("zero frames when calling AddSeries must call NewMultiFrame first") // panic? maybe?
 	}
@@ -46,7 +44,10 @@ func (mfs *MultiFrame) AddSeries(metricName string, l data.Labels, t []time.Time
 
 	valueField := data.NewField(metricName, l, values)
 	timeField := data.NewField("time", nil, t)
+	return mfs.addSeriesFields(timeField, valueField)
+}
 
+func (mfs *MultiFrame) addSeriesFields(timeField *data.Field, valueField *data.Field) error {
 	if valueField.Len() != timeField.Len() {
 		// return error since creating the frame will eventually fail to marshal due to the
 		// arrow constraint that fields must be of the same length.
@@ -55,6 +56,7 @@ func (mfs *MultiFrame) AddSeries(metricName string, l data.Labels, t []time.Time
 		return fmt.Errorf("invalid series, time and value must be of the same length")
 	}
 
+	var err error
 	valueFieldType := valueField.Type()
 	if !valueFieldType.Numeric() && valueFieldType != data.FieldTypeBool && valueFieldType != data.FieldTypeNullableBool {
 		err = fmt.Errorf("value type %s is not valid time series value type", valueFieldType)
