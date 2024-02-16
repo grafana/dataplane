@@ -16,7 +16,7 @@
 
 ### Invalid Cases
 
-- The is not at least both a time field and a value field (unless the single frame "no data" case)
+- There is not at least both a time field and a value field (unless the single frame "no data" case)
 - The "No Data" case is present (a frame with no fields) alongside data
 - Possibly Warning and not error:
   - Duplicate items (identified by name+dimensions)
