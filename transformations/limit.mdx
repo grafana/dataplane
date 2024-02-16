@@ -1,0 +1,25 @@
+# Limit transformation
+
+**Contract version**: 1.0
+
+**Contract status**: In use
+
+Limit transformation allows you to restrict number of rows in a frame.
+
+## Limit contract pipeline
+
+- **ID**:
+  - `limit`
+- **Input format**:
+  - Array of data frames / `[]*data.Frame`
+  - Frames can be in any [format](./../contract)
+- **Output format**:
+  - Array of data frames / `[]*data.Frame`
+  - Frames can be in any [format](./../contract)
+- **Input options**:
+  - **Limit Field**: Number of rows to keep. Default: 10
+
+## Limiting Behavior
+
+- If a frame contains more rows than `limitField`, remaining rows will be truncated.
+- If a frame contains less rows than `limitField`, no operations will be performed.

@@ -18,7 +18,6 @@ const config = {
     defaultLocale: "en",
     locales: ["en"],
   },
-  plugins: [],
   presets: [
     [
       "classic",
@@ -39,7 +38,19 @@ const config = {
       }),
     ],
   ],
-
+  plugins: [
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "transformations",
+        routeBasePath: "/transformations",
+        path: "../../transformations",
+        sidebarPath: require.resolve("./sidebars-transformations.js"),
+        editUrl:
+          "https://github.com/grafana/dataplane/edit/main/transformations",
+      },
+    ],
+  ],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -57,6 +68,11 @@ const config = {
             label: "Contract",
           },
           {
+            href: "/transformations",
+            position: "right",
+            label: "Transformations",
+          },
+          {
             href: "https://www.github.com/grafana/dataplane",
             label: "GitHub",
             position: "right",
@@ -70,8 +86,12 @@ const config = {
             title: "Docs",
             items: [
               {
-                label: "Contract",
+                label: "Data Plane Contract",
                 to: "/contract",
+              },
+              {
+                label: "Transformations",
+                href: "/transformations",
               },
             ],
           },

@@ -6,6 +6,7 @@
   "private": true,
   "workspaces": [
     "sdata",
+    "transformations",
     "docusaurus/website",
     "examples"
   ],
