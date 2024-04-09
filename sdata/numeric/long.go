@@ -95,11 +95,11 @@ func validateAndGetRefsLong(lf *LongFrame, validateData bool) (Collection, error
 			})
 		}
 	}
-	sortNumericMetricRef(c.Refs)
+	SortNumericMetricRef(c.Refs)
 	return c, nil
 }
 
-func sortNumericMetricRef(refs []MetricRef) {
+func SortNumericMetricRef(refs []MetricRef) {
 	sort.SliceStable(refs, func(i, j int) bool {
 		iRef := refs[i]
 		jRef := refs[j]

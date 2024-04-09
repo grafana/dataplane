@@ -88,7 +88,7 @@ func validateAndGetRefsWide(wf *WideFrame, validateData bool) (Collection, error
 		}
 		c.Refs = append(c.Refs, MetricRef{field})
 	}
-	sortNumericMetricRef(c.Refs)
+	SortNumericMetricRef(c.Refs)
 	return c, nil
 }
 
