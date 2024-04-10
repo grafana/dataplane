@@ -123,3 +123,48 @@ func TestNoDataFromNew(t *testing.T) {
 		viaFrames(long)
 	})
 }
+
+func TestSortNumericMetricRef(t *testing.T) {
+	t.Run("sort by metric name", func(t *testing.T) {
+		metricA := numeric.MetricRef{ValueField: data.NewField("metric_a", nil, []float64{})}
+		metricB := numeric.MetricRef{ValueField: data.NewField("metric_b", nil, []float64{})}
+		metricC := numeric.MetricRef{ValueField: data.NewField("metric_c", nil, []float64{})}
+		input := []numeric.MetricRef{
+			metricC,
+			metricA,
+			metricB,
+		}
+		numeric.SortNumericMetricRef(input)
+		expected := []numeric.MetricRef{
+			metricA,
+			metricB,
+			metricC,
+		}
+
+		require.Equal(t, expected, input)
+	})
+
+	t.Run("sort by labels", func(t *testing.T) {
+		metricA := numeric.MetricRef{ValueField: data.NewField("metric", data.Labels{"a": "1"}, []float64{})}
+		metricB := numeric.MetricRef{ValueField: data.NewField("metric", data.Labels{"b": "2"}, []float64{})}
+		metricC := numeric.MetricRef{ValueField: data.NewField("metric", data.Labels{"c": "3"}, []float64{})}
+		metricNilLabel := numeric.MetricRef{ValueField: data.NewField("metric", nil, []float64{})}
+		input := []numeric.MetricRef{
+			metricNilLabel,
+			metricC,
+			metricA,
+			metricNilLabel,
+			metricB,
+		}
+		numeric.SortNumericMetricRef(input)
+		expected := []numeric.MetricRef{
+			metricNilLabel,
+			metricNilLabel,
+			metricA,
+			metricB,
+			metricC,
+		}
+
+		require.Equal(t, expected, input)
+	})
+}
