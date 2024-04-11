@@ -133,6 +133,5 @@ func validateAndGetRefsMulti(mf *MultiFrame, validateData bool) (Collection, err
 		}
 		c.Refs = append(c.Refs, MetricRef{frame.Fields[valueFields[0]]})
 	}
-	SortNumericMetricRef(c.Refs)
 	return c, nil
 }

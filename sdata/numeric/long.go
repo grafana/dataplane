@@ -95,7 +95,6 @@ func validateAndGetRefsLong(lf *LongFrame, validateData bool) (Collection, error
 			})
 		}
 	}
-	SortNumericMetricRef(c.Refs)
 	return c, nil
 }
 
