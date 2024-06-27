@@ -51,7 +51,7 @@ func (mfs *MultiFrame) addSeriesFields(timeField *data.Field, valueField *data.F
 	if valueField.Len() != timeField.Len() {
 		// return error since creating the frame will eventually fail to marshal due to the
 		// arrow constraint that fields must be of the same length.
-		// Alternatively we could pad, but this seems like it would be a programing error more than
+		// Alternatively we could pad, but this seems like it would be a programming error more than
 		// a data error to me.
 		return fmt.Errorf("invalid series, time and value must be of the same length")
 	}
