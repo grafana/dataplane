@@ -11,12 +11,12 @@
   ],
   "scripts": {
     "spellcheck": "cspell -c cspell.config.json \"**/*.{ts,tsx,js,go,md,mdx,yml,yaml,json,scss,css}\"",
-    "docs": "turbo docs:start",
-    "docs:build": "turbo docs:build",
+    "docs": "turbo run docs:start",
+    "docs:build": "turbo run docs:build",
     "docs:build:devportal:dev": "turbo docs:build -- --config=docusaurus.config.devportal.js",
     "docs:build:devportal:prod": "turbo docs:build -- --config=docusaurus.config.devportal.prod.js",
-    "test:backend": "turbo test:backend",
-    "test": "turbo test:backend"
+    "test:backend": "turbo run test:backend",
+    "test": "turbo run test:backend"
   },
   "repository": {
     "type": "git",
@@ -29,8 +29,9 @@
     "url": "https://github.com/grafana/dataplane/issues"
   },
   "homepage": "https://github.com/grafana/dataplane#readme",
+  "packageManager": "yarn@1.22.22",
   "devDependencies": {
-    "cspell": "^6.22.0",
-    "turbo": "^1.7.3"
+    "cspell": "8.9.1",
+    "turbo": "2.0.5"
   }
 }
