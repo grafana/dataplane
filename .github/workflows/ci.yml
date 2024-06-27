@@ -16,5 +16,9 @@ jobs:
           ref: ${{ github.ref }}
       - name: Install dependencies
         run: yarn install --immutable --prefer-offline
+      - name: Setup Go environment
+        uses: actions/setup-go@v3
+        with:
+          go-version: "1.22.4"
       - name: Test Backend
         run: yarn test:backend

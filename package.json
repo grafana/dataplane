@@ -11,12 +11,12 @@
   ],
   "scripts": {
     "spellcheck": "cspell -c cspell.config.json \"**/*.{ts,tsx,js,go,md,mdx,yml,yaml,json,scss,css}\"",
-    "docs": "turbo docs:start",
-    "docs:build": "turbo docs:build",
+    "docs": "turbo run docs:start",
+    "docs:build": "turbo run docs:build",
     "docs:build:devportal:dev": "turbo docs:build -- --config=docusaurus.config.devportal.js",
     "docs:build:devportal:prod": "turbo docs:build -- --config=docusaurus.config.devportal.prod.js",
-    "test:backend": "turbo test:backend",
-    "test": "turbo test:backend"
+    "test:backend": "turbo run test:backend",
+    "test": "turbo run test:backend"
   },
   "repository": {
     "type": "git",
