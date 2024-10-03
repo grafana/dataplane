@@ -2,7 +2,7 @@
 
 ## Properties Shared by All Time Series Based Formats
 
-- Frames should be sorted by the time column/field in ascending order[^3]
+- Frames should be sorted by the time column/field in ascending order[^1]
 - The Time field(s):
   - Should have no null values
   - Field name is for display purposes only, there should be no labels
@@ -182,7 +182,7 @@ Notes:
 
 Version: 0.1
 
-This is a response format common to SQL like systems[^4]. See [Grafana documentation: Multiple dimensions in table format](https://grafana.com/docs/grafana/latest/basics/timeseries-dimensions/#multiple-dimensions-in-table-format) for some more simple (but not complete) examples. It currently exists as a data transformation within some datasources[^5] in the backend that query SQL-like data, see [this Go Example for how that code works](https://pkg.go.dev/github.com/grafana/grafana-plugin-sdk-go/data#example-Frame-TableLikeLongTimeSeries).
+This is a response format common to SQL like systems[^2]. See [Grafana documentation: Multiple dimensions in table format](https://grafana.com/docs/grafana/latest/basics/timeseries-dimensions/#multiple-dimensions-in-table-format) for some more simple (but not complete) examples. It currently exists as a data transformation within some datasources[^3] in the backend that query SQL-like data, see [this Go Example for how that code works](https://pkg.go.dev/github.com/grafana/grafana-plugin-sdk-go/data#example-Frame-TableLikeLongTimeSeries).
 
 The format is called "Long" because there are more rows to hold the same series than the "wide" format and therefore it grows _longer_.
 
