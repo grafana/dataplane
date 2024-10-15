@@ -284,13 +284,13 @@ Additional Properties or Considerations:
          <strong>Modifies Data</strong>
       </td>
       <td>
-         <strong>Properties</strong>
+         <strong>Properties and <em>Notes</em></strong>
       </td>
    </tr>
    <tr>
       <td>Wide</td>
       <td>Multi</td>
-      <td><strong>No</strong>[^6]</td>
+      <td><strong>No<sup>*</sup></strong></td>
       <td>
          <ul>
             <li>One Frame to multiple Frames</li>
@@ -313,7 +313,7 @@ Additional Properties or Considerations:
    </tr>
    <tr>
       <td>Wide</td>
-      <td><em>Long</em>[^7]</td>
+      <td><em>Long<sup>†</sup></em></td>
       <td>Yes</td>
       <td>
          <ul>
@@ -326,7 +326,7 @@ Additional Properties or Considerations:
    <tr>
       <td>Long</td>
       <td>Wide</td>
-      <td>Yes[^8]</td>
+      <td>Yes<sup>‡</sup></td>
       <td>
          <ul>
             <li>One Frame to One Frame</li>
@@ -363,9 +363,10 @@ Additional Properties or Considerations:
 
 ## Notes
 
-[^3]: This is because sorting is generally expensive in terms of resources, and is best done by the database behind a datasource in most cases.
-[^4]: I don't believe our current SQL datasources strictly follow this, but some Azure ones do. This was either due to miscommunication about the intent of this format and the upgrade to Grafana 8 and/or lack of understanding about breaking changes, or both.
-[^5]: This transformation happens when queried with "Format As=Time Series". The problem with the transformation happening at this stage of the pipeline is that while it does give the user Time Series for a common Time Series in Table format, it makes it so the "Table View" of the data doesn't like up with SQL returns from their query. **TODO: Define this general concept later, maybe call it "What you see is _NOT_ what you get", "Data Miscommunication", something.** This means we either need to return two things (sort of like exemplars?), or the operation should be moved, or something else.
-[^6]: Of the time series format, only when the format being converted to is "Multi" can the underlying time series data not be manipulated
-[^7]: In practice, I haven't seen any cases for converting to the Long format, only reading it in. Perhaps it may be requested as an export format at some point, but basically this is for illustration presently.
-[^8]: This is used by the SQL datasources to extract time series from the "Long" format (via go sdk/data pkg). In hindsight I sort of wish we had gone with LongToMany instead. See "related" in <a href="https://github.com/grafana/grafana-plugin-sdk-go/issues/315#issuecomment-817839070">this issue comment</a>.
+<p><sup>*</sup>Of the time series format, only when the format being converted to is "Multi" can the underlying time series data not be manipulated</p>
+<p><sup>†</sup>In practice, I haven't seen any cases for converting to the Long format, only reading it in. Perhaps it may be requested as an export format at some point, but basically this is for illustration presently.</p>
+<p><sup>‡</sup>This is used by the SQL datasources to extract time series from the "Long" format (via go sdk/data pkg). In hindsight I sort of wish we had gone with LongToMany instead. See "related" in <a href="https://github.com/grafana/grafana-plugin-sdk-go/issues/315#issuecomment-817839070">this issue comment</a>.</p>
+
+[^1]: This is because sorting is generally expensive in terms of resources, and is best done by the database behind a datasource in most cases.
+[^2]: I don't believe our current SQL datasources strictly follow this, but some Azure ones do. This was either due to miscommunication about the intent of this format and the upgrade to Grafana 8 and/or lack of understanding about breaking changes, or both.
+[^3]: This transformation happens when queried with "Format As=Time Series". The problem with the transformation happening at this stage of the pipeline is that while it does give the user Time Series for a common Time Series in Table format, it makes it so the "Table View" of the data doesn't like up with SQL returns from their query. **TODO: Define this general concept later, maybe call it "What you see is _NOT_ what you get", "Data Miscommunication", something.** This means we either need to return two things (sort of like exemplars?), or the operation should be moved, or something else.
