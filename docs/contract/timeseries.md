@@ -295,7 +295,6 @@ Additional Properties or Considerations:
          <ul>
             <li>One Frame to multiple Frames</li>
             <li>Each value (numeric) field alongside a copy of the time field from the Wide Frame is moved to its own individual Frame when converted to the Multi format</li>
-            <li><em><sup>*</sup>Of the time series format, only when the format being converted to is "Multi" can the underlying time series data not be manipulated</em></li>
          </ul>
       </td>
    </tr>
@@ -321,7 +320,6 @@ Additional Properties or Considerations:
             <li>One Frame to one Frame</li>
             <li>Labels are extracted from the value Fields, and become string Fields with a name that matches all the keys found in all labels. The label values become Field values in the corresponding fields.</li>
             <li>Because the string field will be present, label/dimension keys that exist for one series must exist for all the series, and therefore the series may be altered in that label keys that did not exist are created (likely with a value of null). This effectively may create series that didn't exist</li>
-            <li><em><sup>†</sup>In practice, I haven't seen any cases for converting to the Long format, only reading it in. Perhaps it may be requested as an export format at some point, but basically this is for illustration presently.</em></li>
          </ul>
       </td>
    </tr>
@@ -335,7 +333,6 @@ Additional Properties or Considerations:
             <li>String Fields become labels on the value (numeric) fields (label keys come from Field name, label values from the Field's values.</li>
             <li>Repeated timestamps in a single time field from the Long frame are de-duplicated in the time field in the Wide Frame</li>
             <li>Because rows (timestamps) may be missing in the data of Long format, nulls may need to be inserted into the series to make them all share the same time field (a property of Wide)</li>
-            <li><em><sup>‡</sup>This is used by the SQL datasources to extract time series from the "Long" format (via go sdk/data pkg). In hindsight I sort of wish we had gone with LongToMany instead. See "related" in <a href="https://github.com/grafana/grafana-plugin-sdk-go/issues/315#issuecomment-817839070">this issue comment</a>.</em></li>
          </ul>
       </td>
    </tr>
@@ -365,6 +362,10 @@ Additional Properties or Considerations:
 <!-- Footnotes themselves at the bottom. -->
 
 ## Notes
+
+<p><sup>*</sup>Of the time series format, only when the format being converted to is "Multi" can the underlying time series data not be manipulated</p>
+<p><sup>†</sup>In practice, I haven't seen any cases for converting to the Long format, only reading it in. Perhaps it may be requested as an export format at some point, but basically this is for illustration presently.</p>
+<p><sup>‡</sup>This is used by the SQL datasources to extract time series from the "Long" format (via go sdk/data pkg). In hindsight I sort of wish we had gone with LongToMany instead. See "related" in <a href="https://github.com/grafana/grafana-plugin-sdk-go/issues/315#issuecomment-817839070">this issue comment</a>.</p>
 
 [^1]: This is because sorting is generally expensive in terms of resources, and is best done by the database behind a datasource in most cases.
 [^2]: I don't believe our current SQL datasources strictly follow this, but some Azure ones do. This was either due to miscommunication about the intent of this format and the upgrade to Grafana 8 and/or lack of understanding about breaking changes, or both.
