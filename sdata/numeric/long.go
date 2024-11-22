@@ -8,8 +8,6 @@ import (
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 )
 
-const FrameTypeNumericLong = "numeric_long"
-
 type LongFrame struct {
 	*data.Frame
 }

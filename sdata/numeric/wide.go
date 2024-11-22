@@ -7,8 +7,6 @@ import (
 	"github.com/grafana/grafana-plugin-sdk-go/data"
 )
 
-const FrameTypeNumericWide = "numeric_wide"
-
 type WideFrame struct {
 	*data.Frame
 }
