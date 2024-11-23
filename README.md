@@ -21,9 +21,11 @@
 This is a monorepo of Grafana dataplane tools and docs
 
 ## Docs
+
 - [Data Plane Contract - Technical Specification](https://grafana.github.io/dataplane/contract/)
 
 ## backend packages
 
-- [sdata](./sdata/) (**experimental** Structural way of building typed dataframes)
-- [examples](./examples/) (Examples of dataplane typed dataframes in json files, and a go library for using them in tests)
+- [contract](./contract/)- Data Plane Contract framework
+- [sdata](./sdata/) - **experimental** Structural way of building typed dataframes
+- [examples](./examples/) - Examples of dataplane typed dataframes in json files, and a go library for using them in tests
