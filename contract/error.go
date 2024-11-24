@@ -2,6 +2,16 @@ package contract
 
 import "errors"
 
+// ContractError represents an error with a message.
+type ContractError struct {
+	Message string
+}
+
+// Error returns the error message of the ContractError to make sure it compatible with error type.
+func (e *ContractError) Error() string {
+	return e.Message
+}
+
 // ContractErrors represents a list of ContractError.
 type ContractErrors []ContractError
 
@@ -23,18 +33,3 @@ func (contractErrors *ContractErrors) Error() string {
 	}
 	return err.Error()
 }
-
-// ContractError represents an error with a message.
-type ContractError struct {
-	Message string
-}
-
-// Error returns the error message of the ContractError to make sure it compatible with error type.
-func (e *ContractError) Error() string {
-	return e.Message
-}
-
-var (
-	// ErrContractCheckNotImplemented is an error indicating that the contract check is not implemented.
-	ErrContractCheckNotImplemented ContractError = ContractError{"contract check not implemented"}
-)

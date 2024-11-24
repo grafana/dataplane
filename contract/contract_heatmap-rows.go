@@ -6,11 +6,11 @@ import (
 )
 
 var (
-	// Contract_DirectoryListing_Version_Unknown represents DirectoryListing frame type contract with unknown version.
-	Contract_DirectoryListing_Version_Unknown Contract = New(
-		data.FrameTypeDirectoryListing,
+	// Contract_HeatmapRows_Version_Unstable represents an unstable contract for heatmap-rows frame type.
+	Contract_HeatmapRows_Version_Unstable Contract = New(
+		data.FrameType("heatmap-rows"),
 		data.FrameTypeVersion{0, 0},
-		ContractStageUnknown,
+		ContractStageUnstable,
 		rules.Rules{
 			rules.CheckAtLeastOneFrame,
 			//TODO: more rules to be added

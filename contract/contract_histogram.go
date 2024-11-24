@@ -6,9 +6,9 @@ import (
 )
 
 var (
-	// Contract_DirectoryListing_Version_Unknown represents DirectoryListing frame type contract with unknown version.
-	Contract_DirectoryListing_Version_Unknown Contract = New(
-		data.FrameTypeDirectoryListing,
+	// Contract_Histogram_Version_Unknown represents an unknown contract for Table frame type.
+	Contract_Histogram_Version_Unknown Contract = New(
+		"histogram",
 		data.FrameTypeVersion{0, 0},
 		ContractStageUnknown,
 		rules.Rules{
