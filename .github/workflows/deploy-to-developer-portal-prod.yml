@@ -42,12 +42,12 @@ jobs:
         run: yarn docs:build:devportal:prod
           
       - id: 'auth'
-        uses: 'google-github-actions/auth@v2'
+        uses: 'google-github-actions/auth@ba79af03959ebeac9769e648f473a284504d9193'
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
 
       - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v2'
+        uses: 'google-github-actions/setup-gcloud@77e7a554d41e2ee56fc945c52dfd3f33d12def9a'
        
       - name: 'Deploy to Developer Portal Bucket'
         run: |
