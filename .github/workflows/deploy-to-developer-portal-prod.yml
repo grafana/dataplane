@@ -1,4 +1,5 @@
 name: Deploy to Developer Portal PROD Bucket
+permissions: {}
 
 on:
   push:
@@ -12,9 +13,13 @@ jobs:
   deploy:
     name: Deploy docs to Developer Portal Bucket
     runs-on: ubuntu-latest
+    permissions:
+      contents: read #Clone repo
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Setup node
         uses: actions/setup-node@v4
