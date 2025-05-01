@@ -1,4 +1,6 @@
 name: CI
+permissions: {}
+
 on:
   pull_request:
   push:
@@ -9,10 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
     name: Run unit tests
+    permissions:
+      contents: read #Clone repo
+      statuses: write # Update GitHub status check with deploy preview link.
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
+          persist-credentials: false
           ref: ${{ github.ref }}
       - name: Install dependencies
         run: yarn install --immutable --prefer-offline
