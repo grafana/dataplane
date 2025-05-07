@@ -1,5 +1,7 @@
 name: Deploy to Developer Portal DEV Bucket
-permissions: {}
+permissions:
+  contents: read
+  id-token: write
 
 on:
   workflow_dispatch:

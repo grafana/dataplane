@@ -1,5 +1,7 @@
 name: Deploy to Developer Portal PROD Bucket
-permissions: {}
+permissions:
+  contents: read
+  id-token: write
 
 on:
   push:
