@@ -26,6 +26,9 @@ A **_data type_** definition or declaration in this framework includes both a ki
   - [Cells](./heatmap.md#heatmap-cells-heatmapcells)
 - [Logs](./logs.md)
   - [LogLines](./logs.md#loglines)
+- [Table](./table.md)
+  - [TablePlain](./table.md#tableplain-format)
+  - [TableFrame](./table.md#tableframe-format)
 
 ## Dimensional Set Based Kinds
 
