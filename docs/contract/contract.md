@@ -1,7 +1,12 @@
-# Data Plane Contract - Technical Specification
-
-Status: Draft
-Version: 0.1
+---
+id: contract
+title: Data Plane Contract - Technical Specification
+description: Data Plane Contract - Technical Specification.
+keywords:
+  - data-plane-contract
+  - dataplane
+  - dataframe
+---
 
 ## Doc Objective
 
