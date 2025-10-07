@@ -21,7 +21,7 @@ Query responses are often more than one single data frame.
 
 :::
 
-The data frame a column-oriented table (the _fields_) with metadata (the _frame_) attached. Since data frame columns can have labels attached to them (`key=value`, `key2=val`...), it can hold Prometheus like responses as well. 
+The data frame is a column-oriented table (the _fields_) with metadata (the _frame_) attached. Since data frame columns can have labels attached to them (`key=value`, `key2=val`...), it can hold Prometheus like responses as well. 
 
 Each field in a data frame contains optional information about the values in the field, such as units, scaling, and so on. By adding field configurations to a data frame, Grafana can configure visualizations automatically. For example, you could configure Grafana to automatically set the unit provided by the data source.
 
