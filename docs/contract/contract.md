@@ -1,8 +1,5 @@
 # Data Plane Contract - Technical Specification
 
-Status: Draft
-Version: 0.1
-
 ## Doc Objective
 
 Define in detail common query response schemas for data returned from data sources. This improves the experience for developers of both features and datasources. This will also improve the experience for users through more reliability and quality - which leads to more development time spent more towards improving experience.
