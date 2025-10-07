@@ -17,7 +17,7 @@ The data frame a column-oriented table (the _fields_) with metadata (the _frame_
 
 Each field in a data frame contains optional information about the values in the field, such as units, scaling, and so on. By adding field configurations to a data frame, Grafana can configure visualizations automatically. For example, you could configure Grafana to automatically set the unit provided by the data source.
 
-## Data planes overview  
+## Data plane overview  
 
 The data plane adds a property layer to the frame as metadata. It indicates the data frame _type_ (for example, a timeseries or a heatmap), which consists of a _kind_ (of data) and its _format_ (Prometheus-like, SQL-table-like). The use of data planes is generally not enforced, although it's mandatory for labeled data when using SQL expressions.
 
@@ -43,11 +43,11 @@ Besides interoperability, using data planes has other benefits.
 
 If you're a developer and data source author, you know what type of frames to output, and authors of features know what to expect for their input. This makes the platform scalable and development more efficient and less frustrating due to incompatibilities.
 
-In general, using data planes makes Grafana more reliable, with everything working as expected. A solid data plane contract would help to suggest what to do with your data. For example, if you're using a specific type, Grafana could suggest creating alert rules or certain visualizations in dashboards that work well with that type. Similarly, Grafana could suggest transformations that get you from the current type to another type support additional actions.
+In general, using the data plane makes Grafana more reliable, with everything working as expected. A solid data plane contract would help to suggest what to do with your data. For example, if you're using a specific type, Grafana could suggest creating alert rules or certain visualizations in dashboards that work well with that type. Similarly, Grafana could suggest transformations that get you from the current type to another type support additional actions.
 
 ## What if I don't use data planes?
 
-If you don't use data planes, consumers of data have to infer the type from the data returned, which has a few problems:
+If you don't use a data plane, consumers of data have to infer the type from the data returned, which has a few problems:
 
 - Users are uncertain about how to write queries to work with different things.
 - Error messages can become seemingly unrelated to what users are doing.
@@ -62,7 +62,7 @@ Usually data sources have a drop down in the query UI to assert the query type, 
 
 While this may involve extra work for the user, defining the data plane type is easier at query time, since the data source knows more about the data that comes from the system behind the data source. 
 
-## List of data sources that use data planes
+## List of data sources that use the data plane
 
 As of October 2025, the following data sources send data plane data in at least some of their responses:
 
