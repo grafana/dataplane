@@ -29,7 +29,7 @@ Data plane types are to data frames what TypeScript is to JavaScript.
 
 The data plane contract is a written set of rules that explain how producers of data (datasources, transformations) must form the frames, and how data consumers (like dashboards, alerting, and apps) can expect the data they receive to be like. In short, it describes the rules for valid and invalid schemas for each data frame type.
 
-![Data plane diagram](https://github.com/grafana/dataplane/tree/main/docs/img/data-types.jpg)
+![Data plane diagram](./images/datas-types.jpg)
 
 ## Why use data planes?
 
