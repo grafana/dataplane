@@ -1,7 +1,7 @@
 ---
 id: dataplanes-dataframes
 title: Grafana data structure 
-description: Dataplanes and Dataframes.
+description: Data planes and Data frames.
 keywords:
   - data-plane-contract
   - dataplane
@@ -29,7 +29,7 @@ Each field in a data frame contains optional information about the values in the
 
 ## Data planes overview  
 
-The data plane adds a property layer to the frame as metadata. It indicates the data frame _type_ (for example, a timeseries or a heatmap), which consists of a _kind_ (of data) and its _format_ (Prometheus-like, SQL-table-like).
+The data plane adds a property layer to the frame as metadata. It indicates the data frame _type_ (for example, a timeseries or a heatmap), which consists of a _kind_ (of data) and its _format_ (Prometheus-like, SQL-table-like). The use of data planes is generally not enforced, although it's mandatory for labeled data when using SQL expressions.
 
 :::tip
 
@@ -39,11 +39,13 @@ Data plane types are to data frames what TypeScript is to JavaScript.
 
 The data plane contract is a written set of rules that explain how producers of data (datasources, transformations) must form the frames, and how data consumers (like dashboards, alerting, and apps) can expect the data they receive to be like. In short, it describes the rules for valid and invalid schemas for each data frame type.
 
+![Data plane diagram](https://github.com/grafana/dataplane/tree/main/docs/img/data-types.jpg)
+
 ## Why use data planes?
 
-Although the use of data planes is not enforced, the main objective of the data plane is to make Grafana more self-interoperable between data sources and features like dashboards and alerting. 
+The main objective of the data plane is to make Grafana more self-interoperable between data sources and features like dashboards and alerting. With data planes compatibility becomes about supporting data types and not specific features and data sources. 
 
-With data planes compatibility becomes about supporting data types and not specific features and data sources. For example, if data source produces type "A", and alerting and certain visualizations accept type "A", then that data source works with alerting and those visualizations.
+For example, if data source produces type "A", and alerting and certain visualizations accept type "A", then that data source works with alerting and those visualizations.
 
 ### Benefits
 
@@ -51,7 +53,7 @@ Besides interoperability, using data planes has other benefits.
 
 If you're a developer and data source author, you know what type of frames to output, and authors of features know what to expect for their input. This makes the platform scalable and development more efficient and less frustrating due to incompatibilities.
 
-In general, using Grafana becomes more reliable, with everything working as expected. This helps to suggest what actions can be taken with the data. For example, if you're using a specific type, Grafana can suggest creating alert rules or certain visualizations in dashboards that work well with that type. Similarly, Grafana can suggest transformations that get you from the current type to another type support additional actions.
+In general, using data planes makes Grafana more reliable, with everything working as expected. A solid data plane contract would help to suggest what to do with your data. For example, if you're using a specific type, Grafana could suggest creating alert rules or certain visualizations in dashboards that work well with that type. Similarly, Grafana could suggest transformations that get you from the current type to another type support additional actions.
 
 ## What if I don't use data planes?
 
