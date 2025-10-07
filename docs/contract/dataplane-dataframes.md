@@ -9,7 +9,7 @@ Data plane types are to data frames what TypeScript is to JavaScript.
 
 :::
 
-The data plane contract is a written set of rules that explain how producers of data (datasources, transformations) must form the frames, and how data consumers (like dashboards, alerting, and apps) can expect the data they receive to be like. In short, it describes the rules for valid and invalid schemas for each data frame type.
+The data plane contract is a written set of rules that explain how producers of data (data sources, transformations) must form the frames, and how data consumers (like dashboards, alerting, and apps) can expect the data they receive to be like. In short, it describes the rules for valid and invalid schemas for each data frame type.
 
 ## Data frames overview  
 
@@ -45,7 +45,7 @@ If you're a developer and data source author, you know what type of frames to ou
 
 In general, using the data plane makes Grafana more reliable, with everything working as expected. A solid data plane contract would help to suggest what to do with your data. For example, if you're using a specific type, Grafana could suggest creating alert rules or certain visualizations in dashboards that work well with that type. Similarly, Grafana could suggest transformations that get you from the current type to another type support additional actions.
 
-## What if I don't use data planes?
+## What if I don't use a data plane?
 
 If you don't use a data plane, consumers of data have to infer the type from the data returned, which has a few problems:
 
