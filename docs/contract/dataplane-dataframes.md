@@ -29,7 +29,7 @@ Each field in a data frame contains optional information about the values in the
 
 The data plane adds a property layer to the frame as metadata. It indicates the data frame _type_ (for example, a timeseries or a heatmap), which consists of a _kind_ (of data) and its _format_ (Prometheus-like, SQL-table-like). The use of data planes is generally not enforced, although it's mandatory for labeled data when using SQL expressions.
 
-![Data plane diagram](./images/datas-types.jpg)
+![Data plane diagram](./images/data-types.jpg)
 
 ## Why use a data plane?
 
