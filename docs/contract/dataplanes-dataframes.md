@@ -1,5 +1,5 @@
 ---
-id: contract
+id: dataplanes-dataframes
 title: Grafana data structure 
 description: Dataplanes and Dataframes.
 keywords:
