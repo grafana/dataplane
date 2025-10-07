@@ -1,13 +1,3 @@
----
-id: dataplanes-dataframes
-title: Grafana data structure 
-description: Data planes and Data frames.
-keywords:
-  - data-plane-contract
-  - dataplane
-  - dataframe
-slug: /  
----
 
 # Grafana data structure
 

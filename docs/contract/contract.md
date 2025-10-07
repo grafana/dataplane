@@ -1,12 +1,4 @@
----
-id: contract
-title: Data Plane Contract - Technical Specification
-description: Data Plane Contract - Technical Specification.
-keywords:
-  - data-plane-contract
-  - dataplane
-  - dataframe
----
+# Data Plane Contract - Technical Specification
 
 ## Doc Objective
 
