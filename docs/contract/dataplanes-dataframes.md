@@ -3,6 +3,14 @@
 
 Grafana supports a variety of different data sources, each with its own data model. To make this possible, Grafana consolidates the query results from each of these data sources into one unified data structure called a **data frame**. The **data plane** is built on top of the data frame and includes additional information on what the data frame holds. 
 
+:::tip
+
+Data plane types are to data frames what TypeScript is to JavaScript.
+
+:::
+
+The data plane contract is a written set of rules that explain how producers of data (datasources, transformations) must form the frames, and how data consumers (like dashboards, alerting, and apps) can expect the data they receive to be like. In short, it describes the rules for valid and invalid schemas for each data frame type.
+
 ## Data frames overview  
 
 A data frame is a data structure that consolidates the query results from your data sources, providing a common container in Grafana. 
@@ -21,17 +29,9 @@ Each field in a data frame contains optional information about the values in the
 
 The data plane adds a property layer to the frame as metadata. It indicates the data frame _type_ (for example, a timeseries or a heatmap), which consists of a _kind_ (of data) and its _format_ (Prometheus-like, SQL-table-like). The use of data planes is generally not enforced, although it's mandatory for labeled data when using SQL expressions.
 
-:::tip
-
-Data plane types are to data frames what TypeScript is to JavaScript.
-
-:::
-
-The data plane contract is a written set of rules that explain how producers of data (datasources, transformations) must form the frames, and how data consumers (like dashboards, alerting, and apps) can expect the data they receive to be like. In short, it describes the rules for valid and invalid schemas for each data frame type.
-
 ![Data plane diagram](./images/datas-types.jpg)
 
-## Why use data planes?
+## Why use a data plane?
 
 The main objective of the data plane is to make Grafana more self-interoperable between data sources and features like dashboards and alerting. With data planes compatibility becomes about supporting data types and not specific features and data sources. 
 
