@@ -1,14 +1,16 @@
 # Data Plane Contract - Technical Specification
 
-## Doc Objective
+Grafana supports a variety of different data sources, each with its own data model. To make this possible, Grafana consolidates the query results from each of these data sources into one unified data structure called a **data frame**. The **data plane** adds a property layer to the data frame with information about the data frame type. Read [Grafana data structure](./dataplane-dataframes.md) for an introduction to data frames and the data plane layer.
 
-Define in detail common query response schemas for data returned from data sources. This improves the experience for developers of both features and datasources. This will also improve the experience for users through more reliability and quality - which leads to more development time spent more towards improving experience.
+## How is the data plane layer built?
 
-## Kinds and Formats
+The data plane layer indicates the data frame **type** (for example: time series data, numeric, or a histogram). In turn, the data frame type consists of a **kind** (of data) and the data **format** (Prometheus-like, SQL-table-like). 
 
-There are logical **_kinds_** (like Time Series Data, Numeric, Histogram, etc), and there are **_formats_** that a kind can be in.
+For example, the `TimeSeriesWide` type consists of the kind "Time Series" and the format "Wide".
 
-A **_data type_** definition or declaration in this framework includes both a kind and format. For example, "TimeSeriesWide" is: kind: "Time Series", format: "Wide".
+## Available data types
+
+The following types are available:
 
 - [Time series](./timeseries.md)
   - [Wide](./timeseries.md#time-series-wide-format-timeserieswide)
@@ -24,89 +26,90 @@ A **_data type_** definition or declaration in this framework includes both a ki
 - [Logs](./logs.md)
   - [LogLines](./logs.md#loglines)
 
-## Dimensional Set Based Kinds
+## Data sets 
 
-Within a data type (kind+format), there can be multiple **_items_** of data that are uniquely identified. This forms a **_set_** of data items. For example, in the numeric kind there can be a set of numbers, or, in the time series kind, a set of time series-es :-).
+A data type (kind+format) can have multiple items, forming a **set** of data items. For example, the numeric kind can have a set of numbers, or the time series kind can have a set of time series.
 
-Each item of data in a set is uniquely identified by its **_name_** and **_dimensions_**.
+Each item of data in a set is uniquely identified by its **name** and its **dimensions**. Dimensions are facets of data (such as "location" or "host") with a corresponding value. For example, {"host"="a", "location"="new york"}.
 
-Dimensions are facets of data (such as "location" or "host") with a corresponding value. For example, {"host"="a", "location"="new york"}.
+In a data frame, dimensions are in either a field's label property or in string field.
 
-Within a dataframe, dimensions are in either a field's Labels property or in string field(s).
+### Properties of dimensional set-based kinds
 
-### Properties Shared by all Dimensional Set Based Kinds
+- If multiple items have the same name, they need to have different dimensions (for example, labels) that uniquely identifies each item.
+- The item name should appear in the `name` property of each value (numeric or bool typed) field, as any other label.
+- A response can have different item names in the response. Note that SSE doesn't currently handle this option.
 
-- When there are multiple items that have the same name, they should have different dimensions (e.g. labels) that uniquely identifies each item[^1].
-- The item name should appear in the Name property of each value (numeric or bool typed) Field, as should any Labels[^2]
-- A response can have different item names in the response (Note: SSE doesn't currently handle this)
+## Remainder data
 
-## Remainder Data
+Data is encoded into data frame(s), therefore all types are implemented as an array of `data.Frames`.
 
-Data is encoded into dataframe(s), therefore all types are implemented as an array of data.Frames.
+There can be data in data frame(s) that's not part of the data type's data. This extra data is the **remainder data** and is free to be used as convenient. What data becomes remainder data is dependent on and specified in the data type. Generally, it can be additional frames and/or additional fields of a certain field type.
 
-There can be data in dataframe(s) that is not part of the data type's data. This extra data is **_remainder data_**. What readers choose to do with this data is open. However, libraries based on this contract must clearly delineate remainder data from data that is part of the type.
+:::caution
+If you chose to use reminder data, libraries based on this contract must clearly delineate remainder data from data that is part of the type.
+:::
 
-What data becomes remainder data is dependent on and specified in the data type. Generally, it can be additional frames and/or additional fields of a certain field type.
+## Possible responses
 
-## Invalid Data
+### Invalid data response
 
-Although there is remainder data, there are still cases where the reader should error. The situation for this is when the data type specifier exists on the frame(s), but rules about that type are not followed.
+If a data type is specified but the response doesn't follow the data type's rules, you'll get an error.
 
-## "No Data" and Empty
+### Empty response
 
-There are two named cases for when a response is lacking data and also doesn't have an error.
+If you retrieve one or more data items from a data source but an item has no values, that item is said to be an **"Empty value"**. In this case, the required data frame fields need to be present, although the fields themselves will have no values.
 
-**_"No Data"_** is for when we retrieve a response from a datasource but the response has no data items. The encoding for the form of a type is a single frame, with the data type declaration, and a zero length of fields (null or []). This is for the case when the entire set has no items. No Data may also be a response with no frames (and no error). However, in this case the Type and other metadata can not be returned -- so the single frame form is usually preferable.
+### "No Data" response
 
-We retrieve one or more data items from a datasource but an item has no values, that item is said to be an "**_Empty value_**". In this case, the required dataframe fields should still be present (but the fields themselves each have no values).
+If you retrieve a response from a data source but the response has no data items, the response is said to be a **"No Data"** response.
 
-## Error Responses
+No data response can happen:
 
-An error is returned from outside the dataframes using the `Error` and `Status` properties on a [DataResponse](https://pkg.go.dev/github.com/grafana/grafana-plugin-sdk-go/backend#DataResponse).
+- If the entire set has no items.
+- If the response has no frame and no error is returned.
 
-When an error is returned with the DataResponse, a single frame with no fields may be included as well. If the error is present, this will not be considered "No Data". This frame is included so that metadata, in particular a Frame's `ExecutedQueryString`, can be returned to the caller with an error.
+. The encoding for the form of a type is a single frame, with the data type declaration, and a zero length of fields (null or []). 
 
-Note: In a backend plugin an error can be returned from a [`DataQueryHandler`](https://pkg.go.dev/github.com/grafana/grafana-plugin-sdk-go/backend#QueryDataHandler) call. This should only be used when the entire request (all queries) will fail.
 
-## Multi Data Type Responses
 
-The case where a response has multiple data types in a single result (Within a RefID) exists but is currently out of scope for this version of the spec.
+However, in this case the Type and other metadata can not be returned -- so the single frame form is usually preferable.
 
-However, it needs to be possible to add support for this case. For now, the following logic is suggested:
+### Error responses
 
-- Per data type, within a response, only one format should be used. For example: There may be TimeSeriesWide and NumericLong, but there should _not_ be TimeSeriesWide and TimeSeriesLong.
-- The borders between the types are derived from adjacent frames (within the array of frames) that share the same data type.
-- If a reader does not opt-in into multi-type responses, it should be able to get the first data type that matches what the reader is looking for.
+An error response is returned from outside the data frames using the `Error` and `Status` properties on a [DataResponse](https://pkg.go.dev/github.com/grafana/grafana-plugin-sdk-go/backend#DataResponse).
+
+When an error is returned with the DataResponse, a single frame with no fields may be included as well, but it won't be considered **"No Data"** due to the error. This frame is included so that metadata, in particular a frame's `ExecutedQueryString`, can be returned to the caller with an error.
+
+In a plugin backend, the call [`DataQueryHandler`](https://pkg.go.dev/github.com/grafana/grafana-plugin-sdk-go/backend#QueryDataHandler) can return an error. Use this option only when the entire request (all queries) fail.
+
+### Responses with multiple data types
+
+If you don't use multi-type responses, you'll get the first data type that matches what you're querying for.
+
+However, at the moment, this specification doesn't cover if a response has multiple data types in a single result (within a `RefID`). In the meantime, if you have responses with multiple data types:
+
+- Use only one format per data type within a response. For example, you may use TimeSeriesWide and NumericLong, but do not mix TimeSeriesWide and TimeSeriesLong.
+- Derive the borders between the types from adjacent frames (within the array of frames) that share the same data type.
 
 ## Versioning
 
-An object of this contract is to be as stable as possible. When `1.0` is reached, changes should be limited to enhancements until a `2.0` version, which is something that should generally be avoided in datatype versions.
+:::important
+The data plane contract needs to be as stable as possible. 
+:::
 
-### Contract Versioning
+Versioning recommendations:
 
-The contract version is only for concepts impacting the overarching concepts of the contract such as error handling or multi data type responses.
+- Use contract versions only for changes impacting overarching concepts such as error handling or multi-data type responses. In other words, when version `1.0` is reached, limit changes to enhancements before working on version `2.0`.
+- The addition of new data types, or the modification of data types should not impact the contract version.
 
-The addition of new datatypes, or changing of datatypes does not impact the contract version.
+### Data type versions
 
-### Datatype Versions
+Give each data type a version in major/minor form (x.x). The version is located in the `Frame.Meta.TypeVersion` property.
 
-Each individual datatype is given a version in major/minor form (x.x). The version is located in the `Frame.Meta.TypeVersion` property.
-
-- Version `0.0` means the datatype is either pre contract, or in very early development.
-- Version `0.x` means the datatype is well defined in the contract, but may change based on things learned for wider usage.
-- Version `1.0` should be a stable data type, and should have no changes from the previous version
+- Version `0.0` means the data type is either pre contract, or in very early development.
+- Version `0.x` means the data type is well defined in the contract, but may change based on things learned for wider usage.
+- Version `1.0` should be a stable data type, and should have no changes from the previous version.
 - Minor version changes beyond `1.0` must be backward compatible for data reader implementations. They also must be forward compatible with other `1.x` versions for readers as well (but without enhancement support).
 
-## Considerations to Add / Todo
 
-- Meta-data (Frame and Field)
-- If the type/schema is declared, do we need to support the case where, for whatever reason, the type can be considered multiple Kinds at once?
-- So far ordering is ignored (For example, the order of Value Fields in TimeSeriesWide or the order of Frames in TimeSeriesMulti). Need to decide if ordering as any symantec meaning, if so what it is, and consider it properties of converting between formats
-  - Note: Issue on ordering [https://github.com/grafana/grafana-plugin-sdk-go/issues/366](https://github.com/grafana/grafana-plugin-sdk-go/issues/366) , not sure if it is display issue or not at this time
-
-<!-- Footnotes themselves at the bottom. -->
-
-## Notes
-
-[^1]: In theory they can still be passed for things like visualization because Fields do have a numeric ordering within the frame, but this won't work with things like SSE/alerting.
-[^2]: Using Field Name keeps naming consistent with the TimeSeriesMulti format (vs using the Frame Name)
