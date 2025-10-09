@@ -52,34 +52,28 @@ If you chose to use reminder data, libraries based on this contract must clearly
 
 ## Possible responses
 
-### Invalid data response
-
-If a data type is specified but the response doesn't follow the data type's rules, you'll get an error.
-
-### Empty response
+### Empty item response
 
 If you retrieve one or more data items from a data source but an item has no values, that item is said to be an **"Empty value"**. In this case, the required data frame fields need to be present, although the fields themselves will have no values.
 
 ### "No Data" response
 
-If you retrieve a response from a data source but the response has no data items, the response is said to be a **"No Data"** response.
+If a response has no data items, the response is a **"No Data"** response.
 
 No data response can happen:
 
 - If the entire set has no items.
 - If the response has no frame and no error is returned.
 
-. The encoding for the form of a type is a single frame, with the data type declaration, and a zero length of fields (null or []). 
+If you have a response with no data, send a single frame, including the data type, and don't use any other fields on that frame.
 
+### Invalid data response
 
-
-However, in this case the Type and other metadata can not be returned -- so the single frame form is usually preferable.
+If a data type is specified but the response doesn't follow the data type's rules, you'll get an error.
 
 ### Error responses
 
-An error response is returned from outside the data frames using the `Error` and `Status` properties on a [DataResponse](https://pkg.go.dev/github.com/grafana/grafana-plugin-sdk-go/backend#DataResponse).
-
-When an error is returned with the DataResponse, a single frame with no fields may be included as well, but it won't be considered **"No Data"** due to the error. This frame is included so that metadata, in particular a frame's `ExecutedQueryString`, can be returned to the caller with an error.
+If a query returns an error, the error response is returned from outside the data frames using the `Error` and `Status` properties on [DataResponse](https://pkg.go.dev/github.com/grafana/grafana-plugin-sdk-go/backend#DataResponse). When an error is returned with the DataResponse, a single frame with no fields may be included as well, but it won't be considered **"No Data"** due to the error. This frame is included so that metadata, in particular a frame's `ExecutedQueryString`, can be returned with the error.
 
 In a plugin backend, the call [`DataQueryHandler`](https://pkg.go.dev/github.com/grafana/grafana-plugin-sdk-go/backend#QueryDataHandler) can return an error. Use this option only when the entire request (all queries) fail.
 
