@@ -65,7 +65,7 @@ No data response can happen:
 - If the entire set has no items.
 - If the response has no frame and no error is returned.
 
-If you have a response with no data, send a single frame, including the data type, and don't use any other fields on that frame.
+If you have a response with no data, send a single frame (containing the data type, if applicable) and don't use any other fields on that frame.
 
 ### Invalid data response
 
@@ -79,10 +79,15 @@ In a plugin backend, the call [`DataQueryHandler`](https://pkg.go.dev/github.com
 
 ### Responses with multiple data types
 
+:::caution
+Multiple data type responeses are not supported at the moment.
+:::
+
 If you don't use multi-type responses, you'll get the first data type that matches what you're querying for.
 
-However, at the moment, this specification doesn't cover if a response has multiple data types in a single result (within a `RefID`). In the meantime, if you have responses with multiple data types:
+Although not supported, if you need to use responses with multiple data types (within a `RefID`), the following applies:
 
+- Responses might not work as expected.
 - Use only one format per data type within a response. For example, you may use TimeSeriesWide and NumericLong, but do not mix TimeSeriesWide and TimeSeriesLong.
 - Derive the borders between the types from adjacent frames (within the array of frames) that share the same data type.
 
