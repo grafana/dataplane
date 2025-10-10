@@ -3,7 +3,7 @@
 const sidebars = {
   doc: {
     Contract: [
-      { id: "dataplane-dataframes", label: "Data plane and data frames", type: "doc" },
+      { id: "dataplane-dataframes", label: "Data structure", type: "doc" },
       { id: "contract", label: "Data Plane Contract Tech Spec", type: "doc" },
       { id: "timeseries", label: "Timeseries", type: "doc" },
       { id: "numeric", label: "Numeric", type: "doc" },

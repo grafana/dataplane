@@ -9,7 +9,7 @@ Data plane types are to data frames what TypeScript is to JavaScript.
 
 :::
 
-The data plane contract is a written set of rules that explain how producers of data (datasources, transformations) must form the frames, and how data consumers (like dashboards, alerting, and apps) can expect the data they receive to be like. In short, it describes the rules for valid and invalid schemas for each data frame type.
+The data plane contract is a written set of rules that explain how producers of data (data sources, transformations) must form the frames, and how data consumers (like dashboards, alerting, and apps) can expect the data they receive to be like. In short, it describes the rules for valid and invalid schemas for each data frame type.
 
 ## Data frames overview  
 
@@ -27,11 +27,13 @@ Each field in a data frame contains optional information about the values in the
 
 ## Data plane overview  
 
-The data plane adds a property layer to the frame as metadata. It indicates the data frame _type_ (for example, a timeseries or a heatmap), which consists of a _kind_ (of data) and its _format_ (Prometheus-like, SQL-table-like). The use of data planes is generally not enforced, although it's mandatory for labeled data when using SQL expressions.
+The data plane adds a property layer to the frame as metadata. It indicates the data frame _type_ (for example, a timeseries or a heatmap), which consists of a _kind_ (of data) and its _format_ (Prometheus-like, SQL-table-like). 
 
 ![Data plane diagram](./images/data-types.jpg)
 
-## Why use a data plane?
+The use of data plane is generally not enforced, although it's mandatory for labeled data when using SQL expressions. Refer to [Requirements to support SQL expressions](https://grafana.com/developers/plugin-tools/how-to-guides/data-source-plugins/sql-requirements) to learn more.
+
+## Why use the data plane layer?
 
 The main objective of the data plane is to make Grafana more self-interoperable between data sources and features like dashboards and alerting. With data planes compatibility becomes about supporting data types and not specific features and data sources. 
 
@@ -45,7 +47,7 @@ If you're a developer and data source author, you know what type of frames to ou
 
 In general, using the data plane makes Grafana more reliable, with everything working as expected. A solid data plane contract would help to suggest what to do with your data. For example, if you're using a specific type, Grafana could suggest creating alert rules or certain visualizations in dashboards that work well with that type. Similarly, Grafana could suggest transformations that get you from the current type to another type support additional actions.
 
-## What if I don't use data planes?
+## What if I don't use the data plane layer?
 
 If you don't use a data plane, consumers of data have to infer the type from the data returned, which has a few problems:
 
