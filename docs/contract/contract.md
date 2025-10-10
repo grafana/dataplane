@@ -38,7 +38,7 @@ In a data frame, dimensions are in either a field's label property or in string 
 
 - If multiple items have the same name, they need to have different dimensions (for example, labels) that uniquely identifies each item.
 - The item name should appear in the `name` property of each value (numeric or bool typed) field, as any other label.
-- A response can have different item names in the response. Note that SSE doesn't currently handle this option.
+- A response can have different item names in the response. Note that Server Side Expressions (SSE) doesn't currently handle this option.
 
 ## Remainder data
 
