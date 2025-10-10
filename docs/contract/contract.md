@@ -42,7 +42,7 @@ In a data frame, dimensions are in either a field's label property or in string 
 
 ## Remainder data
 
-Data is encoded into data frame(s), therefore all types are implemented as an array of `data.Frames`.
+Data is encoded into data frame(s), therefore all types are implemented as an array of `data.Frame`.
 
 There can be data in data frame(s) that's not part of the data type's data. This extra data is the **remainder data** and is free to be used as convenient. What data becomes remainder data is dependent on and specified in the data type. Generally, it can be additional frames and/or additional fields of a certain field type.
 
