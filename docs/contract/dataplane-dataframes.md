@@ -31,7 +31,7 @@ The data plane adds a property layer to the frame as metadata. It indicates the 
 
 ![Data plane diagram](./images/data-types.jpg)
 
-The use of data planes is generally not enforced, although it's mandatory for labeled data when using SQL expressions. Refer to [Requirements to support SQL expressions](https://grafana.com/developers/plugin-tools/how-to-guides/data-source-plugins/sql-requirements) to learn more.
+The use of data plane is generally not enforced, although it's mandatory for labeled data when using SQL expressions. Refer to [Requirements to support SQL expressions](https://grafana.com/developers/plugin-tools/how-to-guides/data-source-plugins/sql-requirements) to learn more.
 
 ## Why use the data plane layer?
 
