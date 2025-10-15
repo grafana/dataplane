@@ -25,6 +25,9 @@ The following types are available:
   - [Cells](./heatmap.md#heatmap-cells-heatmapcells)
 - [Logs](./logs.md)
   - [LogLines](./logs.md#loglines)
+- [Table](./table.md)
+  - [TablePlain](./table.md#tableplain-format)
+  - [TableFrame](./table.md#tableframe-format)
 
 ## Data sets 
 
