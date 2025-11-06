@@ -4,7 +4,7 @@ const sidebars = {
   doc: {
     Contract: [
       { id: "dataplane-dataframes", label: "Data structure", type: "doc" },
-      { id: "contract", label: "Data Plane Contract Tech Spec", type: "doc" },
+      { id: "contract", label: "Data Plane Contract Spec", type: "doc" },
       { id: "timeseries", label: "Timeseries", type: "doc" },
       { id: "numeric", label: "Numeric", type: "doc" },
       { id: "logs", label: "Logs", type: "doc" },

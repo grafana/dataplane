@@ -7,10 +7,10 @@ const devPortalHome = "https://grafana.com/developers";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Grafana Data Plane",
+  title: "Grafana Data Structure",
   tagline: "A contract of data types as the source of truth",
   url: "https://grafana.com/",
-  baseUrl: "developers/dataplane/",
+  baseUrl: "developers/dataplane/dataplane-dataframes",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.png",
@@ -69,7 +69,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "Grafana Data Plane",
+        title: "Grafana Data Structure",
         logo: {
           alt: "Grafana Logo",
           src: "img/logo.svg",
