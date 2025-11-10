@@ -10,7 +10,7 @@ const config = {
   title: "Grafana Data Structure",
   tagline: "A contract of data types as the source of truth",
   url: "https://grafana-dev.com/",
-  baseUrl: "developers/dataplane/dataplane-dataframes",
+  baseUrl: "developers/dataplane/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.png",
