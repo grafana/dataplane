@@ -5,6 +5,7 @@ const sidebars = {
     Contract: [
       { id: "contract", label: "Intro to data model", type: "doc" },
       { id: "data-structure", label: "Data structure", type: "doc" },
+      { id: "dataframes", label: "Data frames", type: "doc" },
       { id: "contract-spec", label: "Data plane contract spec", type: "doc" },
       { id: "timeseries", label: "Timeseries", type: "doc" },
       { id: "numeric", label: "Numeric", type: "doc" },
