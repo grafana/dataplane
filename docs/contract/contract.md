@@ -1,8 +1,91 @@
 # Introduction to the Grafana data structure
 
-Grafana supports a variety of different data sources, each with its own data model. To make this possible, Grafana consolidates the query results from each of these data sources into one unified data structure called a **data frame**. The **data plane** adds a property layer to the data frame with information about the data frame type. 
+Grafana supports a variety of different data sources, each with its own data model. To make this possible, Grafana consolidates the query results from each of these data sources into one unified data structure called a **data frame**. The **data plane** adds a property layer to the data frame with information about the data frame type and what the data frame holds.  
 
-Refer to [Grafana data structure](./data-structure.md) for an introduction to [data frames](./dataframes.md) and the [data plane layer](./contract-spec.md).
+:::tip
+
+Data plane types are to data frames what TypeScript is to JavaScript.
+
+:::
+
+The data plane contract is a written set of rules that explain how producers of data (data sources, transformations) must form the frames, and how data consumers (like dashboards, alerting, and apps) can expect the data they receive to be like. In short, it describes the rules for valid and invalid schemas for each data frame type.
+
+## Data frames overview  
+
+A data frame is a data structure that consolidates the query results from your data sources, providing a common container in Grafana. 
+
+:::caution
+
+Query responses are often more than one single data frame. 
+
+:::
+
+The data frame is a column-oriented table (the _fields_) with metadata (the _frame_) attached. Since data frame columns can have labels attached to them (`key=value`, `key2=val`...), it can hold Prometheus like responses as well. 
+
+Each field in a data frame contains optional information about the values in the field, such as units, scaling, and so on. By adding field configurations to a data frame, Grafana can configure visualizations automatically. For example, you could configure Grafana to automatically set the unit provided by the data source.
+
+## Data plane overview  
+
+The data plane adds a property layer to the frame as metadata. It indicates the data frame _type_ (for example, a timeseries or a heatmap), which consists of a _kind_ (of data) and its _format_ (Prometheus-like, SQL-table-like). 
+
+![Data plane diagram](./images/data-types.jpg)
+
+The use of data plane is generally not enforced, although it's mandatory for labeled data when using SQL expressions. Refer to [Requirements to support SQL expressions](https://grafana.com/developers/plugin-tools/how-to-guides/data-source-plugins/sql-requirements) to learn more.
+
+## Why use the data plane layer?
+
+The main objective of the data plane is to make Grafana more self-interoperable between data sources and features like dashboards and alerting. With data planes compatibility becomes about supporting data types and not specific features and data sources. 
+
+For example, if data source produces type "A", and alerting and certain visualizations accept type "A", then that data source works with alerting and those visualizations.
+
+### Benefits
+
+Besides interoperability, using data planes has other benefits.
+
+If you're a developer and data source author, you know what type of frames to output, and authors of features know what to expect for their input. This makes the platform scalable and development more efficient and less frustrating due to incompatibilities.
+
+In general, using the data plane makes Grafana more reliable, with everything working as expected. A solid data plane contract would help to suggest what to do with your data. For example, if you're using a specific type, Grafana could suggest creating alert rules or certain visualizations in dashboards that work well with that type. Similarly, Grafana could suggest transformations that get you from the current type to another type support additional actions.
+
+## What if I don't use the data plane layer?
+
+If you don't use a data plane, consumers of data have to infer the type from the data returned, which has a few problems:
+
+- Users are uncertain about how to write queries to work with different things.
+- Error messages can become seemingly unrelated to what users are doing.
+- Different features guess differently (for example, alerting vs. visualizations), making it hard for users and developers to know what to send.
+- On the consumer side, guessing code becomes more convoluted over time as more exceptions are added for various data sources.
+
+### What if my data source is schemaless and doesn't have kinds or types?
+
+You can propose a new data plane type: They're designed to grow into maturity, not limit innovation.
+
+Usually data sources have a drop down in the query UI to assert the query type, which appears as "format as". You can use this data source query information to produce a data plane-compatible type for the response.
+
+While this may involve extra work for the user, defining the data plane type is easier at query time, since the data source knows more about the data that comes from the system behind the data source. 
+
+## List of data sources that use the data plane
+
+As of October 2025, the following data sources send data plane data in at least some of their responses:
+
+- Prometheus, including Amazon and Azure variants
+- Loki
+- Azure Monitor 
+- Azure Data Explorer
+- Bigquery
+- Clickhouse
+- Cloudlflare
+- Databricks
+- Influx
+- MySQL
+- New Relic
+- Oracle 
+- Postgres 
+- Snowflake
+- Victoria metrics
+
+To see examples of data planes, refer to [data plane example data](https://github.com/grafana/dataplane/tree/main/examples/data) in GitHub.
+
+
 
 
 
