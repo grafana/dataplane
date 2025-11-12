@@ -1,114 +1,91 @@
-# Data Plane Contract - Technical Specification
+# Introduction to the Grafana data structure
 
-Grafana supports a variety of different data sources, each with its own data model. To make this possible, Grafana consolidates the query results from each of these data sources into one unified data structure called a **data frame**. The **data plane** adds a property layer to the data frame with information about the data frame type. Read [Grafana data structure](./dataplane-dataframes.md) for an introduction to data frames and the data plane layer.
+Grafana supports a variety of different data sources, each with its own data model. To make this possible, Grafana consolidates the query results from each of these data sources into one unified data structure called a **data frame**. The **data plane** adds a property layer to the data frame with information about the data frame type and what the data frame holds.  
 
-## How is the data plane layer built?
+:::tip
 
-The data plane layer indicates the data frame **type** (for example: time series data, numeric, or a histogram). In turn, the data frame type consists of a **kind** (of data) and the data **format** (Prometheus-like, SQL-table-like). 
+Data plane types are to data frames what TypeScript is to JavaScript.
 
-For example, the `TimeSeriesWide` type consists of the kind "Time Series" and the format "Wide".
+:::
 
-## Available data types
+The data plane contract is a written set of rules that explain how producers of data (data sources, transformations) must form the frames, and how data consumers (like dashboards, alerting, and apps) can expect the data they receive to be like. In short, it describes the rules for valid and invalid schemas for each data frame type.
 
-The following types are available:
+## Data frames overview  
 
-- [Time series](./timeseries.md)
-  - [Wide](./timeseries.md#time-series-wide-format-timeserieswide)
-  - [Long](./timeseries.md#time-series-long-format-timeserieslong-sql-like)
-  - [Multi](./timeseries.md#time-series-multi-format-timeseriesmulti)
-- [Numeric](./numeric.md)
-  - [Wide](./numeric.md#numeric-wide-format-numericwide)
-  - [Multi](./numeric.md#numeric-multi-format-numericmulti)
-  - [Long](./numeric.md#numeric-many-format-numericlong)
-- [Heatmap](./heatmap.md)
-  - [Rows](./heatmap.md#heatmap-rows-heatmaprows)
-  - [Cells](./heatmap.md#heatmap-cells-heatmapcells)
-- [Logs](./logs.md)
-  - [LogLines](./logs.md#loglines)
-
-## Data sets 
-
-A data type (kind+format) can have multiple items, forming a **set** of data items. For example, the numeric kind can have a set of numbers, or the time series kind can have a set of time series.
-
-Each item of data in a set is uniquely identified by its **name** and its **dimensions**. Dimensions are facets of data (such as "location" or "host") with a corresponding value. For example, {"host"="a", "location"="new york"}.
-
-In a data frame, dimensions are in either a field's label property or in string field.
-
-### Properties of dimensional set-based kinds
-
-- If multiple items have the same name, they need to have different dimensions (for example, labels) that uniquely identifies each item.
-- The item name should appear in the `name` property of each value (numeric or bool typed) field, as any other label.
-- A response can have different item names in the response. Note that Server Side Expressions (SSE) doesn't currently handle this option.
-
-## Remainder data
-
-Data is encoded into data frame(s), therefore all types are implemented as an array of `data.Frame`.
-
-There can be data in data frame(s) that's not part of the data type's data. This extra data is the **remainder data** and is free to be used as convenient. What data becomes remainder data is dependent on and specified in the data type. Generally, it can be additional frames and/or additional fields of a certain field type.
+A data frame is a data structure that consolidates the query results from your data sources, providing a common container in Grafana. 
 
 :::caution
-If you chose to use reminder data, libraries based on this contract must clearly delineate remainder data from data that is part of the type.
+
+Query responses are often more than one single data frame. 
+
 :::
 
-## Possible responses
+The data frame is a column-oriented table (the _fields_) with metadata (the _frame_) attached. Since data frame columns can have labels attached to them (`key=value`, `key2=val`...), it can hold Prometheus like responses as well. 
 
-### Empty item response
+Each field in a data frame contains optional information about the values in the field, such as units, scaling, and so on. By adding field configurations to a data frame, Grafana can configure visualizations automatically. For example, you could configure Grafana to automatically set the unit provided by the data source.
 
-If you retrieve one or more data items from a data source but an item has no values, that item is said to be an **"Empty value"**. In this case, the required data frame fields need to be present, although the fields themselves will have no values.
+## Data plane overview  
 
-### "No Data" response
+The data plane adds a property layer to the frame as metadata. It indicates the data frame _type_ (for example, a timeseries or a heatmap), which consists of a _kind_ (of data) and its _format_ (Prometheus-like, SQL-table-like). 
 
-If a response has no data items, the response is a **"No Data"** response.
+![Data plane diagram](./images/data-types.jpg)
 
-No data response can happen:
+The use of data plane is generally not enforced, although it's mandatory for labeled data when using SQL expressions. Refer to [Requirements to support SQL expressions](https://grafana.com/developers/plugin-tools/how-to-guides/data-source-plugins/sql-requirements) to learn more.
 
-- If the entire set has no items.
-- If the response has no frame and no error is returned.
+## Why use the data plane layer?
 
-If you have a response with no data, send a single frame (containing the data type, if applicable) and don't use any other fields on that frame.
+The main objective of the data plane is to make Grafana more self-interoperable between data sources and features like dashboards and alerting. With data planes compatibility becomes about supporting data types and not specific features and data sources. 
 
-### Invalid data response
+For example, if data source produces type "A", and alerting and certain visualizations accept type "A", then that data source works with alerting and those visualizations.
 
-If a data type is specified but the response doesn't follow the data type's rules, you'll get an error.
+### Benefits
 
-### Error responses
+Besides interoperability, using data planes has other benefits.
 
-If a query returns an error, the error response is returned from outside the data frames using the `Error` and `Status` properties on [DataResponse](https://pkg.go.dev/github.com/grafana/grafana-plugin-sdk-go/backend#DataResponse). When an error is returned with the DataResponse, a single frame with no fields may be included as well, but it won't be considered **"No Data"** due to the error. This frame is included so that metadata, in particular a frame's `ExecutedQueryString`, can be returned with the error.
+If you're a developer and data source author, you know what type of frames to output, and authors of features know what to expect for their input. This makes the platform scalable and development more efficient and less frustrating due to incompatibilities.
 
-In a plugin backend, the call [`DataQueryHandler`](https://pkg.go.dev/github.com/grafana/grafana-plugin-sdk-go/backend#QueryDataHandler) can return an error. Use this option only when the entire request (all queries) fail.
+In general, using the data plane makes Grafana more reliable, with everything working as expected. A solid data plane contract would help to suggest what to do with your data. For example, if you're using a specific type, Grafana could suggest creating alert rules or certain visualizations in dashboards that work well with that type. Similarly, Grafana could suggest transformations that get you from the current type to another type support additional actions.
 
-### Responses with multiple data types
+## What if I don't use the data plane layer?
 
-:::caution
-Multiple data type responeses are not supported at the moment.
-:::
+If you don't use a data plane, consumers of data have to infer the type from the data returned, which has a few problems:
 
-If you don't use multi-type responses, you'll get the first data type that matches what you're querying for.
+- Users are uncertain about how to write queries to work with different things.
+- Error messages can become seemingly unrelated to what users are doing.
+- Different features guess differently (for example, alerting vs. visualizations), making it hard for users and developers to know what to send.
+- On the consumer side, guessing code becomes more convoluted over time as more exceptions are added for various data sources.
 
-Although not supported, if you need to use responses with multiple data types (within a `RefID`), the following applies:
+### What if my data source is schemaless and doesn't have kinds or types?
 
-- Responses might not work as expected.
-- Use only one format per data type within a response. For example, you may use TimeSeriesWide and NumericLong, but do not mix TimeSeriesWide and TimeSeriesLong.
-- Derive the borders between the types from adjacent frames (within the array of frames) that share the same data type.
+You can propose a new data plane type: They're designed to grow into maturity, not limit innovation.
 
-## Versioning
+Usually data sources have a drop down in the query UI to assert the query type, which appears as "format as". You can use this data source query information to produce a data plane-compatible type for the response.
 
-:::important
-The data plane contract needs to be as stable as possible. 
-:::
+While this may involve extra work for the user, defining the data plane type is easier at query time, since the data source knows more about the data that comes from the system behind the data source. 
 
-Versioning recommendations:
+## List of data sources that use the data plane
 
-- Use contract versions only for changes impacting overarching concepts such as error handling or multi-data type responses. In other words, when version `1.0` is reached, limit changes to enhancements before working on version `2.0`.
-- The addition of new data types, or the modification of data types should not impact the contract version.
+As of October 2025, the following data sources send data plane data in at least some of their responses:
 
-### Data type versions
+- Prometheus, including Amazon and Azure variants
+- Loki
+- Azure Monitor 
+- Azure Data Explorer
+- Bigquery
+- Clickhouse
+- Cloudlflare
+- Databricks
+- Influx
+- MySQL
+- New Relic
+- Oracle 
+- Postgres 
+- Snowflake
+- Victoria metrics
 
-Give each data type a version in major/minor form (x.x). The version is located in the `Frame.Meta.TypeVersion` property.
+To see examples of data planes, refer to [data plane example data](https://github.com/grafana/dataplane/tree/main/examples/data) in GitHub.
 
-- Version `0.0` means the data type is either pre contract, or in very early development.
-- Version `0.x` means the data type is well defined in the contract, but may change based on things learned for wider usage.
-- Version `1.0` should be a stable data type, and should have no changes from the previous version.
-- Minor version changes beyond `1.0` must be backward compatible for data reader implementations. They also must be forward compatible with other `1.x` versions for readers as well (but without enhancement support).
+
+
 
 

@@ -7,7 +7,7 @@ const devPortalHome = "https://grafana-dev.com/developers";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Grafana Data Plane",
+  title: "Grafana Data Structure",
   tagline: "A contract of data types as the source of truth",
   url: "https://grafana-dev.com/",
   baseUrl: "developers/dataplane/",
