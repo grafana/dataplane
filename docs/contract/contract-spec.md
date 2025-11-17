@@ -10,7 +10,7 @@ For example, the `TimeSeriesWide` type consists of the kind "Time Series" and th
 
 ## Available data types
 
-The following types are available:
+The following data types are available:
 
 - [Time series](./timeseries.md)
   - [Wide](./timeseries.md#time-series-wide-format-timeserieswide)
