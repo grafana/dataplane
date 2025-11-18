@@ -1,8 +1,8 @@
-# Numeric Kind Formats
+# Numeric data frame kind
 
-Numeric Kinds are generally similar to their corresponding time series type, except that their value is a single number, instead of a series of (time, numeric value). So the value of each metric is a single number like 1, 2.3, or NaN
+Data frames of the kind _numeric_ are generally similar to their corresponding time series type, except that their value is a single number, instead of a series of (time, numeric value). 
 
-This generally corresponds to a prometheus instant vector, or a SQL table with string and number columns and multiple rows.
+In numeric kinds the value of each metric is a single number like 1, 2.3, or NaN. This generally corresponds to a Prometheus instant vector, or to a SQL table with string and number columns and multiple rows.
 
 ## Numeric Wide Format (NumericWide)
 

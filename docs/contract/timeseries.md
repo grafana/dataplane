@@ -1,6 +1,8 @@
-# Time Series Kind Formats
+# Time series data frame kind
 
-## Properties Shared by All Time Series Based Formats
+## Common properties
+
+Data frames of the kind _time series_ have the following properties:
 
 - Frames should be sorted by the time column/field in ascending order[^1]
 - The Time field(s):
@@ -70,7 +72,7 @@ The wide format has a set of time series in a single Frame that share the same t
   </tr>
 </table>
 
-It should have the following properties: (Also see Shared Properties):
+It should have the following properties: 
 
 - The first field of type Time is the time index of all the time series.
 - There should be only one Frame with the data type declaration.
@@ -369,4 +371,4 @@ Additional Properties or Considerations:
 
 [^1]: This is because sorting is generally expensive in terms of resources, and is best done by the database behind a datasource in most cases.
 [^2]: I don't believe our current SQL datasources strictly follow this, but some Azure ones do. This was either due to miscommunication about the intent of this format and the upgrade to Grafana 8 and/or lack of understanding about breaking changes, or both.
-[^3]: This transformation happens when queried with "Format As=Time Series". The problem with the transformation happening at this stage of the pipeline is that while it does give the user Time Series for a common Time Series in Table format, it makes it so the "Table View" of the data doesn't like up with SQL returns from their query. **TODO: Define this general concept later, maybe call it "What you see is _NOT_ what you get", "Data Miscommunication", something.** This means we either need to return two things (sort of like exemplars?), or the operation should be moved, or something else.
+[^3]: This transformation happens when queried with "Format As=Time Series". The problem with the transformation happening at this stage of the pipeline is that while it does give the user Time Series for a common Time Series in Table format, it makes it so the "Table View" of the data doesn't like up with SQL returns from their query. 
