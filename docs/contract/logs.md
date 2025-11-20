@@ -1,7 +1,5 @@
 # Logs
 
-Status: EARLY Draft/Proposal
-
 ## LogLines
 
 Version: 0.0

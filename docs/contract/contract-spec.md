@@ -4,13 +4,13 @@ Grafana supports a variety of different data sources, each with its own data mod
 
 ## How is the data plane layer built?
 
-The data plane layer indicates the data frame **type** (for example: time series data, numeric, or a histogram). In turn, the data frame type consists of a **kind** (of data) and the data **format** (Prometheus-like, SQL-table-like). 
+The data plane layer indicates the data frame **type** (for example: time series data, numeric, or a histogram). In turn, the data frame type consists of a **kind** of data (time series, numeric...) and the data **format** (wide, long, multi, Prometheus-like, SQL-table-like...). 
 
 For example, the `TimeSeriesWide` type consists of the kind "Time Series" and the format "Wide".
 
 ## Available data types
 
-The following types are available:
+The following data frame types are available:
 
 - [Time series](./timeseries.md)
   - [Wide](./timeseries.md#time-series-wide-format-timeserieswide)

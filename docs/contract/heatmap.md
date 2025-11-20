@@ -1,7 +1,5 @@
 # Heatmap
 
-Status: EARLY Draft/Proposal
-
 Heatmaps are used to show the magnitude of a phenomenon as color in two dimensions. The variation in color may give visual cues about how the phenomenon is clustered or varies over space.
 
 ## Heatmap Rows (HeatmapRows)
