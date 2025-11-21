@@ -1,0 +1,7 @@
+{
+  "name": "@grafana/dataplane-contract",
+  "private": true,
+  "scripts": {
+    "test:backend": "go test -v ./..."
+  }
+}
