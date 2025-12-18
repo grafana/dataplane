@@ -4,7 +4,7 @@ go 1.22.4
 
 require (
 	github.com/grafana/grafana-plugin-sdk-go v0.236.0
-	github.com/stretchr/testify v1.9.0
+	github.com/stretchr/testify v1.11.1
 )
 
 require (
