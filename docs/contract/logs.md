@@ -33,10 +33,9 @@ Version: 0.0
     - This field represents the groupings of the labels.
     - Field type must be json raw message type. Example value: `{}`,
       `{"hello":"Field", "foo": "Metadata", "bar": "ArrayField" , "baz" : "Field"}`
-    -
-        - Value should be represented with `Record<string,any>` type in javascript.
+        - Value should be represented with `Record<string,string>` type in javascript.
     - As of Grafana 12.4 label types are used in Log Details in the Logs Panel to group related labels.
-    - If not provided, all labels will show in a single "Field" category.
+    - _Note:_ The data source must fulfill the `DataSourceWithLogsLabelTypesSupport` interface, otherwise all labels will display in the default "Fields" category
 
 Any other field is ignored by logs visualisation.
 
