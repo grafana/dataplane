@@ -35,7 +35,8 @@ Version: 0.0
       `{"hello":"Field", "foo": "Metadata", "bar": "ArrayField" , "baz" : "Field"}`
         - Value should be represented with `Record<string,string>` type in javascript.
     - As of Grafana 12.4 label types are used in Log Details in the Logs Panel to group related labels.
-    - _Note:_ The data source must fulfill the `DataSourceWithLogsLabelTypesSupport` interface, otherwise all labels will display in the default "Fields" category
+    - _Note:_ The data source must fulfill the `DataSourceWithLogsLabelTypesSupport` interface, otherwise all labels
+      will display in the default "Fields" category
 
 Any other field is ignored by logs visualisation.
 
@@ -50,8 +51,8 @@ data.NewFrame(
     data.NewField("body", nil, []string{"message one", "message two", "message three"}),
     data.NewField("severity", nil, []string{"critical", "error", "warning"}),
     data.NewField("id", nil, []string{"xxx-001", "xyz-002", "111-003"}),
-    data.NewField("labels", nil, []json.RawMessage{[]byte(`{}`), []byte(`{"hello":"world"}`), []byte(`{"hello":"world", "foo": 123.45, "bar" :["yellow","red"], "baz" : { "name": "alice" }}`)}),
-    data.NewField("labelTypes", nil, []json.RawMessage{[]byte(`{}`), []byte(`{"hello":"Field"}`), []byte(`{"hello":"Field", "foo": "Metadata", "bar" : "ArrayField", "baz" : "Field"}`)}),
+    data.NewField("labels", nil, []json.RawMessage{[]byte(`{}`), []byte(`{"hello":"world"}`), []byte(`{"hello": "world", "foo": 123.45, "bar": ["yellow","red"], "baz": { "name": "alice" }}`)}),
+    data.NewField("labelTypes", nil, []json.RawMessage{[]byte(`{}`), []byte(`{"hello": "Field"}`), []byte(`{"hello": "Field", "foo": "Metadata", "bar": "ArrayField", "baz": "Field"}`)}),
 )
 ```
 
