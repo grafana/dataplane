@@ -15,7 +15,7 @@ Version: 0.0
 - **Severity field** - _optional_
     - The first string field with the name `severity` is the severity field.
     - Represents the severity/level of the log line
-    - If no severity field is found, consumers/client will decide the log level. Example: logs panel will try to parse
+    - If no severity field is found, consumers/client will decide the log level. Example: logs visualization will try to parse
       the message field and determine the log level
     - Log level can be one of the values specified in the
       docs [here](https://grafana.com/docs/grafana/latest/explore/logs-integration/)
