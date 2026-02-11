@@ -31,7 +31,7 @@
   "homepage": "https://github.com/grafana/dataplane#readme",
   "packageManager": "yarn@1.22.22",
   "devDependencies": {
-    "cspell": "8.9.1",
+    "cspell": "8.19.4",
     "turbo": "2.0.5"
   }
 }
