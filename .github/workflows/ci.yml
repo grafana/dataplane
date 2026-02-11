@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable --prefer-offline
       - name: Setup Go environment
-        uses: actions/setup-go@v3
+        uses: actions/setup-go@7a3fe6cf4cb3a834922a1244abfce67bcef6a0c5 # v6
         with:
           go-version: "1.22.4"
       - name: Test Backend
