@@ -32,6 +32,6 @@
   "packageManager": "yarn@1.22.22",
   "devDependencies": {
     "cspell": "8.9.1",
-    "turbo": "2.0.5"
+    "turbo": "2.8.9"
   }
 }
