@@ -1,6 +1,7 @@
 {
   "name": "@grafana/dataplane-website",
   "version": "0.7.0",
+  "packageManager": "yarn@1.22.22",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
