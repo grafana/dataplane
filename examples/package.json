@@ -1,5 +1,6 @@
 {
   "name": "@grafana/dataplane-examples",
+  "packageManager": "yarn@1.22.22",
   "private": true,
   "scripts": {
     "test:backend": "go test -v ./..."
