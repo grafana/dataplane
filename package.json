@@ -29,7 +29,12 @@
     "url": "https://github.com/grafana/dataplane/issues"
   },
   "homepage": "https://github.com/grafana/dataplane#readme",
-  "packageManager": "yarn@1.22.22",
+  "packageManager": "npm@11.18.0",
+  "overrides": {
+    "webpack": "5.82.1",
+    "@types/node": "20.1.2",
+    "@types/react": "18.2.6"
+  },
   "devDependencies": {
     "cspell": "8.9.1",
     "turbo": "2.0.5"
