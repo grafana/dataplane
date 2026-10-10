@@ -99,6 +99,9 @@ func validateAndGetRefsLong(lf *LongFrame, validateData bool) (Collection, error
 // SortNumericMetricRef sorts refs by metric name, then by label string, with refs that have no
 // labels first. It builds each label string once, because Labels.String allocates.
 func SortNumericMetricRef(refs []MetricRef) {
+	if len(refs) < 2 {
+		return
+	}
 	type keyedRef struct {
 		ref       MetricRef
 		name      string

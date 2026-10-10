@@ -17,6 +17,10 @@ func TestSortNumericMetricRefKeepsOrder(t *testing.T) {
 		name   string
 		fields []*data.Field
 	}{
+		{name: "no refs", fields: []*data.Field{}},
+		{name: "one ref", fields: []*data.Field{
+			data.NewField("value", data.Labels{"host": "a"}, []float64{1}),
+		}},
 		{name: "by metric name", fields: []*data.Field{
 			data.NewField("b", data.Labels{"host": "a"}, []float64{1}),
 			data.NewField("a", nil, []float64{1}),
@@ -85,6 +89,7 @@ func BenchmarkSortNumericMetricRef(b *testing.B) {
 	refs := toRefs(randomFields(rand.New(rand.NewPCG(1, 2)), 500))
 	buf := make([]numeric.MetricRef, len(refs))
 	b.ReportAllocs()
+	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		copy(buf, refs)
 		numeric.SortNumericMetricRef(buf)
