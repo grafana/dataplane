@@ -3,9 +3,9 @@ module github.com/grafana/dataplane/sdata
 go 1.22.4
 
 require (
-	github.com/google/go-cmp v0.6.0
-	github.com/grafana/grafana-plugin-sdk-go v0.236.0
-	github.com/stretchr/testify v1.9.0
+	github.com/google/go-cmp v0.7.0
+	github.com/grafana/grafana-plugin-sdk-go v0.250.0
+	github.com/stretchr/testify v1.12.1
 )
 
 require (
@@ -15,7 +15,7 @@ require (
 	github.com/golang/snappy v0.0.3 // indirect
 	github.com/google/flatbuffers v23.5.26+incompatible // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/klauspost/compress v1.17.3 // indirect
+	github.com/klauspost/compress v1.20.2 // indirect
 	github.com/magefile/mage v1.15.0 // indirect
 	github.com/mattetti/filebuffer v1.0.1 // indirect
 	github.com/mattn/go-runewidth v0.0.9 // indirect
