@@ -96,30 +96,40 @@ func validateAndGetRefsLong(lf *LongFrame, validateData bool) (Collection, error
 	return c, nil
 }
 
+// SortNumericMetricRef sorts refs by metric name, then by label string, with refs that have no
+// labels first. It builds each label string once, because Labels.String allocates.
 func SortNumericMetricRef(refs []MetricRef) {
-	sort.SliceStable(refs, func(i, j int) bool {
-		iRef := refs[i]
-		jRef := refs[j]
-
-		if iRef.GetMetricName() < jRef.GetMetricName() {
-			return true
+	if len(refs) < 2 {
+		return
+	}
+	type keyedRef struct {
+		ref       MetricRef
+		name      string
+		hasLabels bool
+		labels    string
+	}
+	keyed := make([]keyedRef, len(refs))
+	for i, r := range refs {
+		keyed[i] = keyedRef{ref: r, name: r.GetMetricName()}
+		if l := r.GetLabels(); l != nil {
+			keyed[i].hasLabels = true
+			keyed[i].labels = l.String()
 		}
-		if iRef.GetMetricName() > jRef.GetMetricName() {
-			return false
+	}
+	sort.SliceStable(keyed, func(i, j int) bool {
+		a, b := &keyed[i], &keyed[j]
+		if a.name != b.name {
+			return a.name < b.name
 		}
-
-		// If here Names are equal, next sort based on if there are labels.
-
-		if iRef.GetLabels() == nil && jRef.GetLabels() == nil {
+		if !a.hasLabels {
 			return true // no labels first
 		}
-		if iRef.GetLabels() == nil && jRef.GetLabels() != nil {
-			return true
-		}
-		if iRef.GetLabels() != nil && jRef.GetLabels() == nil {
+		if !b.hasLabels {
 			return false
 		}
-
-		return iRef.GetLabels().String() < jRef.GetLabels().String()
+		return a.labels < b.labels
 	})
+	for i := range keyed {
+		refs[i] = keyed[i].ref
+	}
 }
