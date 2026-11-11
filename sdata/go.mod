@@ -4,7 +4,7 @@ go 1.27.4
 
 require (
 	github.com/google/go-cmp v0.7.0
-	github.com/grafana/grafana-plugin-sdk-go v0.250.0
+	github.com/grafana/grafana-plugin-sdk-go v0.298.0
 	github.com/stretchr/testify v1.12.1
 )
 
