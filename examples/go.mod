@@ -1,6 +1,6 @@
 module github.com/grafana/dataplane/examples
 
-go 1.22.4
+go 1.27.4
 
 require (
 	github.com/grafana/grafana-plugin-sdk-go v0.236.0
