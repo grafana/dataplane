@@ -21,10 +21,29 @@ jobs:
           persist-credentials: false
           ref: ${{ github.ref }}
       - name: Install dependencies
-        run: yarn install --immutable --prefer-offline
+        run: yarn install --frozen-lockfile --prefer-offline
       - name: Setup Go environment
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7
         with:
           go-version: "1.22.4"
       - name: Test Backend
         run: yarn test:backend
+  docs:
+    name: Build documentation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Setup node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --prefer-offline
+      - name: Build documentation website
+        run: yarn docs:build

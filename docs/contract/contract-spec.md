@@ -30,7 +30,7 @@ The following data frame types are available:
 
 A data type (kind+format) can have multiple items, forming a **set** of data items. For example, the numeric kind can have a set of numbers, or the time series kind can have a set of time series.
 
-Each item of data in a set is uniquely identified by its **name** and its **dimensions**. Dimensions are facets of data (such as "location" or "host") with a corresponding value. For example, {"host"="a", "location"="new york"}.
+Each item of data in a set is uniquely identified by its **name** and its **dimensions**. Dimensions are facets of data (such as "location" or "host") with a corresponding value. For example, `{"host"="a", "location"="new york"}`.
 
 In a data frame, dimensions are in either a field's label property or in string field.
 
