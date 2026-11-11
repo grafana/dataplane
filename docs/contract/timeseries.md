@@ -361,8 +361,6 @@ Additional Properties or Considerations:
    </tr>
 </table>
 
-<!-- Footnotes themselves at the bottom. -->
-
 ## Notes
 
 <p><sup>*</sup>Of the time series format, only when the format being converted to is "Multi" can the underlying time series data not be manipulated</p>

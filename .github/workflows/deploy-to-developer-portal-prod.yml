@@ -33,7 +33,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install dependencies
-        run: yarn install --immutable --prefer-offline
+        run: yarn install --frozen-lockfile --prefer-offline
       
         #mac: sed -i '' '1s/^/---\nslug: \/\n---\n/' ./docs/contract/contract.md
         #linux: sed -i '1s/^/---\nslug: \/\n---\n/' ./docs/contract/contract.md

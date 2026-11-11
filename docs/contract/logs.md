@@ -60,9 +60,9 @@ the same can be represented as
 
 | Name: timestamp <br/> Type: []time.Time | Name: body <br/> Type: []string | Name: severity <br/> Type: []\*string | Name: id <br/> Type: []\*string | Name: labels <br/> Type: []json.RawMessage                                             | Name: labelTypes <br/> Type: []json.RawMessage                                |     
 |-----------------------------------------|---------------------------------|---------------------------------------|---------------------------------|----------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
-| 2022-02-16 16:50:44.810 +0000 GMT       | message one                     | critical                              | xxx-001                         | {}                                                                                     | {}                                                                            |
-| 2022-02-16 16:50:47.027 +0000 GMT       | message two                     | error                                 | xyz-002                         | {"hello": "world"}                                                                     | {"hello": "Field"}                                                            | 
-| 2022-02-16 16:50:47.027 +0000 GMT       | message three                   | warning                               | 111-003                         | {"hello": "world", "foo": 123.45, "bar": ["yellow","red"], "baz": { "name": "alice" }} | {"hello":"Field", "foo": "Number Field", "bar": "ArrayField", "baz": "Field"} |
+| 2022-02-16 16:50:44.810 +0000 GMT | message one | critical | xxx-001 | `{}` | `{}` |
+| 2022-02-16 16:50:47.027 +0000 GMT | message two | error | xyz-002 | `{"hello": "world"}` | `{"hello": "Field"}` |
+| 2022-02-16 16:50:47.027 +0000 GMT | message three | warning | 111-003 | `{"hello": "world", "foo": 123.45, "bar": ["yellow","red"], "baz": { "name": "alice" }}` | `{"hello":"Field", "foo": "Number Field", "bar": "ArrayField", "baz": "Field"}` |
 
 ### Meta data requirements
 
