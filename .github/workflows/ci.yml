@@ -46,4 +46,10 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile --prefer-offline
       - name: Build documentation website
-        run: yarn docs:build
+        run: yarn docs:build --force
+      - name: Make docs the homepage of the Developer Portal subsite
+        run: |
+          rm -f ./docusaurus/website/src/pages/index.tsx
+          sed -i '1s/^/---\nslug: \/\n---\n/' ./docs/contract/contract.md
+      - name: Build documentation website (Developer Portal)
+        run: yarn docs:build:devportal:prod
