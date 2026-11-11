@@ -42,14 +42,14 @@ jobs:
       - name: Build documentation website
         run: yarn docs:build:devportal:dev
           
-      - uses: grafana/shared-workflows/actions/login-to-gcs@64c35f1dffd024130947f485ed6a150edfe83d22 # v0.2.0
+      - uses: grafana/shared-workflows/actions/login-to-gcs@1f02013f3a8a0c29e3cb7dc6793158defe914569 # login-to-gcs/v0.3.1
         id: login-to-gcs
         with:
           service_account: 'github-developer-portal-dev@grafanalabs-workload-identity.iam.gserviceaccount.com'
           bucket: 'staging-developer-portal'
 
       - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@77e7a554d41e2ee56fc945c52dfd3f33d12def9a'
+        uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db # v3.0.1
        
       - name: 'Deploy to Developer Portal Bucket'
         run: |
