@@ -3,7 +3,7 @@ module github.com/grafana/dataplane/examples
 go 1.27.4
 
 require (
-	github.com/grafana/grafana-plugin-sdk-go v0.250.0
+	github.com/grafana/grafana-plugin-sdk-go v0.299.0
 	github.com/stretchr/testify v1.12.1
 )
 
