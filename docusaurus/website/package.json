@@ -20,18 +20,18 @@
   "dependencies": {
     "@docusaurus/core": "3.10.2",
     "@docusaurus/preset-classic": "3.10.2",
-    "@mdx-js/react": "^3.0.0",
-    "clsx": "^2.0.0",
-    "cookiejs": "^2.1.2",
-    "docusaurus-lunr-search": "^3.0.0",
-    "prism-react-renderer": "^2.0.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "@mdx-js/react": "3.1.1",
+    "clsx": "2.1.1",
+    "cookiejs": "2.1.4",
+    "docusaurus-lunr-search": "3.6.0",
+    "prism-react-renderer": "2.4.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.10.2",
-    "@tsconfig/docusaurus": "^1.0.5",
-    "typescript": "^4.7.4"
+    "@tsconfig/docusaurus": "1.0.7",
+    "typescript": "4.9.5"
   },
   "browserslist": {
     "production": [
