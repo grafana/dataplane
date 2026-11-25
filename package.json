@@ -36,7 +36,7 @@
     "uuid": "11.1.1"
   },
   "devDependencies": {
-    "cspell": "10.4.0",
-    "turbo": "2.11.10"
+    "cspell": "10.5.2",
+    "turbo": "2.11.13"
   }
 }
